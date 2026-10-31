@@ -11,6 +11,10 @@ globalThis.BACKROOMS_ASSETS={};
 for(const dir of ['knowledge','canon'])for(const name of fs.readdirSync('web/'+dir)){
  if(/\.(json|md)$/.test(name))BACKROOMS_ASSETS[dir+'/'+name]=fs.readFileSync('web/'+dir+'/'+name,'utf8');
 }
+// Historical records are archived, but CR2 consumes their original virtual keys.
+for(const name of ['knowledge_db.json','level_0_canon_cards.json','level_1plus_canon_cards.json']){
+ BACKROOMS_ASSETS['knowledge/'+name]=fs.readFileSync('Legacy/knowledge/'+name,'utf8');
+}
 globalThis.BACKROOMS_CONFIG={keys:Array.from({length:6},(_,i)=>'fixture-key-'+i),models:['gemini-3.5-flash-lite'],version:'test'};
 vm.runInThisContext(fs.readFileSync('pages/bridge.js','utf8'));
 const html=fs.readFileSync('web/index.html','utf8');

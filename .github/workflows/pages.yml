@@ -55,6 +55,8 @@ jobs:
         run: node scripts/test_engine.cjs
       - name: Validate KeyCanon database
         run: node scripts/test_keycanon.cjs
+      - name: Validate Legacy Canon archive integrity
+        run: node scripts/test_legacy_canon.cjs
       - name: Stage browser fixtures
         run: python3 scripts/build_pages.py --test-config
       - name: Install browser verification tools

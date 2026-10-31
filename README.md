@@ -9,6 +9,15 @@ Extracted from `CAO_MINH-1.0.0.0.8.apk` (70 APK entries).
 
 Note: Android `classes*.dex` are compiled bytecode, not the original Kotlin/Java source. This extraction cannot recreate missing Gradle/build configuration. The APK manifest references some `characters/` and `item-icons/` media files that are not embedded in the APK; these need to be resolved from Cloudinary or other source to make all visuals work.
 
+## Canon archives
+
+The current location-scoped scene authoring source is `web/knowledge/KeyCanon.json`.
+Older world/scene records are preserved byte-for-byte at `Legacy/knowledge/`
+with integrity checks and restore instructions in `Legacy/README.md`.
+The recovered CR2 engine still reads those old records through virtual
+`knowledge/*` compatibility aliases; KeyCanon takes priority when describing
+the current scene. The original extracted APK remains unchanged.
+
 ## GitHub Pages
 
 Play now: https://rabpitvn1-create.github.io/Backrooms/

@@ -50,7 +50,8 @@ public final class CoreBridge {
       String keywords = entry.optString("AUTHOR_CANON", "");
       if (keywords.isEmpty()) return "";
       return "\n\n[KEYCANON v1 / CURRENT LOCATION: " + nodeId + "]\nAUTHOR_CANON: " + keywords +
-          "\nKEYCANON_RULES: Từ khóa là chất liệu cảnh riêng của địa điểm hiện tại; chỉ kể điều phù hợp hành động, quan sát và state. " +
+          "\nKEYCANON_RULES: KeyCanon là nguồn ưu tiên cho miêu tả cảnh hiện tại; hồ sơ cảnh Legacy chỉ dùng đối chiếu tương thích, không thay thế từ khóa KeyCanon. " +
+          "Chỉ kể chi tiết phù hợp hành động, quan sát và state. " +
           "Nhân vật biểu tượng và dấu hiệu sinh vật không mặc nhiên tạo encounter, combat, follower hay thay đổi state. " +
           "Không tự tạo loot, exit hoặc sự kiện bắt buộc; quy tắc gameplay, HARD CANON và kết quả Core luôn ưu tiên.";
     } catch (Exception ignored) {

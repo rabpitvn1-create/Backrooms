@@ -2,7 +2,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const db=JSON.parse(fs.readFileSync('web/knowledge/KeyCanon.json','utf8'));
 const policy=JSON.parse(fs.readFileSync('web/knowledge/level_travel_policy.json','utf8'));
-const old=[...JSON.parse(fs.readFileSync('web/knowledge/level_0_canon_cards.json','utf8')).records,...JSON.parse(fs.readFileSync('web/knowledge/level_1plus_canon_cards.json','utf8')).records];
+const old=[...JSON.parse(fs.readFileSync('Legacy/knowledge/level_0_canon_cards.json','utf8')).records,...JSON.parse(fs.readFileSync('Legacy/knowledge/level_1plus_canon_cards.json','utf8')).records];
 const byKey=new Map(old.filter(x=>x.node_key).map(x=>[x.node_key,x]));
 const byId=new Map(old.map(x=>[x.id,x]));
 const ids=policy.nodes.map(n=>n.canonId);

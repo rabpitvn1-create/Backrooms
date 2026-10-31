@@ -42,6 +42,14 @@ def build(test_config=False, config_path=None):
     shutil.copy2(ROOT/'pages/bridge.js', runtime/'bridge.js')
     shutil.copy2(ROOT/'pages/regex.js', runtime/'regex.js')
     assets = {p.relative_to(ROOT/'web').as_posix(): p.read_text() for p in (ROOT/'web/knowledge').glob('*.json')}
+    # Source-of-truth location scenes are in knowledge/KeyCanon.json.
+    # The recovered CR2 engine still needs the historical record IDs and rules.
+    # Load their unmodified archives under the original virtual asset names.
+    for name in ('knowledge_db.json', 'level_0_canon_cards.json', 'level_1plus_canon_cards.json'):
+        key = 'knowledge/' + name
+        if key in assets:
+            raise ValueError('Legacy Canon alias unexpectedly overlaps an active file: ' + key)
+        assets[key] = (ROOT / 'Legacy/knowledge' / name).read_text(encoding='utf-8')
     for p in (ROOT/'web/canon').glob('*.md'): assets[p.relative_to(ROOT/'web').as_posix()] = p.read_text()
     (runtime/'assets.js').write_text('window.BACKROOMS_ASSETS='+json.dumps(assets,ensure_ascii=False)+';\n')
     cfg = {'models':MODELS, 'version':'1.0.0.0-web'}
