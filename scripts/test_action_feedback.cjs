@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict');
 const {chromium}=require('playwright');
-const response={reply:'Cao Minh lần theo tiếng động, kiểm tra vết tích và quan sát vị trí xung quanh.',entityPreview:'Một tiếng gió thoảng qua bức tường phía xa.'};
+const response={itemUseRequest:null,reply:'Cao Minh lần theo tiếng động, kiểm tra vết tích và quan sát vị trí xung quanh.',entityPreview:'Một tiếng gió thoảng qua bức tường phía xa.'};
 function deferred(){let release;const promise=new Promise(resolve=>{release=resolve});return {promise,release}}
 (async()=>{
   const browser=await chromium.launch({headless:true});

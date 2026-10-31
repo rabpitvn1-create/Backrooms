@@ -9,6 +9,22 @@ Extracted from `CAO_MINH-1.0.0.0.8.apk` (70 APK entries).
 
 Note: Android `classes*.dex` are compiled bytecode, not the original Kotlin/Java source. This extraction cannot recreate missing Gradle/build configuration. The APK manifest references some `characters/` and `item-icons/` media files that are not embedded in the APK; these need to be resolved from Cloudinary or other source to make all visuals work.
 
+## Item use
+
+Items can be used only by opening their Inventory detail and pressing `Dùng`.
+Text commands are interpreted by the GM, which returns `itemUseRequest` with
+a registered item ID, or `null` for ordinary narration. A verified request shows
+`Vui lòng vào kho đồ và nhấn sử dụng vật phẩm.` and restores the pre-action Core
+checkpoint: no consumption, effects, time, completed turn or exit streak change.
+Abilities such as thần niệm, ý niệm and thần thức remain narrative actions.
+
+`scripts/inventory_use.py` patches the recovered Core and Android bridge during
+build; original APK entries stay immutable. Pages and APK compile the same
+`InventoryUsePolicy.java`. ID classification is checked against the existing
+catalog and authoritative items, and fabricated or missing classifications fail
+without committing staged gameplay. Android QA exercises the actual packaged
+DEX on Android 15, in addition to browser and Core regression tests.
+
 ## Canon archives
 
 The current location-scoped scene authoring source is `web/knowledge/KeyCanon.json`.

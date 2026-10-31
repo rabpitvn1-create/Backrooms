@@ -52,7 +52,9 @@ jobs:
       - name: Compile the gameplay core to JavaScript
         run: mvn -B -f engine/pom.xml package
       - name: Verify gameplay core and browser host
-        run: node scripts/test_engine.cjs
+        run: |
+          node scripts/test_engine.cjs
+          node scripts/test_inventory_use.cjs
       - name: Validate KeyCanon database
         run: node scripts/test_keycanon.cjs
       - name: Validate Legacy Canon archive integrity

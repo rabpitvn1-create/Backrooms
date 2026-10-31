@@ -61,6 +61,7 @@ def build(test_config=False, config_path=None):
     scripts='\n'.join(f'<script src="gameplay/{name}.js?v={version}"></script>' for name in ['assets','config','regex','game-core','bridge'])
     html=html.replace('</head>',scripts+'\n</head>')
     html=cao_minh_assets.inject_scripts(html)
+    html=html.replace('</body>', '<script src="inventory-use-notice.js"></script>\n</body>')
     (output/'index.html').write_text(html)
     (output/'.nojekyll').touch()
     (output/'personal-provider-config.json').write_text('{}\n')

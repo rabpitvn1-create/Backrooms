@@ -32,7 +32,7 @@ let requests=0;
 globalThis.fetch=async(url,options)=>{
  requests++;
  // Bridge calls the Cloudflare Worker proxy (no API key in client); mock a successful Gemini response.
- return new Response(JSON.stringify({candidates:[{content:{parts:[{text:JSON.stringify({reply:'Cao Minh quan sát những dấu vết trước mặt rồi tiếp tục kiểm tra khu vực.',entityPreview:'Một tiếng động khe khẽ vang lên từ phía xa.'})}]}}]}),{status:200});
+ return new Response(JSON.stringify({candidates:[{content:{parts:[{text:JSON.stringify({itemUseRequest:null,reply:'Cao Minh quan sát những dấu vết trước mặt rồi tiếp tục kiểm tra khu vực.',entityPreview:'Một tiếng động khe khẽ vang lên từ phía xa.'})}]}}]}),{status:200});
 };
 function call(name,...args){return JSON.parse(__webGame.call(name,...args));}
 (async()=>{

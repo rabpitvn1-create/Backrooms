@@ -409,6 +409,8 @@ final class NarratorLogic {
   }
   String candidate(String raw,String generatedJson,String rollJson,String action)throws Exception {
     JSONObject before=new JSONObject(raw),generated=new JSONObject(generatedJson),rolls=new JSONObject(rollJson);
+    String redirect=InventoryUsePolicy.redirect(generated);
+    if(redirect!=null)return redirect;
     String reply=generated.optString("reply","").trim();
     if(reply.isEmpty())throw new IllegalStateException("empty_narration");
     if(rollSuccess(rolls,"entityEncounter")&&!rolls.optString("roamingEntityKey","").isEmpty()){

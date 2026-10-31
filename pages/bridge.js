@@ -110,40 +110,51 @@
   }
   async function gameplay(raw, kind, action) {
     if (!['SEARCH', 'EXECUTE', 'EXPLORE'].includes(kind)) throw new Error('action_kind_invalid');
-    let result = object('processLevelAction', raw, action);
-    if (result.handled) { emit('backroomTurn', result.state); return; }
-    let before = result.state;
-    result = object('processWorldPickup', JSON.stringify(before), action);
-    if (result.handled) { emit('backroomTurn', result.state); return; }
-    result = object('processNamedFollowerRule', JSON.stringify(before), action);
-    if (result.handled) {
-      const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
-      emit('backroomTurn', next); return;
-    }
-    const meta = window.coreMeta(action);
-    if (!meta) {
-      result = object('processRule', JSON.stringify(before), action);
+    const input = JSON.parse(raw);
+    delete input.itemUseNotice;
+    raw = JSON.stringify(input);
+    check(window.coreItemUseBegin(raw, action));
+    try {
+      let result = object('processLevelAction', raw, action);
+      if (result.handled) { emit('backroomTurn', result.state); return; }
+      let before = result.state;
+      result = object('processWorldPickup', JSON.stringify(before), action);
+      if (result.handled) { emit('backroomTurn', result.state); return; }
+      result = object('processNamedFollowerRule', JSON.stringify(before), action);
       if (result.handled) {
-        emit('backroomTurn', object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action));
-        return;
+        const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
+        emit('backroomTurn', next); return;
       }
-      result = object('processExplorationLoot', JSON.stringify(before), action, kind);
-      if (!result.handled || !result.state) throw new Error('core_loot_resolution_failed');
-      before = result.state;
+      const meta = window.coreMeta(action);
+      if (!meta) {
+        result = object('processRule', JSON.stringify(before), action);
+        if (result.handled) {
+          const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
+          emit('backroomTurn', next);
+          return;
+        }
+        result = object('processExplorationLoot', JSON.stringify(before), action, kind);
+        if (!result.handled || !result.state) throw new Error('core_loot_resolution_failed');
+        before = result.state;
+      }
+      let rolls = JSON.parse(check(window.coreRolls(JSON.stringify(before), action, meta)));
+      result = object('prepareNamedFollowerTurn', JSON.stringify(before), action, JSON.stringify(rolls), kind);
+      before = result.state; rolls = result.rolls;
+      if (meta) {
+        const next = structuredClone(before);
+        next.log = [...(next.log || []), { role: 'player', text: action }, { role: 'gm', text: 'Đây là lượt tra cứu. Trạng thái và lượt chơi không thay đổi.' }];
+        emit('backroomTurn', next); return;
+      }
+      const prompt = check(window.corePrompt(JSON.stringify(before), action, JSON.stringify(rolls)));
+      const generated = await generate(prompt);
+      const next = JSON.parse(check(window.coreCandidate(JSON.stringify(before), JSON.stringify(generated), JSON.stringify(rolls), action)));
+      persist();
+      emit('backroomTurn', next);
+    } catch (error) {
+      window.coreItemUseCancel();
+      persist();
+      throw error;
     }
-    let rolls = JSON.parse(check(window.coreRolls(JSON.stringify(before), action, meta)));
-    result = object('prepareNamedFollowerTurn', JSON.stringify(before), action, JSON.stringify(rolls), kind);
-    before = result.state; rolls = result.rolls;
-    if (meta) {
-      const next = structuredClone(before);
-      next.log = [...(next.log || []), { role: 'player', text: action }, { role: 'gm', text: 'Đây là lượt tra cứu. Trạng thái và lượt chơi không thay đổi.' }];
-      emit('backroomTurn', next); return;
-    }
-    const prompt = check(window.corePrompt(JSON.stringify(before), action, JSON.stringify(rolls)));
-    const generated = await generate(prompt);
-    const next = JSON.parse(check(window.coreCandidate(JSON.stringify(before), JSON.stringify(generated), JSON.stringify(rolls), action)));
-    persist();
-    emit('backroomTurn', next);
   }
   function dice(method, ...args) {
     return enqueue(() => {

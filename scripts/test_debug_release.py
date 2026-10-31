@@ -92,8 +92,14 @@ class DebugReleaseTests(unittest.TestCase):
                 self.assertEqual(sum(1 for x in images_manifest["assets"]
                                      if x.get("public_id", "").startswith("backrooms/cao_minh/")), 4)
                 for p in (release.ROOT / "apk-original").glob("classes*.dex"):
-                    expected = release.patch_credentials(p.read_bytes()) if p.name == "classes5.dex" else p.read_bytes()
+                    if p.name in {"classes3.dex", "classes5.dex"}:
+                        expected = (release.ROOT / "build/web-engine-tools" / (p.name + "-inventory.dex")).read_bytes()
+                    else:
+                        expected = p.read_bytes()
                     self.assertEqual(apk.read(p.name), expected)
+                self.assertTrue(apk.read("classes6.dex").startswith(b"dex\n"))
+                self.assertIn(b"inventory-use-notice.js", apk.read("assets/index.html"))
+                self.assertNotIn(b"submit('USE');\n      return;", apk.read("assets/item-detail-actions.js"))
 
 
 if __name__ == "__main__":

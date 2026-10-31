@@ -16,6 +16,7 @@ import urllib.request
 import zipfile
 import zlib
 import cao_minh_assets
+import inventory_use
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = "1.0.0.1"
@@ -191,7 +192,17 @@ def package(config, output):
         "assets/characters/manifest.json": (
             ROOT / "web/characters/manifest.json").read_bytes(),
         "assets/knowledge/KeyCanon.json": (ROOT / "web/knowledge/KeyCanon.json").read_bytes(),
+        "assets/item-detail-actions.js": (ROOT / "web/item-detail-actions.js").read_bytes(),
+        "assets/inventory-use-notice.js": (ROOT / "web/inventory-use-notice.js").read_bytes(),
     }
+    overrides["assets/index.html"] = overrides["assets/index.html"].replace(
+        b'</body>', b'<script src="inventory-use-notice.js"></script>\n</body>')
+    core_dex = inventory_use.patched_dex("classes3.dex")
+    provider = ROOT / "build/web-engine-tools/provider-credentials.dex"
+    provider.write_bytes(patch_credentials((source / "classes5.dex").read_bytes()))
+    overrides["classes3.dex"] = core_dex.read_bytes()
+    overrides["classes5.dex"] = inventory_use.patched_dex("classes5.dex", provider).read_bytes()
+    overrides["classes6.dex"] = inventory_use.helper_dex(core_dex).read_bytes()
     expected = {"AndroidManifest.xml", "classes5.dex", "assets/personal-provider-config.json"}
     if hashlib.sha256((source / "classes5.dex").read_bytes()).hexdigest() != DEX_SHA256:
         fail("Recovered provider DEX changed; review runtime routing before building.")
@@ -208,8 +219,6 @@ def package(config, output):
             written.add(name)
             if name == "AndroidManifest.xml":
                 content = patch_manifest(content)
-            elif name == "classes5.dex":
-                content = patch_credentials(content)
             apk.writestr(name, content, compress_type=zipfile.ZIP_STORED if name == "resources.arsc" else zipfile.ZIP_DEFLATED)
         for name, content in sorted(overrides.items()):
             if name not in written:

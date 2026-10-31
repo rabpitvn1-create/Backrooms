@@ -27,16 +27,6 @@
     const owner = members().find(member => String(member.id) === view.dataset.characterId);
     const id = card.getAttribute('data-item-id');
     const item = (owner?.inventory || []).find(item => String(item.id) === id) || (owner?.equipmentItems || []).find(item => String(item.id) === id);
-    if (item?.useOnTap && !item.equipped) {
-      // Capture before the inventory detail handler: one tap consumes one item via Core.
-      event.stopImmediatePropagation?.();
-      if (busy) return;
-      selected = { actorId: owner.id, item };
-      dropArmed = false;
-      q('itemActionQuantity').value = '1';
-      submit('USE');
-      return;
-    }
     selected = owner && item ? { actorId: owner.id, item } : null;
     dropArmed = false;
     q('itemActionQuantity').value = '1';
