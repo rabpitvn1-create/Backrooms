@@ -28,7 +28,11 @@ public final class CoreBridge {
       JSONObject state = new JSONObject(stateJson);
       JSONObject travel = state.optJSONObject("levelTravel");
       String nodeId = travel == null ? "" : travel.optString("nodeId", "");
-      if (!nodeId.startsWith("LEVEL.NODE.")) return "";
+      if (!nodeId.startsWith("LEVEL.NODE.")) {
+        JSONObject level = state.optJSONObject("level");
+        if (level == null) return "";
+        nodeId = "LEVEL.NODE." + level.optInt("number", 0);
+      }
       if (!keyCanonLoaded) {
         keyCanonLoaded = true;
         try (java.io.Reader reader = new java.io.InputStreamReader(
