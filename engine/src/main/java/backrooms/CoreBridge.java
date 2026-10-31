@@ -19,12 +19,48 @@ public final class CoreBridge {
   @JSExport public static void coreAsset(String name,String text){android.content.res.AssetManager.files.put(name,text);}
   @JSExport public static boolean coreMeta(String action){return narrator.meta(action);}
   @JSExport public static String coreRolls(String state,String action,boolean meta){try{return narrator.rolls(state,action,meta);}catch(Throwable t){return error(t);}}
+
+  // Location-scoped keyword Canon for CR2 narration. Gameplay remains authoritative.
+  private static JSONObject keyCanonRecords;
+  private static boolean keyCanonLoaded;
+  private static String keyCanonFor(String stateJson) {
+    try {
+      JSONObject state = new JSONObject(stateJson);
+      JSONObject travel = state.optJSONObject("levelTravel");
+      String nodeId = travel == null ? "" : travel.optString("nodeId", "");
+      if (!nodeId.startsWith("LEVEL.NODE.")) return "";
+      if (!keyCanonLoaded) {
+        keyCanonLoaded = true;
+        try (java.io.Reader reader = new java.io.InputStreamReader(
+            context.getAssets().open("knowledge/KeyCanon.json"), java.nio.charset.StandardCharsets.UTF_8)) {
+          StringBuilder data = new StringBuilder();
+          char[] buffer = new char[4096];
+          int length;
+          while ((length = reader.read(buffer)) != -1) data.append(buffer, 0, length);
+          keyCanonRecords = new JSONObject(data.toString()).optJSONObject("records");
+        }
+      }
+      if (keyCanonRecords == null) return "";
+      JSONObject entry = keyCanonRecords.optJSONObject(nodeId);
+      if (entry == null) return "";
+      String keywords = entry.optString("AUTHOR_CANON", "");
+      if (keywords.isEmpty()) return "";
+      return "\n\n[KEYCANON v1 / CURRENT LOCATION: " + nodeId + "]\nAUTHOR_CANON: " + keywords +
+          "\nKEYCANON_RULES: Từ khóa là chất liệu cảnh riêng của địa điểm hiện tại; chỉ kể điều phù hợp hành động, quan sát và state. " +
+          "Nhân vật biểu tượng và dấu hiệu sinh vật không mặc nhiên tạo encounter, combat, follower hay thay đổi state. " +
+          "Không tự tạo loot, exit hoặc sự kiện bắt buộc; quy tắc gameplay, HARD CANON và kết quả Core luôn ưu tiên.";
+    } catch (Exception ignored) {
+      // A missing or malformed optional pack must not break the existing CR2 packet.
+      return "";
+    }
+  }
   @JSExport public static String corePrompt(String state,String action,String rolls){
     try{
       com.rabpit.backroom.core.canon.CanonOutcome result=com.rabpit.backroom.core.canon.CanonRuntime2.buildPacket(context,state,action,rolls,false);
       String packet=null;
       if(result instanceof com.rabpit.backroom.core.canon.CanonOutcome.Ready)packet=((com.rabpit.backroom.core.canon.CanonOutcome.Ready)result).getPacket();
       if(result instanceof com.rabpit.backroom.core.canon.CanonOutcome.SafeLocalResolution)throw new IllegalStateException(((com.rabpit.backroom.core.canon.CanonOutcome.SafeLocalResolution)result).getReason());
+      if (packet != null) packet += keyCanonFor(state);
       return narrator.prompt(state,action,rolls,packet);
     }catch(Throwable t){return error(t);}
   }

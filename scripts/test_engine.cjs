@@ -47,6 +47,21 @@ function call(name,...args){return JSON.parse(__webGame.call(name,...args));}
  assert.ok(level7Prompt.includes('[KNOWLEDGE_PACKET v1]'),'Canon Runtime 2 must be enabled');
  assert.ok(level7Prompt.includes(level7Record.text),'GM prompt must include full Level 7 canon description');
  console.log('PASS: Canon Runtime 2 supplies the full current Level 7 description');
+
+ const keyCanon=JSON.parse(BACKROOMS_ASSETS['knowledge/KeyCanon.json']).records;
+ const level0Prompt=core.corePrompt(JSON.stringify(state),'Quan sát phòng vàng',JSON.stringify({turn:state.turn,meta:false}));
+ assert.ok(level0Prompt.includes('[KEYCANON v1 / CURRENT LOCATION: LEVEL.NODE.0]'),'KeyCanon must be selected by active Level');
+ assert.ok(level0Prompt.includes(keyCanon['LEVEL.NODE.0'].AUTHOR_CANON),'Level 0 keywords must reach GM untruncated');
+ assert.ok(level0Prompt.includes('Lão già Dab lang thang điên loạn'),'Level 0 symbolic character must be available');
+ assert.ok(level7Prompt.includes('[KEYCANON v1 / CURRENT LOCATION: LEVEL.NODE.7]'),'CR2 must resolve Level 7 KeyCanon');
+ assert.ok(level7Prompt.includes(keyCanon['LEVEL.NODE.7'].AUTHOR_CANON),'Level 7 keywords must reach GM untruncated');
+ assert.ok(!level7Prompt.includes(keyCanon['LEVEL.NODE.0'].AUTHOR_CANON),'Unrelated Level 0 KeyCanon must not leak');
+ const zoneState=structuredClone(state);
+ zoneState.levelTravel={...zoneState.levelTravel,nodeId:'LEVEL.NODE.0.ZONE_03.SUB_02'};
+ const zonePrompt=core.corePrompt(JSON.stringify(zoneState),'Quan sát thảm phồng',JSON.stringify({turn:zoneState.turn,meta:false}));
+ assert.ok(zonePrompt.includes(keyCanon['LEVEL.NODE.0.ZONE_03.SUB_02'].AUTHOR_CANON),'CR2 must retrieve exact nested Sub-zone');
+ assert.ok(!zonePrompt.includes(keyCanon['LEVEL.NODE.0.ZONE_04.SUB_01'].AUTHOR_CANON),'CR2 must not mix adjacent Sub-zones');
+ console.log('PASS: KeyCanon supplies full location-scoped AUTHOR_CANON to CR2');
  const identity=state.levelTravel.runId;
  console.log('PASS: real APK core initializes a new game, location, party and snapshot');
  const initialTurn=state.turn;

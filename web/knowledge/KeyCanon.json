@@ -1,0 +1,987 @@
+{
+  "schemaVersion": 1,
+  "packId": "KeyCanon",
+  "recordCount": 140,
+  "records": {
+    "LEVEL.NODE.0": {
+      "id": "LEVEL.NODE.0",
+      "name": "Level 0 · The Lobby",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Phòng vàng vô tận; giấy tường úa; thảm ẩm mục; trần treo; đèn huỳnh quang ù rè; kiến trúc phi tuyến; lối đi lặp; mất phương hướng; nhiễu ký ức; Phòng Ký Ức; Kháng Cự Bố Cục; chưa xác nhận Entity cư trú; hành lang dài thêm khi ngoái đầu; phòng rộng hơn tòa nhà chứa nó; cầu thang mọc trên trần; cửa mở vào mặt sau chính nó; góc tường gấp thành vực thẳm; bê tông và bãi đỗ gắn với lối sang Level 1; khe trần lộ trời đen không sao; chân trời kẹp giữa hai vách; bóng đổ ngược nguồn sáng; tiếng rung như triệu căn phòng cùng thở; khoảng tối nuốt âm thanh; tiếng gõ từ bê tông đặc; dáng người nhiều khớp sau kính mờ; vệt thịt nhợt nhạt dưới thảm; dấu chân ướt chỉ có ngón; giấy tường phồng theo nhịp thở; ghế nhựa quay vào vách; bóng bay bạc lơ lửng; máy bán hàng chứa răng sữa; điện thoại nối dây xuống nền; gương phản chiếu phòng đã bị phá; biển chỉ đường đến nơi chưa tồn tại; vùng đèn sáng tuyệt đối im tiếng; tiếng chân đi trước người bước; Lão già Dab lang thang điên loạn."
+    },
+    "LEVEL.NODE.0.1": {
+      "id": "LEVEL.NODE.0.1",
+      "name": "Level 0.1 · Deep Emptiness",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Hành lang Deep Emptiness; trống rỗng kéo dài; kệ gỗ và thùng cũ hiếm; không có dấu vết cư trú chắc chắn; lối trở lại nhòe trong ánh đèn vàng; Hành lang dài nuốt ánh sáng vàng úa của Tầng 0; mở ra những căn phòng trống rỗng giống nhau đến rợn người; ghế nhựa quay mặt vào vách kín; cầu thang kết thúc ngay dưới chân cầu thang khác; một vệt đen sâu hơn cả bóng tối thường thấy; làn hơi thở hắt ra từ chỗ không có miệng; đồng hồ treo ngược không kim; trần giả rung như có bầu trời bị chôn phía trên; cửa mở vào mặt sau của chính nó; đường thẳng kéo dài rồi quay về cùng một đầu mút; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; cuốn sổ chỉ có trang cuối; cửa kính cho thấy mặt sau chính căn phòng; khe tường sâu đến mức nuốt mất tiếng gõ; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; trần thả lệch tấm như hàm răng rỗng; hộp nhạc không dây cót phát một âm trầm kéo dài; thảm đội lên thành đường gân dưới chân; chiếc ghế rỗng vẫn có tiếng quần áo cọ."
+    },
+    "LEVEL.NODE.0.2": {
+      "id": "LEVEL.NODE.0.2",
+      "name": "Level 0.2",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Mê cung phòng kín; mảng đen hút rìa sáng; cửa thấp nối hành lang xiên; bóng tối đè xuống nền vàng; Biến thể này là một mê cung hành lang và phòng kín; nơi những mảng tối dày đặc nuốt chửng rìa sáng không đều; khiến không gian như bị bóp nghẹt lại; người mang tên Ninh Vỹ, kẻ độc hành mang túi giấy đầy đá lạnh; bóng bay bạc đứng im giữa luồng gió; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; hành lang hẹp có chiều sâu của hội trường; một vệt như da non lộ dưới lớp sơn cũ; mảnh gương cất giữ phản chiếu chậm hơn thực tại; đèn sáng nhưng bóng người lại tối hơn; vết cào nằm ở phía trong lớp sơn nguyên vẹn; đường thẳng kéo dài rồi quay về cùng một đầu mút; làn hơi thở hắt ra từ chỗ không có miệng; đèn báo đỏ sáng dưới lớp bụi kín; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; bức tường mỏng chứa một tiếng vọng rất xa; dấu ố cũ kéo dài dọc chân vách không đều; những vạch nhỏ xếp thành hình răng không có hàm; trần thả lệch tấm như hàm răng rỗng."
+    },
+    "LEVEL.NODE.0.5": {
+      "id": "LEVEL.NODE.0.5",
+      "name": "Level 0.5 · Aquaclaustrophobic Infirmary",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Bệnh xá ngập nước; hành lang lút nước bẩn; giường bệnh gỉ; cửa kính mờ; băng gạc mục; hơi ẩm lạnh dính cổ; Hành lang ngập trong nước lạnh bẩn; chảy qua khu bệnh viện đổ nát nơi tường bong tróc và giường cũ nằm im trong bóng tối ẩm ướt; giường bệnh tự in dấu chân dưới lớp bùn; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; mùi sắt tươi xuất hiện rồi mất không dấu vết; chiếc ghế rỗng vẫn có tiếng quần áo cọ; hành lang bệnh xá ngập nước ngang cổ chân; bóng một bàn tay quay ngược đốt ngón; khoảng tối dày đến mức âm thanh bị gãy; dấu móng hằn ở bên trong mặt kính; điện thoại có dây chui xuống một vết rạn; rèm ngăn phòng thở phập phồng nhưng trống bên trong; một căn phòng rộng hơn mọi bức tường bao quanh; vầng sáng lạnh kẹt trong lớp vật chất đặc; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đồng hồ treo ngược không kim; hồ sơ bệnh án ướt ghi nhiệt độ âm của phòng; nước trong khay thép phản chiếu một trần khác."
+    },
+    "LEVEL.NODE.0.7": {
+      "id": "LEVEL.NODE.0.7",
+      "name": "Level 0.7 · Claustrophobia",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Dark Lobby; hành lang bóp nghẹt; vách sát vai; cổ họng tối vô tận; trần che mất điểm cao; tiếng thở dội ngay trước mặt; Dark Lobby mở ra như một cổ họng tối; hành lang hẹp siết chặt hai bên; trần cao hun hút nuốt mất ánh sáng; bụi bẩn phủ dày trên mọi bề mặt; thảm đội lên thành đường gân dưới chân; gương phản chiếu căn phòng đã bị phá bỏ; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; điện thoại có dây chui xuống một vết rạn; bóng bay bạc đứng im giữa luồng gió; bức tường mỏng chứa một tiếng vọng rất xa; một vệt đen sâu hơn cả bóng tối thường thấy; tiếng gọi khàn mang đúng giọng người nghe; chiếc chìa khóa biến lạnh khi gần cửa; ống thông gió kéo dài qua nhiều góc không tồn tại; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; mùi sắt tươi xuất hiện rồi mất không dấu vết; chiếc ghế rỗng vẫn có tiếng quần áo cọ; hành lang dài thêm khi người quan sát ngoái đầu."
+    },
+    "LEVEL.NODE.0.DULLNESS": {
+      "id": "LEVEL.NODE.0.DULLNESS",
+      "name": "Dullness",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Khu Dullness; kích thước phòng thay đổi; vách giao nhau sai tỷ lệ; mọi thước đo đều đáng ngờ; tường và sàn hòa làm một; Dullness là mê cung phòng mà kích thước thay đổi tàn nhẫn; hình khối hòa vào nhau như đang chảy; khiến mọi bản đồ vẽ ra đều nhanh chóng trở thành lời nói dối; người mang tên Hạ Nhàn, bà già đội chiếc đèn hỏng trên vai; đèn sáng nhưng bóng người lại tối hơn; cầu thang kết thúc ngay dưới chân cầu thang khác; sự im lặng có hướng và đang tiến lại gần; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; điện thoại có dây chui xuống một vết rạn; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; bóng một bàn tay quay ngược đốt ngón; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; vết chà xát như má kéo lê trên bề mặt lạnh; mảnh gương cất giữ phản chiếu chậm hơn thực tại; chìa khóa ấm nằm trong mép giấy dán tường; một căn phòng rộng hơn mọi bức tường bao quanh; một mảnh thực tại bị thiếu nhưng không để lại lỗ."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_01": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_01",
+      "name": "Dullness / Zone 01",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.DULLNESS",
+      "AUTHOR_CANON": "cửa co lại giữa hai nhịp chớp; phòng rộng co thành khe; tỷ lệ đồ đạc không tương xứng cơ thể; Phòng trong Zone 01 cứ trượt tỷ lệ trong bóng tối; tường lấn sang sàn; trần hạ thấp như đang thở; người mang tên Tuyết Sâm, cô gái đeo kính nứt chỉ nhìn về sau; thảm đội lên thành đường gân dưới chân; vết cào nằm ở phía trong lớp sơn nguyên vẹn; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; cuốn sổ chỉ có trang cuối; cửa kính cho thấy mặt sau chính căn phòng; tấm kính nhìn về góc quan sát không thể có; sự im lặng có hướng và đang tiến lại gần; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; mảnh gương cất giữ phản chiếu chậm hơn thực tại; chìa khóa ấm nằm trong mép giấy dán tường; các góc vuông cộng lại thành một vòng tròn; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; những vạch nhỏ xếp thành hình răng không có hàm; nhãn dán ghi tên vật chưa từng tồn tại; đèn sáng nhưng bóng người lại tối hơn."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_01.SUB_01": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_01.SUB_01",
+      "name": "Dullness / Zone 01 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_01",
+      "AUTHOR_CANON": "phòng rộng co thành khe; tỷ lệ đồ đạc không tương xứng cơ thể; bề mặt ở sát tầm tay biến dạng theo lối đi; Tay chạm vào mép tường lạnh và giấy dán bong tróc; cảm giác bề mặt gần nhất cũng không đáng tin; một bức tường tưởng phẳng lại lệch nhẹ; một khung cửa tưởng thẳng lại vênh; người mang tên Tăng Lạc, người đàn ông đội mũ ướt không bao giờ tháo; ống thông gió kéo dài qua nhiều góc không tồn tại; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; tiếng rè bám vào góc phòng không đèn; vật cứng phát nhịp đập dưới đầu ngón; đồng hồ treo ngược không kim; bóng bay bạc đứng im giữa luồng gió; ổ khóa ấm như vừa rút khỏi cơ thể; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; tiếng gọi khàn mang đúng giọng người nghe; hộp nhạc không dây cót phát một âm trầm kéo dài; góc tường gập thành một vực không mép; vết cào nằm ở phía trong lớp sơn nguyên vẹn; trần thả lệch tấm như hàm răng rỗng; mùi sắt tươi xuất hiện rồi mất không dấu vết."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_01.SUB_02": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_01.SUB_02",
+      "name": "Dullness / Zone 01 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_01",
+      "AUTHOR_CANON": "cửa co lại giữa hai nhịp chớp; phòng rộng co thành khe; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Nhìn sâu vào Zone 01; phòng xa tưởng gần; hành lang tưởng ngắn lại kéo dài; điểm mốc vừa ghi nhớ đã lệch khỏi chỗ cũ; trần giả rung như có bầu trời bị chôn phía trên; vết cào nằm ở phía trong lớp sơn nguyên vẹn; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; vết chà xát như má kéo lê trên bề mặt lạnh; mảnh gương cất giữ phản chiếu chậm hơn thực tại; máy bán hàng sáng nhưng trống khoang tiền; không gian sau cột dày hơn phía trước cột; một mảnh thực tại bị thiếu nhưng không để lại lỗ; dấu móng hằn ở bên trong mặt kính; chiếc chìa khóa biến lạnh khi gần cửa; ống thông gió kéo dài qua nhiều góc không tồn tại; biển chỉ đường dẫn tới căn phòng chưa tồn tại; sự im lặng có hướng và đang tiến lại gần; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; đèn báo đỏ sáng dưới lớp bụi kín; hành lang dài thêm khi người quan sát ngoái đầu."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_01.SUB_03": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_01.SUB_03",
+      "name": "Dullness / Zone 01 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_01",
+      "AUTHOR_CANON": "phòng rộng co thành khe; tỷ lệ đồ đạc không tương xứng cơ thể; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền rền đều như tiếng đèn cũ; vang vọng trong phòng rồi tắt ngấm ở góc khuất; người mang tên Ngô Tuyền, ông lão quấn khăn che tai rồi nói một mình; ghế nhựa quay mặt vào vách kín; ổ khóa ấm như vừa rút khỏi cơ thể; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; làn hơi thở hắt ra từ chỗ không có miệng; đồng hồ treo ngược không kim; chìa khóa ấm nằm trong mép giấy dán tường; cầu thang kết thúc ngay dưới chân cầu thang khác; khoảng tối dày đến mức âm thanh bị gãy; vết chà xát như má kéo lê trên bề mặt lạnh; cuốn sổ chỉ có trang cuối; cửa kính cho thấy mặt sau chính căn phòng; bức tường mỏng chứa một tiếng vọng rất xa; một mảnh thực tại bị thiếu nhưng không để lại lỗ; những vạch nhỏ xếp thành hình răng không có hàm; đèn báo đỏ sáng dưới lớp bụi kín; hành lang dài thêm khi người quan sát ngoái đầu; nhãn dán ghi tên vật chưa từng tồn tại."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_01.SUB_04": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_01.SUB_04",
+      "name": "Dullness / Zone 01 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_01",
+      "AUTHOR_CANON": "cửa co lại giữa hai nhịp chớp; phòng rộng co thành khe; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; ký ức về căn phòng vừa rời trở nên mờ nhạt; như thể mắt đã nhìn mà đầu không giữ lại được; bóng bay bạc đứng im giữa luồng gió; một khe tối khiến đồng tử co lại thay vì giãn; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; mùi sắt tươi xuất hiện rồi mất không dấu vết; máy lấy số nhảy tới một con số âm; trần giả rung như có bầu trời bị chôn phía trên; tiếng bước chân đi trước người bước; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một vệt như da non lộ dưới lớp sơn cũ; cuốn sổ chỉ có trang cuối; đèn sáng nhưng bóng người lại tối hơn; khe tường sâu đến mức nuốt mất tiếng gõ; khoảng không khiến cự ly trở thành điều vô nghĩa; tiếng gọi khàn mang đúng giọng người nghe; hộp nhạc không dây cót phát một âm trầm kéo dài; góc tường gập thành một vực không mép; cửa mở vào mặt sau của chính nó; nhịp rung xa như triệu nơi chốn cùng thở."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_02": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_02",
+      "name": "Dullness / Zone 02",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.DULLNESS",
+      "AUTHOR_CANON": "cửa cao kề cửa thấp; vách xếp hình học vô lý; mọi điểm nhìn chung một mép trần; Zone 02 là mê cung vách và cửa xếp sai tỷ lệ; cửa cao bất thường đứng cạnh cửa thấp; vách nghiêng như sắp đổ mà không đổ; ghế nhựa quay mặt vào vách kín; một căn phòng rộng hơn mọi bức tường bao quanh; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; dấu móng hằn ở bên trong mặt kính; chiếc chìa khóa biến lạnh khi gần cửa; hành lang dài thêm khi người quan sát ngoái đầu; biển chỉ đường dẫn tới căn phòng chưa tồn tại; sự im lặng có hướng và đang tiến lại gần; một cơn rùng mình xảy ra đồng thời trong cả phòng; cuốn sổ chỉ có trang cuối; chìa khóa ấm nằm trong mép giấy dán tường; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; một vệt đen sâu hơn cả bóng tối thường thấy; mùi sắt tươi xuất hiện rồi mất không dấu vết; đèn báo đỏ sáng dưới lớp bụi kín; ống thông gió kéo dài qua nhiều góc không tồn tại; cửa mở vào mặt sau của chính nó."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_02.SUB_01": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_02.SUB_01",
+      "name": "Dullness / Zone 02 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_02",
+      "AUTHOR_CANON": "cửa cao kề cửa thấp; vách xếp hình học vô lý; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt vách sần sùi; mép cửa lạnh và lệch; dấu tay cũ mờ trên giấy dán gần tầm tay; góc tường gập thành một vực không mép; bản đồ vẽ đúng nhưng không thể bước theo; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; chiếc ghế rỗng vẫn có tiếng quần áo cọ; đèn sáng nhưng bóng người lại tối hơn; gương phản chiếu căn phòng đã bị phá bỏ; khoảng không khiến cự ly trở thành điều vô nghĩa; mùi sắt tươi xuất hiện rồi mất không dấu vết; đèn báo đỏ sáng dưới lớp bụi kín; trần giả rung như có bầu trời bị chôn phía trên; khe tường sâu đến mức nuốt mất tiếng gõ; một vệt đen sâu hơn cả bóng tối thường thấy; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; đồng hồ treo ngược không kim; chìa khóa ấm nằm trong mép giấy dán tường; sàn nghiêng nhẹ khi không còn ai quan sát; khoảng tối dày đến mức âm thanh bị gãy."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_02.SUB_02": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_02.SUB_02",
+      "name": "Dullness / Zone 02 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_02",
+      "AUTHOR_CANON": "vách xếp hình học vô lý; mọi điểm nhìn chung một mép trần; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 02 bị bẻ cong bởi vách và cửa sai tỷ lệ; một dãy cửa tưởng song song lại chụm vào nhau ở xa; điểm mốc ở cuối hành lang cứ lùi lại; người mang tên Lục Hiên, người đàn ông đội mũ ướt không bao giờ tháo; máy bán hàng sáng nhưng trống khoang tiền; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; một vệt đen sâu hơn cả bóng tối thường thấy; tiếng gọi khàn mang đúng giọng người nghe; đồng hồ treo ngược không kim; trần giả rung như có bầu trời bị chôn phía trên; vết cào nằm ở phía trong lớp sơn nguyên vẹn; nhịp rung xa như triệu nơi chốn cùng thở; làn hơi thở hắt ra từ chỗ không có miệng; đèn báo đỏ sáng dưới lớp bụi kín; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; sàn nghiêng nhẹ khi không còn ai quan sát; khoảng không khiến cự ly trở thành điều vô nghĩa; một vệt như da non lộ dưới lớp sơn cũ; dấu ố cũ kéo dài dọc chân vách không đều."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_02.SUB_03": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_02.SUB_03",
+      "name": "Dullness / Zone 02 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_02",
+      "AUTHOR_CANON": "cửa cao kề cửa thấp; vách xếp hình học vô lý; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền vang trong các khe vách; rồi chìm vào góc khuất tối; ghế nhựa quay mặt vào vách kín; tấm kính nhìn về góc quan sát không thể có; khoảng tối dày đến mức âm thanh bị gãy; vết chà xát như má kéo lê trên bề mặt lạnh; chiếc chìa khóa biến lạnh khi gần cửa; chìa khóa ấm nằm trong mép giấy dán tường; đường viền căn phòng chuyển dịch theo nhịp đèn; vầng sáng lạnh kẹt trong lớp vật chất đặc; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; nhãn dán ghi tên vật chưa từng tồn tại; trần giả rung như có bầu trời bị chôn phía trên; bóng đổ về phía đèn đang sáng; đường thẳng kéo dài rồi quay về cùng một đầu mút; một vệt như da non lộ dưới lớp sơn cũ; mảnh gương cất giữ phản chiếu chậm hơn thực tại; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; một vệt đen sâu hơn cả bóng tối thường thấy; đồng hồ treo ngược không kim."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_02.SUB_04": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_02.SUB_04",
+      "name": "Dullness / Zone 02 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_02",
+      "AUTHOR_CANON": "vách xếp hình học vô lý; mọi điểm nhìn chung một mép trần; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ký ức về thứ tự các cửa trong Zone 02 cứ rối lại; cửa vừa qua tưởng là cửa đầu; cửa trước mặt tưởng đã thấy rồi; người mang tên Tạ Lưu, ông lão quấn khăn che tai rồi nói một mình; thảm đội lên thành đường gân dưới chân; ổ khóa ấm như vừa rút khỏi cơ thể; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; vết chà xát như má kéo lê trên bề mặt lạnh; mảnh gương cất giữ phản chiếu chậm hơn thực tại; máy bán hàng sáng nhưng trống khoang tiền; mép cửa in bóng của vật chưa xuất hiện; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; những vạch nhỏ xếp thành hình răng không có hàm; chiếc chìa khóa biến lạnh khi gần cửa; cửa kính cho thấy mặt sau chính căn phòng; một khe tối khiến đồng tử co lại thay vì giãn; một vệt đen sâu hơn cả bóng tối thường thấy; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; chiếc ghế rỗng vẫn có tiếng quần áo cọ."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_03": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_03",
+      "name": "Dullness / Zone 03",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.DULLNESS",
+      "AUTHOR_CANON": "vết ố đổi vai mốc hướng; góc trái và góc phải tráo vị trí; la bàn tưởng tượng tự gãy; Zone 03 là nơi mốc hướng bị lệch; khung cửa và mép trần tưởng chỉ đường lại chỉ lệch đi một chút; người mang tên Phùng Hạ, cô gái đeo kính nứt chỉ nhìn về sau; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; cầu thang kết thúc ngay dưới chân cầu thang khác; nhịp rung xa như triệu nơi chốn cùng thở; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; hộp nhạc không dây cót phát một âm trầm kéo dài; máy bán hàng sáng nhưng trống khoang tiền; bóng đổ về phía đèn đang sáng; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; làn hơi thở hắt ra từ chỗ không có miệng; điện thoại có dây chui xuống một vết rạn; chìa khóa ấm nằm trong mép giấy dán tường; sàn nghiêng nhẹ khi không còn ai quan sát; một mảnh thực tại bị thiếu nhưng không để lại lỗ; một cơn rùng mình xảy ra đồng thời trong cả phòng; máy lấy số nhảy tới một con số âm; góc tường gập thành một vực không mép."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_03.SUB_01": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_03.SUB_01",
+      "name": "Dullness / Zone 03 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_03",
+      "AUTHOR_CANON": "góc trái và góc phải tráo vị trí; la bàn tưởng tượng tự gãy; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt gần tầm tay đầy dấu hiệu lệch; mép giấy dán bong theo một hướng lạ; tay nắm cửa nằm cao hơn chỗ mắt đoán; người mang tên Tô Liệt, kẻ khoác áo mưa quá dài với đôi giày khô; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; một căn phòng rộng hơn mọi bức tường bao quanh; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; mảnh gương cất giữ phản chiếu chậm hơn thực tại; bóng bay bạc đứng im giữa luồng gió; tiếng bước chân đi trước người bước; một vệt đen sâu hơn cả bóng tối thường thấy; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; chiếc ghế rỗng vẫn có tiếng quần áo cọ; góc tường gập thành một vực không mép; bóng đổ về phía đèn đang sáng; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; mùi sắt tươi xuất hiện rồi mất không dấu vết; đồng hồ treo ngược không kim."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_03.SUB_02": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_03.SUB_02",
+      "name": "Dullness / Zone 03 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_03",
+      "AUTHOR_CANON": "vết ố đổi vai mốc hướng; góc trái và góc phải tráo vị trí; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 03 lừa mắt bằng mốc hướng lệch; điểm mốc xa tưởng ở bên trái lại hóa ra ở bên phải; hành lang tưởng thẳng lại cong nhẹ; chìa khóa ấm nằm trong mép giấy dán tường; tiếng bước chân đi trước người bước; nhịp rung xa như triệu nơi chốn cùng thở; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; máy lấy số nhảy tới một con số âm; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; vết cào nằm ở phía trong lớp sơn nguyên vẹn; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; nhãn dán ghi tên vật chưa từng tồn tại; bóng bay bạc đứng im giữa luồng gió; bóng một bàn tay quay ngược đốt ngón; một vệt đen sâu hơn cả bóng tối thường thấy; dấu móng hằn ở bên trong mặt kính; điện thoại có dây chui xuống một vết rạn; ghế nhựa quay mặt vào vách kín; tấm kính nhìn về góc quan sát không thể có."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_03.SUB_03": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_03.SUB_03",
+      "name": "Dullness / Zone 03 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_03",
+      "AUTHOR_CANON": "góc trái và góc phải tráo vị trí; la bàn tưởng tượng tự gãy; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền đều đều trong Zone 03; vang lên rồi mất hút ở góc khuất; khiến tai không xác định được hướng âm thanh đến từ đâu; người mang tên Yên Từ, ông lão quấn khăn che tai rồi nói một mình; chìa khóa ấm nằm trong mép giấy dán tường; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; khoảng tối dày đến mức âm thanh bị gãy; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; cuốn sổ chỉ có trang cuối; ghế nhựa quay mặt vào vách kín; tiếng va chạm truyền đến trước cử động; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; nhãn dán ghi tên vật chưa từng tồn tại; thảm đội lên thành đường gân dưới chân; khe tường sâu đến mức nuốt mất tiếng gõ; một vệt đen sâu hơn cả bóng tối thường thấy; vật cứng phát nhịp đập dưới đầu ngón; đồng hồ treo ngược không kim; bóng bay bạc đứng im giữa luồng gió."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_03.SUB_04": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_03.SUB_04",
+      "name": "Dullness / Zone 03 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_03",
+      "AUTHOR_CANON": "vết ố đổi vai mốc hướng; góc trái và góc phải tráo vị trí; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Mỏi mệt làm ký ức về hướng đi trong Zone 03 càng mờ; đầu đã nghi ngờ mình vừa rẽ phải; trần giả rung như có bầu trời bị chôn phía trên; sàn nghiêng nhẹ khi không còn ai quan sát; một vệt đen sâu hơn cả bóng tối thường thấy; một vệt như da non lộ dưới lớp sơn cũ; mảnh gương cất giữ phản chiếu chậm hơn thực tại; hành lang dài thêm khi người quan sát ngoái đầu; vết cào nằm ở phía trong lớp sơn nguyên vẹn; một mảnh thực tại bị thiếu nhưng không để lại lỗ; mùi sắt tươi xuất hiện rồi mất không dấu vết; đèn báo đỏ sáng dưới lớp bụi kín; góc tường gập thành một vực không mép; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; đường thẳng kéo dài rồi quay về cùng một đầu mút; vết chà xát như má kéo lê trên bề mặt lạnh; máy lấy số nhảy tới một con số âm; thảm đội lên thành đường gân dưới chân; các góc vuông cộng lại thành một vòng tròn."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_04": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_04",
+      "name": "Dullness / Zone 04",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.DULLNESS",
+      "AUTHOR_CANON": "sàn trườn lên tường; các mặt phẳng xuyên nhau; trần gập vào chân; Zone 04 là nơi hình khối giao thoa khó đo; tường chồng lên sàn; trần chìm vào vách; góc phòng tan vào nhau như khối sáp chảy; ống thông gió kéo dài qua nhiều góc không tồn tại; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; vết chà xát như má kéo lê trên bề mặt lạnh; chiếc chìa khóa biến lạnh khi gần cửa; bóng bay bạc đứng im giữa luồng gió; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; đường thẳng kéo dài rồi quay về cùng một đầu mút; những vạch nhỏ xếp thành hình răng không có hàm; điện thoại có dây chui xuống một vết rạn; thảm đội lên thành đường gân dưới chân; bản đồ vẽ đúng nhưng không thể bước theo; nhịp rung xa như triệu nơi chốn cùng thở; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; cuốn sổ chỉ có trang cuối; đèn sáng nhưng bóng người lại tối hơn; bóng một bàn tay quay ngược đốt ngón; dấu ố cũ kéo dài dọc chân vách không đều."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_04.SUB_01": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_04.SUB_01",
+      "name": "Dullness / Zone 04 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_04",
+      "AUTHOR_CANON": "sàn trườn lên tường; các mặt phẳng xuyên nhau; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt ở Zone 04 không còn phân biệt tường hay sàn; tay chạm vào một mặt phẳng lạnh; vừa là vách vừa là nền; mép khối giao nhau mờ nhạt; ghế nhựa quay mặt vào vách kín; bức tường mỏng chứa một tiếng vọng rất xa; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; chiếc ghế rỗng vẫn có tiếng quần áo cọ; hành lang dài thêm khi người quan sát ngoái đầu; bóng đổ về phía đèn đang sáng; một vệt đen sâu hơn cả bóng tối thường thấy; một vệt như da non lộ dưới lớp sơn cũ; cuốn sổ chỉ có trang cuối; thảm đội lên thành đường gân dưới chân; mép cửa in bóng của vật chưa xuất hiện; khoảng không khiến cự ly trở thành điều vô nghĩa; những vạch nhỏ xếp thành hình răng không có hàm; mảnh gương cất giữ phản chiếu chậm hơn thực tại; ống thông gió kéo dài qua nhiều góc không tồn tại; vết cào nằm ở phía trong lớp sơn nguyên vẹn."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_04.SUB_02": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_04.SUB_02",
+      "name": "Dullness / Zone 04 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_04",
+      "AUTHOR_CANON": "các mặt phẳng xuyên nhau; trần gập vào chân; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 04 tan biến trong hình khối giao thoa; điểm mốc xa chìm vào khối khác; khoảng cách giữa hai phòng không đo được bằng mắt; người mang tên Hứa Dụ, ông lão quấn khăn che tai rồi nói một mình; cửa kính cho thấy mặt sau chính căn phòng; vết cào nằm ở phía trong lớp sơn nguyên vẹn; vầng sáng lạnh kẹt trong lớp vật chất đặc; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; điện thoại có dây chui xuống một vết rạn; đèn sáng nhưng bóng người lại tối hơn; tiếng va chạm truyền đến trước cử động; khoảng tối dày đến mức âm thanh bị gãy; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; đồng hồ treo ngược không kim; chìa khóa ấm nằm trong mép giấy dán tường; bức tường mỏng chứa một tiếng vọng rất xa; nhịp rung xa như triệu nơi chốn cùng thở; mùi sắt tươi xuất hiện rồi mất không dấu vết; mảnh gương cất giữ phản chiếu chậm hơn thực tại."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_04.SUB_03": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_04.SUB_03",
+      "name": "Dullness / Zone 04 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_04",
+      "AUTHOR_CANON": "sàn trườn lên tường; các mặt phẳng xuyên nhau; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền trong Zone 04 dội qua các khối giao nhau; rồi tắt ở góc khuất; máy bán hàng sáng nhưng trống khoang tiền; bản đồ vẽ đúng nhưng không thể bước theo; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; mùi sắt tươi xuất hiện rồi mất không dấu vết; hộp nhạc không dây cót phát một âm trầm kéo dài; ống thông gió kéo dài qua nhiều góc không tồn tại; bóng đổ về phía đèn đang sáng; khoảng không khiến cự ly trở thành điều vô nghĩa; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; nhãn dán ghi tên vật chưa từng tồn tại; bóng bay bạc đứng im giữa luồng gió; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; những vạch nhỏ xếp thành hình răng không có hàm; đồng hồ treo ngược không kim; thảm đội lên thành đường gân dưới chân; sàn nghiêng nhẹ khi không còn ai quan sát; đèn báo đỏ sáng dưới lớp bụi kín."
+    },
+    "LEVEL.NODE.0.DULLNESS.ZONE_04.SUB_04": {
+      "id": "LEVEL.NODE.0.DULLNESS.ZONE_04.SUB_04",
+      "name": "Dullness / Zone 04 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.DULLNESS.ZONE_04",
+      "AUTHOR_CANON": "các mặt phẳng xuyên nhau; trần gập vào chân; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ký ức về hình dạng phòng trong Zone 04 cứ nhòe đi theo cơn mỏi; phòng vừa thấy tưởng vuông; nhớ lại đã thành méo; người mang tên Trác Phi, bà già đội chiếc đèn hỏng trên vai; trần giả rung như có bầu trời bị chôn phía trên; một khe tối khiến đồng tử co lại thay vì giãn; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; làn hơi thở hắt ra từ chỗ không có miệng; đèn báo đỏ sáng dưới lớp bụi kín; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; không gian sau cột dày hơn phía trước cột; sự im lặng có hướng và đang tiến lại gần; dấu ố cũ kéo dài dọc chân vách không đều; chiếc ghế rỗng vẫn có tiếng quần áo cọ; đèn sáng nhưng bóng người lại tối hơn; bức tường mỏng chứa một tiếng vọng rất xa; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; mảnh gương cất giữ phản chiếu chậm hơn thực tại."
+    },
+    "LEVEL.NODE.0.EPSILON": {
+      "id": "LEVEL.NODE.0.EPSILON",
+      "name": "Level ε · Incessant Hum-Buzz",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Level ε; cấu trúc cao bất thường; bệ treo; cầu thang chồng lớp; tiếng ù kéo dài; khoảng không đứng dựng như giếng; Không gian vàng của Tầng 0 bỗng mở toác thành những cấu trúc cao chót vót; platform treo lơ lửng; tunnel hun hút và cầu thang chồng tầng như xương sườn của một con thú khổng lồ; người mang tên Giản Ly, kẻ lang thang cười khúc khích trước tường kín; lối lên gấp lại thành mặt phẳng đứng; tiếng ù treo giữa hai bệ lơ lửng; đường thẳng kéo dài rồi quay về cùng một đầu mút; những vạch nhỏ xếp thành hình răng không có hàm; nhãn dán ghi tên vật chưa từng tồn tại; bệ thang treo trên một khoảng trống không đáy; ổ khóa ấm như vừa rút khỏi cơ thể; sự im lặng có hướng và đang tiến lại gần; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; một chân cột kéo bóng xuống vực không đáy; bóng bậc thang đổ lên những bậc cao hơn; bóng một bàn tay quay ngược đốt ngón; khoảng tối dày đến mức âm thanh bị gãy; dấu ngón tay chồng lên nhau mà không có lòng bàn tay."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_01": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_01",
+      "name": "Level ε / Zone 01",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.EPSILON",
+      "AUTHOR_CANON": "thang chất tầng; bệ đá lạnh treo trong tối; khoảng rơi giữa hai tay vịn; Zone 01 của Level ε mở ra bằng cầu thang và bệ cao; bậc thang chồng tầng; bệ đá treo lơ lửng; người mang tên Trác Phi, kẻ khoác áo mưa quá dài với đôi giày khô; tiếng rơi mãi không có tiếng chạm đáy; cửa mở vào mặt sau của chính nó; khoảng không khiến cự ly trở thành điều vô nghĩa; vật cứng phát nhịp đập dưới đầu ngón; hộp nhạc không dây cót phát một âm trầm kéo dài; đầu gối cảm nhận độ cao khác với mắt; một căn phòng rộng hơn mọi bức tường bao quanh; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; những vạch nhỏ xếp thành hình răng không có hàm; chiếc chìa khóa biến lạnh khi gần cửa; bệ thang treo trên một khoảng trống không đáy; không gian sau cột dày hơn phía trước cột; sự im lặng có hướng và đang tiến lại gần; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; nhãn dán ghi tên vật chưa từng tồn tại; bóng bậc thang đổ lên những bậc cao hơn."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_01.SUB_01": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_01.SUB_01",
+      "name": "Level ε / Zone 01 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_01",
+      "AUTHOR_CANON": "bệ đá lạnh treo trong tối; khoảng rơi giữa hai tay vịn; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt bậc thang lạnh; tay vịn cũ gần tầm tay cho thấy độ cao bằng cảm giác chạm; người mang tên Lâm Nghi, người lạ đứng yên nghe tiếng vọng của mình; lối lên gấp lại thành mặt phẳng đứng; bóng một bàn tay quay ngược đốt ngón; đường thẳng kéo dài rồi quay về cùng một đầu mút; làn hơi thở hắt ra từ chỗ không có miệng; dấu tay bám ở mặt dưới bậc cao; tiếng rơi mãi không có tiếng chạm đáy; các góc vuông cộng lại thành một vòng tròn; một vệt đen sâu hơn cả bóng tối thường thấy; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; nhãn dán ghi tên vật chưa từng tồn tại; đầu gối cảm nhận độ cao khác với mắt; cửa mở vào mặt sau của chính nó; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một chân cột kéo bóng xuống vực không đáy; một bậc thang xuất hiện giữa khoảng rơi; tay vịn mọc lên từ khoảng không bên ngoài bậc; sự im lặng có hướng và đang tiến lại gần."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_01.SUB_02": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_01.SUB_02",
+      "name": "Level ε / Zone 01 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_01",
+      "AUTHOR_CANON": "thang chất tầng; bệ đá lạnh treo trong tối; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 01 bị cầu thang bẻ cong; bậc gần tưởng thấp lại hóa cao; bệ xa tưởng gần lại lùi sâu vào tối; bóng bậc thang đổ lên những bậc cao hơn; ổ khóa ấm như vừa rút khỏi cơ thể; khoảng không khiến cự ly trở thành điều vô nghĩa; một chân cột kéo bóng xuống vực không đáy; chiếc chìa khóa biến lạnh khi gần cửa; lối lên gấp lại thành mặt phẳng đứng; một căn phòng rộng hơn mọi bức tường bao quanh; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; mùi sắt tươi xuất hiện rồi mất không dấu vết; đồng hồ treo ngược không kim; tiếng rơi mãi không có tiếng chạm đáy; mép cửa in bóng của vật chưa xuất hiện; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; nhãn dán ghi tên vật chưa từng tồn tại; cột cao đến mức đầu cột trở thành đường chân trời; biển chỉ đường dẫn tới căn phòng chưa tồn tại."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_01.SUB_03": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_01.SUB_03",
+      "name": "Level ε / Zone 01 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_01",
+      "AUTHOR_CANON": "bệ đá lạnh treo trong tối; khoảng rơi giữa hai tay vịn; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền vang vọng quanh cầu thang và bệ cao; lúc dội từ trên xuống; lúc mất hút ở góc khuất phía dưới; người mang tên Đỗ Niên, người đàn ông tay giữ một chiếc đồng hồ không kim; mặt dưới của cầu thang phản chiếu một bầu trời chết; tiếng va chạm truyền đến trước cử động; một vệt đen sâu hơn cả bóng tối thường thấy; vật cứng phát nhịp đập dưới đầu ngón; tiếng sỏi rơi mãi nhưng không chạm đáy; bệ thang treo trên một khoảng trống không đáy; vách đứng có đường chân trời riêng; đường thẳng kéo dài rồi quay về cùng một đầu mút; mùi sắt tươi xuất hiện rồi mất không dấu vết; hộp nhạc không dây cót phát một âm trầm kéo dài; cột cao đến mức đầu cột trở thành đường chân trời; một căn phòng rộng hơn mọi bức tường bao quanh; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; dấu móng hằn ở bên trong mặt kính; đồng hồ treo ngược không kim."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_01.SUB_04": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_01.SUB_04",
+      "name": "Level ε / Zone 01 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_01",
+      "AUTHOR_CANON": "thang chất tầng; bệ đá lạnh treo trong tối; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; ký ức về số bậc vừa đi cứ mờ dần; cơn mỏi len vào chân và đầu; bóng bậc thang đổ lên những bậc cao hơn; mép cửa in bóng của vật chưa xuất hiện; một vệt đen sâu hơn cả bóng tối thường thấy; dấu móng hằn ở bên trong mặt kính; mảnh gương cất giữ phản chiếu chậm hơn thực tại; cột cao đến mức đầu cột trở thành đường chân trời; một căn phòng rộng hơn mọi bức tường bao quanh; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; hộp nhạc không dây cót phát một âm trầm kéo dài; bệ thang treo trên một khoảng trống không đáy; cầu thang kết thúc ngay dưới chân cầu thang khác; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; mùi sắt tươi xuất hiện rồi mất không dấu vết; chiếc chìa khóa biến lạnh khi gần cửa; mặt dưới của cầu thang phản chiếu một bầu trời chết; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_02": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_02",
+      "name": "Level ε / Zone 02",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.EPSILON",
+      "AUTHOR_CANON": "cột đứng dựng vô hạn; cao độ gần xa tráo nhau; bóng chân cột trèo ngược; Zone 02 là nơi các trục đứng khó so cự ly; thang và vách cao dựng song song mà mắt không phân biệt được cái nào gần; lối lên gấp lại thành mặt phẳng đứng; biển chỉ đường dẫn tới căn phòng chưa tồn tại; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; mùi sắt tươi xuất hiện rồi mất không dấu vết; đồng hồ treo ngược không kim; bóng bậc thang đổ lên những bậc cao hơn; tiếng bước chân đi trước người bước; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu móng hằn ở bên trong mặt kính; chiếc ghế rỗng vẫn có tiếng quần áo cọ; đầu gối cảm nhận độ cao khác với mắt; cầu thang kết thúc ngay dưới chân cầu thang khác; một vệt đen sâu hơn cả bóng tối thường thấy; một vệt như da non lộ dưới lớp sơn cũ; nhãn dán ghi tên vật chưa từng tồn tại; mặt dưới của cầu thang phản chiếu một bầu trời chết; một căn phòng rộng hơn mọi bức tường bao quanh; một mảnh thực tại bị thiếu nhưng không để lại lỗ."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_02.SUB_01": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_02.SUB_01",
+      "name": "Level ε / Zone 02 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_02",
+      "AUTHOR_CANON": "cột đứng dựng vô hạn; cao độ gần xa tráo nhau; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt trục đứng lạnh và thẳng; mép cột gần tầm tay cho cảm giác cao vút mà không cho biết chiều cao thật; mặt dưới của cầu thang phản chiếu một bầu trời chết; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; nhịp rung xa như triệu nơi chốn cùng thở; một vệt như da non lộ dưới lớp sơn cũ; chiếc chìa khóa biến lạnh khi gần cửa; đầu gối cảm nhận độ cao khác với mắt; một căn phòng rộng hơn mọi bức tường bao quanh; sự im lặng có hướng và đang tiến lại gần; tiếng gọi khàn mang đúng giọng người nghe; nhãn dán ghi tên vật chưa từng tồn tại; bóng bậc thang đổ lên những bậc cao hơn; không gian sau cột dày hơn phía trước cột; một mảnh thực tại bị thiếu nhưng không để lại lỗ; làn hơi thở hắt ra từ chỗ không có miệng; đèn báo đỏ sáng dưới lớp bụi kín; cột cao đến mức đầu cột trở thành đường chân trời; mép cửa in bóng của vật chưa xuất hiện; một chân cột kéo bóng xuống vực không đáy."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_02.SUB_02": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_02.SUB_02",
+      "name": "Level ε / Zone 02 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_02",
+      "AUTHOR_CANON": "cao độ gần xa tráo nhau; bóng chân cột trèo ngược; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 02 vỡ ra bởi các trục đứng; cột xa và cột gần trông cao bằng nhau; điểm mốc trên cao lùi vào bóng tối; người mang tên Hà Trì, người lạ đứng yên nghe tiếng vọng của mình; bệ thang treo trên một khoảng trống không đáy; dấu tay bám ở mặt dưới bậc cao; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu móng hằn ở bên trong mặt kính; đồng hồ treo ngược không kim; đầu gối cảm nhận độ cao khác với mắt; bản đồ vẽ đúng nhưng không thể bước theo; khoảng tối dày đến mức âm thanh bị gãy; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; đèn báo đỏ sáng dưới lớp bụi kín; bóng bậc thang đổ lên những bậc cao hơn; bóng đổ về phía đèn đang sáng; nhịp rung xa như triệu nơi chốn cùng thở; vật cứng phát nhịp đập dưới đầu ngón; chiếc chìa khóa biến lạnh khi gần cửa; tiếng rơi mãi không có tiếng chạm đáy; một chân cột kéo bóng xuống vực không đáy."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_02.SUB_03": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_02.SUB_03",
+      "name": "Level ε / Zone 02 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_02",
+      "AUTHOR_CANON": "cột đứng dựng vô hạn; cao độ gần xa tráo nhau; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền dội dọc theo các trục đứng; vang lên rồi tắt ở góc khuất phía dưới chân cột; mặt dưới của cầu thang phản chiếu một bầu trời chết; bóng đổ về phía đèn đang sáng; sự im lặng có hướng và đang tiến lại gần; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đồng hồ treo ngược không kim; tay vịn mọc lên từ khoảng không bên ngoài bậc; mép cửa in bóng của vật chưa xuất hiện; đường thẳng kéo dài rồi quay về cùng một đầu mút; một cơn rùng mình xảy ra đồng thời trong cả phòng; mảnh gương cất giữ phản chiếu chậm hơn thực tại; bệ thang treo trên một khoảng trống không đáy; bản đồ vẽ đúng nhưng không thể bước theo; khoảng tối dày đến mức âm thanh bị gãy; những vạch nhỏ xếp thành hình răng không có hàm; chiếc ghế rỗng vẫn có tiếng quần áo cọ; bóng bậc thang đổ lên những bậc cao hơn; một khe tối khiến đồng tử co lại thay vì giãn; một vệt đen sâu hơn cả bóng tối thường thấy."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_02.SUB_04": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_02.SUB_04",
+      "name": "Level ε / Zone 02 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_02",
+      "AUTHOR_CANON": "cao độ gần xa tráo nhau; bóng chân cột trèo ngược; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ký ức về các trục vừa đi qua trong Zone 02 cứ chồng lên nhau; cơn mỏi khiến đầu óc khó giữ thứ tự cột nào trước; người mang tên Mã Bân, người đàn ông tay giữ một chiếc đồng hồ không kim; mặt dưới của cầu thang phản chiếu một bầu trời chết; cửa mở vào mặt sau của chính nó; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; một bậc thang xuất hiện giữa khoảng rơi; cột cao đến mức đầu cột trở thành đường chân trời; bóng một bàn tay quay ngược đốt ngón; sự im lặng có hướng và đang tiến lại gần; vật cứng phát nhịp đập dưới đầu ngón; mảnh gương cất giữ phản chiếu chậm hơn thực tại; tay vịn mọc lên từ khoảng không bên ngoài bậc; sàn nghiêng nhẹ khi không còn ai quan sát; một vệt đen sâu hơn cả bóng tối thường thấy; những vạch nhỏ xếp thành hình răng không có hàm; đồng hồ treo ngược không kim."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_03": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_03",
+      "name": "Level ε / Zone 03",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.EPSILON",
+      "AUTHOR_CANON": "đường hầm gấp khúc; góc vọng sâu; âm rung lọt qua vách đá; Zone 03 là tunnel nhiều góc vọng; tiếng nền dội qua nhiều góc; ánh sáng vàng nhạt dần vào tối; người mang tên Châu Dụ, kẻ khoác áo mưa quá dài với đôi giày khô; cột cao đến mức đầu cột trở thành đường chân trời; ổ khóa ấm như vừa rút khỏi cơ thể; vầng sáng lạnh kẹt trong lớp vật chất đặc; những vạch nhỏ xếp thành hình răng không có hàm; mảnh gương cất giữ phản chiếu chậm hơn thực tại; bóng bậc thang đổ lên những bậc cao hơn; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; nhãn dán ghi tên vật chưa từng tồn tại; tay vịn mọc lên từ khoảng không bên ngoài bậc; tấm kính nhìn về góc quan sát không thể có; đường thẳng kéo dài rồi quay về cùng một đầu mút; một vệt như da non lộ dưới lớp sơn cũ; tiếng sỏi rơi mãi nhưng không chạm đáy; mặt dưới của cầu thang phản chiếu một bầu trời chết."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_03.SUB_01": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_03.SUB_01",
+      "name": "Level ε / Zone 03 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_03",
+      "AUTHOR_CANON": "góc vọng sâu; âm rung lọt qua vách đá; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt tunnel lạnh; mép tường gần tầm tay sần sùi và cong theo góc hầm; người mang tên Đoàn Thanh, kẻ độc hành mang túi giấy đầy đá lạnh; bệ thang treo trên một khoảng trống không đáy; bản đồ vẽ đúng nhưng không thể bước theo; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; một cơn rùng mình xảy ra đồng thời trong cả phòng; chiếc chìa khóa biến lạnh khi gần cửa; tay vịn mọc lên từ khoảng không bên ngoài bậc; mép cửa in bóng của vật chưa xuất hiện; nhịp rung xa như triệu nơi chốn cùng thở; những vạch nhỏ xếp thành hình răng không có hàm; đèn báo đỏ sáng dưới lớp bụi kín; đầu gối cảm nhận độ cao khác với mắt; vết cào nằm ở phía trong lớp sơn nguyên vẹn; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; tiếng gọi khàn mang đúng giọng người nghe; chiếc ghế rỗng vẫn có tiếng quần áo cọ; mặt dưới của cầu thang phản chiếu một bầu trời chết."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_03.SUB_02": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_03.SUB_02",
+      "name": "Level ε / Zone 03 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_03",
+      "AUTHOR_CANON": "đường hầm gấp khúc; góc vọng sâu; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu trong tunnel Zone 03 bị góc vọng bẻ gãy; điểm mốc ở cuối hầm tưởng gần lại hóa xa sau mỗi khúc gấp; khoảng cách không còn thẳng; cột cao đến mức đầu cột trở thành đường chân trời; bản đồ vẽ đúng nhưng không thể bước theo; một vệt đen sâu hơn cả bóng tối thường thấy; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; tiếng sỏi rơi mãi nhưng không chạm đáy; tay vịn mọc lên từ khoảng không bên ngoài bậc; một căn phòng rộng hơn mọi bức tường bao quanh; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; dấu móng hằn ở bên trong mặt kính; mảnh gương cất giữ phản chiếu chậm hơn thực tại; bóng bậc thang đổ lên những bậc cao hơn; bức tường mỏng chứa một tiếng vọng rất xa; một mảnh thực tại bị thiếu nhưng không để lại lỗ; tiếng gọi khàn mang đúng giọng người nghe; chiếc ghế rỗng vẫn có tiếng quần áo cọ; tiếng rơi mãi không có tiếng chạm đáy."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_03.SUB_03": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_03.SUB_03",
+      "name": "Level ε / Zone 03 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_03",
+      "AUTHOR_CANON": "góc vọng sâu; âm rung lọt qua vách đá; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền trong tunnel dội qua nhiều góc vọng; rồi mất hút ở góc khuất tối; người mang tên Ninh Vỹ, người đàn ông tay giữ một chiếc đồng hồ không kim; lối lên gấp lại thành mặt phẳng đứng; một căn phòng rộng hơn mọi bức tường bao quanh; khoảng không khiến cự ly trở thành điều vô nghĩa; mùi sắt tươi xuất hiện rồi mất không dấu vết; tiếng ù treo giữa hai bệ lơ lửng; tiếng rơi mãi không có tiếng chạm đáy; tiếng va chạm truyền đến trước cử động; khoảng tối dày đến mức âm thanh bị gãy; làn hơi thở hắt ra từ chỗ không có miệng; hộp nhạc không dây cót phát một âm trầm kéo dài; bóng bậc thang đổ lên những bậc cao hơn; tiếng bước chân đi trước người bước; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một vệt như da non lộ dưới lớp sơn cũ; một chân cột kéo bóng xuống vực không đáy; bệ thang treo trên một khoảng trống không đáy; sàn nghiêng nhẹ khi không còn ai quan sát."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_03.SUB_04": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_03.SUB_04",
+      "name": "Level ε / Zone 03 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_03",
+      "AUTHOR_CANON": "đường hầm gấp khúc; góc vọng sâu; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Đi qua tunnel Zone 03; ký ức về các khúc gấp cứ mờ dần; cơn mỏi khiến đầu óc khó nhớ mình đã qua bao nhiêu góc; tiếng rơi mãi không có tiếng chạm đáy; vách đứng có đường chân trời riêng; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; mùi sắt tươi xuất hiện rồi mất không dấu vết; một bậc thang xuất hiện giữa khoảng rơi; cột cao đến mức đầu cột trở thành đường chân trời; tiếng sỏi rơi mãi nhưng không chạm đáy; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một chân cột kéo bóng xuống vực không đáy; chiếc ghế rỗng vẫn có tiếng quần áo cọ; đầu gối cảm nhận độ cao khác với mắt; một khe tối khiến đồng tử co lại thay vì giãn; sự im lặng có hướng và đang tiến lại gần; một vệt như da non lộ dưới lớp sơn cũ; hộp nhạc không dây cót phát một âm trầm kéo dài; lối lên gấp lại thành mặt phẳng đứng; tiếng bước chân đi trước người bước."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_04": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_04",
+      "name": "Level ε / Zone 04",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.EPSILON",
+      "AUTHOR_CANON": "sàn bệ lơ lửng; độ cao đổi sau một cái nhìn; cầu thang không có bậc cuối; Zone 04 là nơi platform nằm ở độ cao bất thường; bệ cao treo lơ lửng; bậc thang dẫn lên khoảng không mà mắt không đo được; tiếng rơi mãi không có tiếng chạm đáy; tiếng bước chân đi trước người bước; khoảng tối dày đến mức âm thanh bị gãy; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; đèn báo đỏ sáng dưới lớp bụi kín; mặt dưới của cầu thang phản chiếu một bầu trời chết; bóng một bàn tay quay ngược đốt ngón; vầng sáng lạnh kẹt trong lớp vật chất đặc; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; chiếc ghế rỗng vẫn có tiếng quần áo cọ; lối lên gấp lại thành mặt phẳng đứng; biển chỉ đường dẫn tới căn phòng chưa tồn tại; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; một cơn rùng mình xảy ra đồng thời trong cả phòng; tay vịn lạnh dẫn vào mặt phẳng đứng; bệ thang treo trên một khoảng trống không đáy; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_04.SUB_01": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_04.SUB_01",
+      "name": "Level ε / Zone 04 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_04",
+      "AUTHOR_CANON": "sàn bệ lơ lửng; độ cao đổi sau một cái nhìn; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt platform lạnh; mép bệ sắc và gần tầm tay; cho cảm giác cao bằng chạm chứ không bằng nhìn; tiếng rơi mãi không có tiếng chạm đáy; tiếng va chạm truyền đến trước cử động; khoảng tối dày đến mức âm thanh bị gãy; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; mảnh gương cất giữ phản chiếu chậm hơn thực tại; bóng bậc thang đổ lên những bậc cao hơn; một chân cột kéo bóng xuống vực không đáy; vầng sáng lạnh kẹt trong lớp vật chất đặc; tay vịn lạnh dẫn vào mặt phẳng đứng; đèn báo đỏ sáng dưới lớp bụi kín; bệ thang treo trên một khoảng trống không đáy; vách đứng có đường chân trời riêng; khoảng không khiến cự ly trở thành điều vô nghĩa; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; nhãn dán ghi tên vật chưa từng tồn tại; lối lên gấp lại thành mặt phẳng đứng; tiếng bước chân đi trước người bước; một vệt đen sâu hơn cả bóng tối thường thấy."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_04.SUB_02": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_04.SUB_02",
+      "name": "Level ε / Zone 04 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_04",
+      "AUTHOR_CANON": "độ cao đổi sau một cái nhìn; cầu thang không có bậc cuối; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 04 bị độ cao bất thường đánh lừa; platform xa tưởng ngang tầm mắt lại hóa cao hơn; điểm mốc dưới thấp chìm vào tối; người mang tên Thẩm Ngật, người đàn ông tay giữ một chiếc đồng hồ không kim; cột cao đến mức đầu cột trở thành đường chân trời; ổ khóa ấm như vừa rút khỏi cơ thể; nhịp rung xa như triệu nơi chốn cùng thở; một vệt như da non lộ dưới lớp sơn cũ; một bậc thang xuất hiện giữa khoảng rơi; tiếng rơi mãi không có tiếng chạm đáy; tiếng bước chân đi trước người bước; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; hộp nhạc không dây cót phát một âm trầm kéo dài; đầu gối cảm nhận độ cao khác với mắt; cầu thang kết thúc ngay dưới chân cầu thang khác; vầng sáng lạnh kẹt trong lớp vật chất đặc; làn hơi thở hắt ra từ chỗ không có miệng; đồng hồ treo ngược không kim."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_04.SUB_03": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_04.SUB_03",
+      "name": "Level ε / Zone 04 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_04",
+      "AUTHOR_CANON": "sàn bệ lơ lửng; độ cao đổi sau một cái nhìn; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền vang quanh platform cao; dội từ dưới lên rồi tắt ở góc khuất phía sau bệ; bóng bậc thang đổ lên những bậc cao hơn; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; nhịp rung xa như triệu nơi chốn cùng thở; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; mảnh gương cất giữ phản chiếu chậm hơn thực tại; mặt dưới của cầu thang phản chiếu một bầu trời chết; một chân cột kéo bóng xuống vực không đáy; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đồng hồ treo ngược không kim; lối lên gấp lại thành mặt phẳng đứng; vết cào nằm ở phía trong lớp sơn nguyên vẹn; đường thẳng kéo dài rồi quay về cùng một đầu mút; làn hơi thở hắt ra từ chỗ không có miệng; đèn báo đỏ sáng dưới lớp bụi kín; đầu gối cảm nhận độ cao khác với mắt; không gian sau cột dày hơn phía trước cột; dấu tay bám ở mặt dưới bậc cao."
+    },
+    "LEVEL.NODE.0.EPSILON.ZONE_04.SUB_04": {
+      "id": "LEVEL.NODE.0.EPSILON.ZONE_04.SUB_04",
+      "name": "Level ε / Zone 04 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.EPSILON.ZONE_04",
+      "AUTHOR_CANON": "độ cao đổi sau một cái nhìn; cầu thang không có bậc cuối; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ký ức về độ cao các platform trong Zone 04 cứ nhòe đi theo cơn mỏi; bệ vừa đứng tưởng thấp; nhớ lại đã thành cao vút; người mang tên Lý Niên, kẻ lang thang cười khúc khích trước tường kín; đầu gối cảm nhận độ cao khác với mắt; đường viền căn phòng chuyển dịch theo nhịp đèn; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; đèn báo đỏ sáng dưới lớp bụi kín; tiếng rơi mãi không có tiếng chạm đáy; tiếng bước chân đi trước người bước; nhịp rung xa như triệu nơi chốn cùng thở; dấu móng hằn ở bên trong mặt kính; đồng hồ treo ngược không kim; bóng bậc thang đổ lên những bậc cao hơn; cầu thang kết thúc ngay dưới chân cầu thang khác; một vệt đen sâu hơn cả bóng tối thường thấy; vật cứng phát nhịp đập dưới đầu ngón; nhãn dán ghi tên vật chưa từng tồn tại; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ."
+    },
+    "LEVEL.NODE.0.LIMINAL_HALL": {
+      "id": "LEVEL.NODE.0.LIMINAL_HALL",
+      "name": "Liminal Hall",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Liminal Hall; dãy phòng chuyển tiếp; các khung cửa bỏ quên nhau; mặt vách chưa quyết định thuộc phòng nào; Liminal Hall là hành lang giao thoa chuyển tiếp giữa những khung phòng trống; nơi khoảng sâu kéo dài như một hơi thở bị giữ lại; người mang tên Điền Sách, người đàn ông đội mũ ướt không bao giờ tháo; góc tường gập thành một vực không mép; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; mùi sắt tươi xuất hiện rồi mất không dấu vết; cuốn sổ chỉ có trang cuối; chìa khóa ấm nằm trong mép giấy dán tường; gương phản chiếu căn phòng đã bị phá bỏ; khoảng tối dày đến mức âm thanh bị gãy; dấu móng hằn ở bên trong mặt kính; mảnh gương cất giữ phản chiếu chậm hơn thực tại; hành lang dài thêm khi người quan sát ngoái đầu; một khe tối khiến đồng tử co lại thay vì giãn; nhịp rung xa như triệu nơi chốn cùng thở; vết chà xát như má kéo lê trên bề mặt lạnh; máy lấy số nhảy tới một con số âm."
+    },
+    "LEVEL.NODE.0.LS_2": {
+      "id": "LEVEL.NODE.0.LS_2",
+      "name": "LS-2",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "LS-2; nền nâu vàng đục; vách phẳng; những bóng tối cắt chéo; giấy tường cũ; dải sáng không giữ nguyên màu; LS-2 là không gian nâu vàng đục; nơi những vùng tối đan xen giữa khung phòng gợi cấu trúc Level 0; người mang tên Thẩm Ngật, người sống sót lầm lì ôm một cánh cửa nhỏ; ánh đèn vàng bị cắt thành các hình vuông; cầu thang kết thúc ngay dưới chân cầu thang khác; khoảng không khiến cự ly trở thành điều vô nghĩa; một cơn rùng mình xảy ra đồng thời trong cả phòng; hộp nhạc không dây cót phát một âm trầm kéo dài; mặt giấy dán tường in vân gỗ không thuộc cây nào; một căn phòng rộng hơn mọi bức tường bao quanh; một mảnh thực tại bị thiếu nhưng không để lại lỗ; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đồng hồ treo ngược không kim; lỗ đinh trên vách xếp thành chòm sao đen; cửa mở vào mặt sau của chính nó; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; tiếng gọi khàn mang đúng giọng người nghe; chiếc ghế rỗng vẫn có tiếng quần áo cọ."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_01": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_01",
+      "name": "LS-2 / Zone 01",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.LS_2",
+      "AUTHOR_CANON": "vách vàng nâu bong tróc; vệt ố nuốt mép sáng; khe tối hẹp; Zone 01 của LS-2 dùng nền vàng nâu; dải sáng ngả màu và vách phẳng giống Level 0; người mang tên Tạ Lưu, kẻ lạc đường đếm cửa bằng tiếng thì thầm; mặt giấy dán tường in vân gỗ không thuộc cây nào; khe tường sâu đến mức nuốt mất tiếng gõ; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; dấu móng hằn ở bên trong mặt kính; chiếc ghế rỗng vẫn có tiếng quần áo cọ; vệt màu nâu mọc lan khỏi bóng đèn; không gian sau cột dày hơn phía trước cột; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; chiếc chìa khóa biến lạnh khi gần cửa; ánh đèn vàng bị cắt thành các hình vuông; tấm kính nhìn về góc quan sát không thể có; một vệt đen sâu hơn cả bóng tối thường thấy; vết chà xát như má kéo lê trên bề mặt lạnh; hộp nhạc không dây cót phát một âm trầm kéo dài; lỗ đinh trên vách xếp thành chòm sao đen; ổ khóa ấm như vừa rút khỏi cơ thể."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_01.SUB_01": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_01.SUB_01",
+      "name": "LS-2 / Zone 01 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_01",
+      "AUTHOR_CANON": "vệt ố nuốt mép sáng; khe tối hẹp; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt gần tầm tay là giấy dán cũ bong tróc; mép tường vàng nâu lạnh; dải sáng ngả màu hắt lên tay; người mang tên Liên Đới, người phụ nữ ôm bảng tên trống; mùi giấy ướt chảy ra từ ổ khóa không lỗ; không gian sau cột dày hơn phía trước cột; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; làn hơi thở hắt ra từ chỗ không có miệng; chiếc chìa khóa biến lạnh khi gần cửa; mặt giấy dán tường in vân gỗ không thuộc cây nào; vết cào nằm ở phía trong lớp sơn nguyên vẹn; một vệt đen sâu hơn cả bóng tối thường thấy; tiếng gọi khàn mang đúng giọng người nghe; đèn báo đỏ sáng dưới lớp bụi kín; vạch nâu ở chân tường cao lên khi nhìn lại; khe tường sâu đến mức nuốt mất tiếng gõ; nhịp rung xa như triệu nơi chốn cùng thở; vết chà xát như má kéo lê trên bề mặt lạnh; cuốn sổ chỉ có trang cuối; thảm chuyển từ mềm sang cứng trong một bước; cầu thang kết thúc ngay dưới chân cầu thang khác."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_01.SUB_02": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_01.SUB_02",
+      "name": "LS-2 / Zone 01 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_01",
+      "AUTHOR_CANON": "vách vàng nâu bong tróc; vệt ố nuốt mép sáng; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 01 bị nền vàng nâu và ánh sáng ngả màu làm mờ; vách phẳng giống Level 0 kéo dài; điểm mốc ở xa chìm vào bóng góc; vạch nâu ở chân tường cao lên khi nhìn lại; không gian sau cột dày hơn phía trước cột; khoảng không khiến cự ly trở thành điều vô nghĩa; một vệt như da non lộ dưới lớp sơn cũ; hộp nhạc không dây cót phát một âm trầm kéo dài; thảm chuyển từ mềm sang cứng trong một bước; vết cào nằm ở phía trong lớp sơn nguyên vẹn; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; vết chà xát như má kéo lê trên bề mặt lạnh; máy lấy số nhảy tới một con số âm; mùi giấy ướt chảy ra từ ổ khóa không lỗ; một căn phòng rộng hơn mọi bức tường bao quanh; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; dấu móng hằn ở bên trong mặt kính; nhãn dán ghi tên vật chưa từng tồn tại; cánh cửa phẳng dính vào vách như vết thương khô."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_01.SUB_03": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_01.SUB_03",
+      "name": "LS-2 / Zone 01 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_01",
+      "AUTHOR_CANON": "vệt ố nuốt mép sáng; khe tối hẹp; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền rền đều trong Zone 01; vang trong phòng vàng nâu rồi tắt ở góc khuất tối; người mang tên Đoàn Thanh, cô gái đeo kính nứt chỉ nhìn về sau; thảm chuyển từ mềm sang cứng trong một bước; một căn phòng rộng hơn mọi bức tường bao quanh; khoảng không khiến cự ly trở thành điều vô nghĩa; những vạch nhỏ xếp thành hình răng không có hàm; chiếc ghế rỗng vẫn có tiếng quần áo cọ; mặt giấy dán tường in vân gỗ không thuộc cây nào; không gian sau cột dày hơn phía trước cột; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; một cơn rùng mình xảy ra đồng thời trong cả phòng; điện thoại có dây chui xuống một vết rạn; vạch nâu ở chân tường cao lên khi nhìn lại; ổ khóa ấm như vừa rút khỏi cơ thể; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một vệt như da non lộ dưới lớp sơn cũ; chiếc chìa khóa biến lạnh khi gần cửa; cánh cửa phẳng dính vào vách như vết thương khô."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_01.SUB_04": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_01.SUB_04",
+      "name": "LS-2 / Zone 01 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_01",
+      "AUTHOR_CANON": "vách vàng nâu bong tróc; vệt ố nuốt mép sáng; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ký ức về các phòng vàng nâu trong Zone 01 cứ mờ dần; cơn mỏi khiến mọi dải sáng và vách phẳng trông giống nhau; vệt màu nâu mọc lan khỏi bóng đèn; bức tường mỏng chứa một tiếng vọng rất xa; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; những vạch nhỏ xếp thành hình răng không có hàm; máy lấy số nhảy tới một con số âm; lỗ đinh trên vách xếp thành chòm sao đen; một khe tối khiến đồng tử co lại thay vì giãn; khoảng không khiến cự ly trở thành điều vô nghĩa; một cơn rùng mình xảy ra đồng thời trong cả phòng; điện thoại có dây chui xuống một vết rạn; thảm chuyển từ mềm sang cứng trong một bước; bản đồ vẽ đúng nhưng không thể bước theo; sự im lặng có hướng và đang tiến lại gần; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; chiếc chìa khóa biến lạnh khi gần cửa; mùi giấy ướt chảy ra từ ổ khóa không lỗ; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_02": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_02",
+      "name": "LS-2 / Zone 02",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.LS_2",
+      "AUTHOR_CANON": "phòng vàng nâu không mốc; đường vân giấy nối sang phòng khác; cửa sổ bị trát; mặt giấy dán tường in vân gỗ không thuộc cây nào; không gian sau cột dày hơn phía trước cột; sự im lặng có hướng và đang tiến lại gần; một vệt như da non lộ dưới lớp sơn cũ; hộp nhạc không dây cót phát một âm trầm kéo dài; vệt màu nâu mọc lan khỏi bóng đèn; mép cửa in bóng của vật chưa xuất hiện; đường thẳng kéo dài rồi quay về cùng một đầu mút; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; cuốn sổ chỉ có trang cuối; thảm chuyển từ mềm sang cứng trong một bước; biển chỉ đường dẫn tới căn phòng chưa tồn tại; mặt trần vàng úa đổi màu sau cái nhìn; một cơn rùng mình xảy ra đồng thời trong cả phòng; mảnh gương cất giữ phản chiếu chậm hơn thực tại; ánh đèn vàng bị cắt thành các hình vuông; ổ khóa ấm như vừa rút khỏi cơ thể; vầng sáng lạnh kẹt trong lớp vật chất đặc; dấu móng hằn ở bên trong mặt kính; nhãn dán ghi tên vật chưa từng tồn tại; vệt nâu chạy dọc góc tường như mực khô."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_02.SUB_01": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_02.SUB_01",
+      "name": "LS-2 / Zone 02 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_02",
+      "AUTHOR_CANON": "phòng vàng nâu không mốc; đường vân giấy nối sang phòng khác; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt gần tầm tay vẫn là nền vàng nâu chung của LS-2; ánh sáng ngả màu hắt lên tay; thảm chuyển từ mềm sang cứng trong một bước; ổ khóa ấm như vừa rút khỏi cơ thể; một vệt đen sâu hơn cả bóng tối thường thấy; làn hơi thở hắt ra từ chỗ không có miệng; cuốn sổ chỉ có trang cuối; mùi giấy ướt chảy ra từ ổ khóa không lỗ; một căn phòng rộng hơn mọi bức tường bao quanh; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; tiếng gọi khàn mang đúng giọng người nghe; điện thoại có dây chui xuống một vết rạn; vạch nâu ở chân tường cao lên khi nhìn lại; không gian sau cột dày hơn phía trước cột; sự im lặng có hướng và đang tiến lại gần; vết chà xát như má kéo lê trên bề mặt lạnh; mảnh gương cất giữ phản chiếu chậm hơn thực tại; ánh đèn vàng bị cắt thành các hình vuông; vết cào nằm ở phía trong lớp sơn nguyên vẹn; khoảng tối dày đến mức âm thanh bị gãy."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_02.SUB_02": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_02.SUB_02",
+      "name": "LS-2 / Zone 02 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_02",
+      "AUTHOR_CANON": "đường vân giấy nối sang phòng khác; cửa sổ bị trát; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 02 chỉ dùng chung nền LS-2; vách phẳng vàng nâu kéo dài; điểm mốc xa chìm vào bóng góc; khoảng cách khó đo; người mang tên Hồ Nhiên, người phụ nữ ôm bảng tên trống; cánh cửa phẳng dính vào vách như vết thương khô; các góc vuông cộng lại thành một vòng tròn; khoảng tối dày đến mức âm thanh bị gãy; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; hộp nhạc không dây cót phát một âm trầm kéo dài; vệt màu nâu mọc lan khỏi bóng đèn; một căn phòng rộng hơn mọi bức tường bao quanh; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; nhãn dán ghi tên vật chưa từng tồn tại; vạch nâu ở chân tường cao lên khi nhìn lại; không gian sau cột dày hơn phía trước cột; sự im lặng có hướng và đang tiến lại gần; làn hơi thở hắt ra từ chỗ không có miệng; máy lấy số nhảy tới một con số âm."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_02.SUB_03": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_02.SUB_03",
+      "name": "LS-2 / Zone 02 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_02",
+      "AUTHOR_CANON": "phòng vàng nâu không mốc; đường vân giấy nối sang phòng khác; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền trong Zone 02 vẫn là tiếng nền chung của LS-2; rền đều rồi tắt ở góc khuất tối; cánh cửa phẳng dính vào vách như vết thương khô; một khe tối khiến đồng tử co lại thay vì giãn; một vệt đen sâu hơn cả bóng tối thường thấy; làn hơi thở hắt ra từ chỗ không có miệng; mảnh gương cất giữ phản chiếu chậm hơn thực tại; vạch nâu ở chân tường cao lên khi nhìn lại; vết cào nằm ở phía trong lớp sơn nguyên vẹn; vầng sáng lạnh kẹt trong lớp vật chất đặc; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; nhãn dán ghi tên vật chưa từng tồn tại; mùi giấy ướt chảy ra từ ổ khóa không lỗ; đường viền căn phòng chuyển dịch theo nhịp đèn; khoảng không khiến cự ly trở thành điều vô nghĩa; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; đồng hồ treo ngược không kim; mặt giấy dán tường in vân gỗ không thuộc cây nào; biển chỉ đường dẫn tới căn phòng chưa tồn tại."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_02.SUB_04": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_02.SUB_04",
+      "name": "LS-2 / Zone 02 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_02",
+      "AUTHOR_CANON": "đường vân giấy nối sang phòng khác; cửa sổ bị trát; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ký ức và mỏi mệt ở Zone 02 chỉ theo chung cảm giác LS-2; phòng vàng nâu lặp lại; đầu óc mệt khiến mọi vách phẳng trông giống nhau; người mang tên Hồ Nhiên, người phụ nữ ôm bảng tên trống; mùi giấy ướt chảy ra từ ổ khóa không lỗ; biển chỉ đường dẫn tới căn phòng chưa tồn tại; khoảng không khiến cự ly trở thành điều vô nghĩa; một vệt như da non lộ dưới lớp sơn cũ; đồng hồ treo ngược không kim; cánh cửa phẳng dính vào vách như vết thương khô; không gian sau cột dày hơn phía trước cột; một mảnh thực tại bị thiếu nhưng không để lại lỗ; mùi sắt tươi xuất hiện rồi mất không dấu vết; đèn báo đỏ sáng dưới lớp bụi kín; vạch nâu ở chân tường cao lên khi nhìn lại; một khe tối khiến đồng tử co lại thay vì giãn; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; tiếng giấy rách phát ra dưới nền thảm; nhãn dán ghi tên vật chưa từng tồn tại."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_03": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_03",
+      "name": "LS-2 / Zone 03",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.LS_2",
+      "AUTHOR_CANON": "màu nâu đục phủ kín lối ngoặt; dãy tường sáng tối mờ; hành lang nhiều lưng; người mang tên Ngô Tuyền, kẻ lạc đường đếm cửa bằng tiếng thì thầm; thảm chuyển từ mềm sang cứng trong một bước; gương phản chiếu căn phòng đã bị phá bỏ; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; vết chà xát như má kéo lê trên bề mặt lạnh; chiếc chìa khóa biến lạnh khi gần cửa; vạch nâu ở chân tường cao lên khi nhìn lại; mép cửa in bóng của vật chưa xuất hiện; nhịp rung xa như triệu nơi chốn cùng thở; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; mảnh gương cất giữ phản chiếu chậm hơn thực tại; lỗ đinh trên vách xếp thành chòm sao đen; bóng đổ về phía đèn đang sáng; một mảnh thực tại bị thiếu nhưng không để lại lỗ; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đèn báo đỏ sáng dưới lớp bụi kín; mặt giấy dán tường in vân gỗ không thuộc cây nào; tấm kính nhìn về góc quan sát không thể có; khoảng không khiến cự ly trở thành điều vô nghĩa."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_03.SUB_01": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_03.SUB_01",
+      "name": "LS-2 / Zone 03 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_03",
+      "AUTHOR_CANON": "dãy tường sáng tối mờ; hành lang nhiều lưng; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt gần tầm tay ở Zone 03 vẫn là nền chung LS-2; giấy dán cũ bong tróc; tường vàng nâu lạnh; người mang tên Tử Tịch, người sống sót lầm lì ôm một cánh cửa nhỏ; cánh cửa phẳng dính vào vách như vết thương khô; không gian sau cột dày hơn phía trước cột; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; mảnh gương cất giữ phản chiếu chậm hơn thực tại; lỗ đinh trên vách xếp thành chòm sao đen; một khe tối khiến đồng tử co lại thay vì giãn; đường thẳng kéo dài rồi quay về cùng một đầu mút; giấy dán bong để lộ một lớp giấy khác; cuốn sổ chỉ có trang cuối; ánh đèn vàng bị cắt thành các hình vuông; bóng một bàn tay quay ngược đốt ngón; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; mùi sắt tươi xuất hiện rồi mất không dấu vết; chiếc ghế rỗng vẫn có tiếng quần áo cọ; thảm chuyển từ mềm sang cứng trong một bước."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_03.SUB_02": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_03.SUB_02",
+      "name": "LS-2 / Zone 03 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_03",
+      "AUTHOR_CANON": "màu nâu đục phủ kín lối ngoặt; dãy tường sáng tối mờ; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 03 chỉ dùng chung nền LS-2; vách phẳng vàng nâu; điểm mốc xa mờ trong bóng góc; khoảng cách khó ước lượng; mùi giấy ướt chảy ra từ ổ khóa không lỗ; ổ khóa ấm như vừa rút khỏi cơ thể; nhịp rung xa như triệu nơi chốn cùng thở; vết chà xát như má kéo lê trên bề mặt lạnh; cuốn sổ chỉ có trang cuối; vệt màu nâu mọc lan khỏi bóng đèn; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; mùi sắt tươi xuất hiện rồi mất không dấu vết; đèn báo đỏ sáng dưới lớp bụi kín; cánh cửa phẳng dính vào vách như vết thương khô; khe tường sâu đến mức nuốt mất tiếng gõ; khoảng không khiến cự ly trở thành điều vô nghĩa; vật cứng phát nhịp đập dưới đầu ngón; mảnh gương cất giữ phản chiếu chậm hơn thực tại; mặt giấy dán tường in vân gỗ không thuộc cây nào; tiếng va chạm truyền đến trước cử động."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_03.SUB_03": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_03.SUB_03",
+      "name": "LS-2 / Zone 03 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_03",
+      "AUTHOR_CANON": "dãy tường sáng tối mờ; hành lang nhiều lưng; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền ở Zone 03 vẫn là tiếng nền chung LS-2; vang trong phòng rồi mất hút ở góc khuất tối; người mang tên Bội An, cô gái đeo kính nứt chỉ nhìn về sau; cánh cửa phẳng dính vào vách như vết thương khô; không gian sau cột dày hơn phía trước cột; khoảng không khiến cự ly trở thành điều vô nghĩa; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; điện thoại có dây chui xuống một vết rạn; vạch nâu ở chân tường cao lên khi nhìn lại; bóng đổ về phía đèn đang sáng; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; những vạch nhỏ xếp thành hình răng không có hàm; hộp nhạc không dây cót phát một âm trầm kéo dài; ánh đèn vàng bị cắt thành các hình vuông; một căn phòng rộng hơn mọi bức tường bao quanh; sự im lặng có hướng và đang tiến lại gần; vết chà xát như má kéo lê trên bề mặt lạnh; cuốn sổ chỉ có trang cuối; mùi giấy ướt chảy ra từ ổ khóa không lỗ."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_03.SUB_04": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_03.SUB_04",
+      "name": "LS-2 / Zone 03 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_03",
+      "AUTHOR_CANON": "màu nâu đục phủ kín lối ngoặt; dãy tường sáng tối mờ; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ký ức và mỏi mệt ở Zone 03 chỉ theo chung cảm giác LS-2; ánh sáng úa lặp lại; đầu mệt khiến phòng trước và phòng sau hòa vào nhau; vạch nâu ở chân tường cao lên khi nhìn lại; tiếng va chạm truyền đến trước cử động; một mảnh thực tại bị thiếu nhưng không để lại lỗ; tiếng gọi khàn mang đúng giọng người nghe; đèn báo đỏ sáng dưới lớp bụi kín; mặt giấy dán tường in vân gỗ không thuộc cây nào; tấm kính nhìn về góc quan sát không thể có; đường thẳng kéo dài rồi quay về cùng một đầu mút; một cơn rùng mình xảy ra đồng thời trong cả phòng; đồng hồ treo ngược không kim; ánh đèn vàng bị cắt thành các hình vuông; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; làn hơi thở hắt ra từ chỗ không có miệng; chiếc chìa khóa biến lạnh khi gần cửa; thảm chuyển từ mềm sang cứng trong một bước."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_04": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_04",
+      "name": "LS-2 / Zone 04",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0.LS_2",
+      "AUTHOR_CANON": "bóng tối cắt dải vàng; góc phòng đổi sắc; vết nứt không cùng hình dạng; vạch nâu ở chân tường cao lên khi nhìn lại; tiếng bước chân đi trước người bước; vầng sáng lạnh kẹt trong lớp vật chất đặc; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; cuốn sổ chỉ có trang cuối; ánh đèn vàng bị cắt thành các hình vuông; khe tường sâu đến mức nuốt mất tiếng gõ; khoảng không khiến cự ly trở thành điều vô nghĩa; vật cứng phát nhịp đập dưới đầu ngón; đồng hồ treo ngược không kim; thảm chuyển từ mềm sang cứng trong một bước; biển chỉ đường dẫn tới căn phòng chưa tồn tại; giấy dán bong để lộ một lớp giấy khác; một vệt như da non lộ dưới lớp sơn cũ; chiếc ghế rỗng vẫn có tiếng quần áo cọ; mùi giấy ướt chảy ra từ ổ khóa không lỗ; mép cửa in bóng của vật chưa xuất hiện; đường thẳng kéo dài rồi quay về cùng một đầu mút; mùi sắt tươi xuất hiện rồi mất không dấu vết; hộp nhạc không dây cót phát một âm trầm kéo dài; sàn nghiêng nhẹ khi không còn ai quan sát."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_04.SUB_01": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_04.SUB_01",
+      "name": "LS-2 / Zone 04 / Sub 01",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_04",
+      "AUTHOR_CANON": "bóng tối cắt dải vàng; góc phòng đổi sắc; bề mặt ở sát tầm tay biến dạng theo lối đi; Bề mặt gần tầm tay ở Zone 04 vẫn là nền chung LS-2; mép tường vàng nâu lạnh; dải sáng ngả màu hắt lên tay; mặt giấy dán tường in vân gỗ không thuộc cây nào; mép cửa in bóng của vật chưa xuất hiện; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; vết chà xát như má kéo lê trên bề mặt lạnh; chiếc chìa khóa biến lạnh khi gần cửa; ánh đèn vàng bị cắt thành các hình vuông; vết cào nằm ở phía trong lớp sơn nguyên vẹn; một mảnh thực tại bị thiếu nhưng không để lại lỗ; vật cứng phát nhịp đập dưới đầu ngón; máy lấy số nhảy tới một con số âm; lỗ đinh trên vách xếp thành chòm sao đen; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; khoảng tối dày đến mức âm thanh bị gãy; những vạch nhỏ xếp thành hình răng không có hàm; hộp nhạc không dây cót phát một âm trầm kéo dài; vệt màu nâu mọc lan khỏi bóng đèn; một khe tối khiến đồng tử co lại thay vì giãn."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_04.SUB_02": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_04.SUB_02",
+      "name": "LS-2 / Zone 04 / Sub 02",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_04",
+      "AUTHOR_CANON": "góc phòng đổi sắc; vết nứt không cùng hình dạng; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chiều sâu ở Zone 04 chỉ dùng chung nền LS-2; vách phẳng vàng nâu kéo dài; điểm mốc xa chìm vào bóng góc; khoảng cách khó đo; người mang tên Cao Trực, người phụ nữ ôm bảng tên trống; mùi giấy ướt chảy ra từ ổ khóa không lỗ; cầu thang kết thúc ngay dưới chân cầu thang khác; giấy dán bong để lộ một lớp giấy khác; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; mảnh gương cất giữ phản chiếu chậm hơn thực tại; cánh cửa phẳng dính vào vách như vết thương khô; bóng đổ về phía đèn đang sáng; vầng sáng lạnh kẹt trong lớp vật chất đặc; một cơn rùng mình xảy ra đồng thời trong cả phòng; điện thoại có dây chui xuống một vết rạn; vệt màu nâu mọc lan khỏi bóng đèn; bản đồ vẽ đúng nhưng không thể bước theo; sự im lặng có hướng và đang tiến lại gần; làn hơi thở hắt ra từ chỗ không có miệng; đèn báo đỏ sáng dưới lớp bụi kín; vệt nâu chạy dọc góc tường như mực khô."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_04.SUB_03": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_04.SUB_03",
+      "name": "LS-2 / Zone 04 / Sub 03",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_04",
+      "AUTHOR_CANON": "bóng tối cắt dải vàng; góc phòng đổi sắc; tiếng vọng và nguồn âm biến dạng theo lối đi; Tiếng nền ở Zone 04 vẫn là tiếng nền chung LS-2; rền đều rồi tắt ở góc khuất tối; vạch nâu ở chân tường cao lên khi nhìn lại; đường viền căn phòng chuyển dịch theo nhịp đèn; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; những vạch nhỏ xếp thành hình răng không có hàm; mảnh gương cất giữ phản chiếu chậm hơn thực tại; ánh đèn vàng bị cắt thành các hình vuông; cầu thang kết thúc ngay dưới chân cầu thang khác; khoảng không khiến cự ly trở thành điều vô nghĩa; vết chà xát như má kéo lê trên bề mặt lạnh; đồng hồ treo ngược không kim; mùi giấy ướt chảy ra từ ổ khóa không lỗ; mép cửa in bóng của vật chưa xuất hiện; sự im lặng có hướng và đang tiến lại gần; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; hộp nhạc không dây cót phát một âm trầm kéo dài; mặt giấy dán tường in vân gỗ không thuộc cây nào; khe tường sâu đến mức nuốt mất tiếng gõ."
+    },
+    "LEVEL.NODE.0.LS_2.ZONE_04.SUB_04": {
+      "id": "LEVEL.NODE.0.LS_2.ZONE_04.SUB_04",
+      "name": "LS-2 / Zone 04 / Sub 04",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.LS_2.ZONE_04",
+      "AUTHOR_CANON": "góc phòng đổi sắc; vết nứt không cùng hình dạng; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ký ức và mỏi mệt ở Zone 04 chỉ theo chung cảm giác LS-2; phòng vàng nâu lặp lại; cơn mỏi khiến mọi dải sáng và vách phẳng trông giống nhau; người mang tên Hồ Nhiên, người sống sót vẽ những ô vuông lên lòng bàn tay; cánh cửa phẳng dính vào vách như vết thương khô; tiếng bước chân đi trước người bước; một vệt đen sâu hơn cả bóng tối thường thấy; những vạch nhỏ xếp thành hình răng không có hàm; đồng hồ treo ngược không kim; vạch nâu ở chân tường cao lên khi nhìn lại; ổ khóa ấm như vừa rút khỏi cơ thể; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; giấy dán bong để lộ một lớp giấy khác; chiếc chìa khóa biến lạnh khi gần cửa; ánh đèn vàng bị cắt thành các hình vuông; sàn nghiêng nhẹ khi không còn ai quan sát; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; làn hơi thở hắt ra từ chỗ không có miệng; vệt nâu chạy dọc góc tường như mực khô."
+    },
+    "LEVEL.NODE.0.MANILA_ROOM": {
+      "id": "LEVEL.NODE.0.MANILA_ROOM",
+      "name": "Manila Room",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Manila Room; nâu đậm đến gần đen; ánh sáng hiếm; phòng giấy khô nghẹt; khoảng tối nặng ở sát trần; Manila Room chìm trong gam nâu rất đậm; bao quanh vài điểm sáng ít ỏi và những khoảng tối sâu không đo được; người mang tên Hạ Nhàn, ông lão quấn khăn che tai rồi nói một mình; ống thông gió kéo dài qua nhiều góc không tồn tại; không gian sau cột dày hơn phía trước cột; khoảng không khiến cự ly trở thành điều vô nghĩa; vết chà xát như má kéo lê trên bề mặt lạnh; nhãn dán ghi tên vật chưa từng tồn tại; ghế nhựa quay mặt vào vách kín; sàn nghiêng nhẹ khi không còn ai quan sát; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; hộp nhạc không dây cót phát một âm trầm kéo dài; bóng bay bạc đứng im giữa luồng gió; một căn phòng rộng hơn mọi bức tường bao quanh; hành lang hẹp có chiều sâu của hội trường; vật cứng phát nhịp đập dưới đầu ngón; cuốn sổ chỉ có trang cuối; dấu ố cũ kéo dài dọc chân vách không đều."
+    },
+    "LEVEL.NODE.0.RED_ROOMS": {
+      "id": "LEVEL.NODE.0.RED_ROOMS",
+      "name": "Red Rooms",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Red Rooms; ánh đỏ đục nhuộm thảm; vách và trần đỏ sẫm; góc tối đen như vết cháy; màu đỏ kéo dãn chiều sâu; Red Rooms là biến thể đỏ thẫm của Tầng 0; trần và ánh sáng đều nhuộm một màu đỏ như máu đã khô; người mang tên Lưu Nguyệt, người phụ nữ ôm bảng tên trống; góc tường gập thành một vực không mép; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; hành lang hẹp có chiều sâu của hội trường; vết chà xát như má kéo lê trên bề mặt lạnh; chiếc chìa khóa biến lạnh khi gần cửa; cửa kính cho thấy mặt sau chính căn phòng; khe tường sâu đến mức nuốt mất tiếng gõ; vầng sáng lạnh kẹt trong lớp vật chất đặc; mùi sắt tươi xuất hiện rồi mất không dấu vết; đồng hồ treo ngược không kim; thảm đội lên thành đường gân dưới chân; cầu thang kết thúc ngay dưới chân cầu thang khác; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu móng hằn ở bên trong mặt kính; mảnh gương cất giữ phản chiếu chậm hơn thực tại; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón."
+    },
+    "LEVEL.NODE.0.THE_TORMENT": {
+      "id": "LEVEL.NODE.0.THE_TORMENT",
+      "name": "The Torment",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "The Torment; phòng bóp méo cự ly; cảm giác bị dồn ép; ánh đèn yếu; bề mặt rạn và tối; tiếng âm thầm lặp lại; The Torment là một điểm cảnh thuộc biến thể Level 0; nơi lớp không gian được ưu tiên kể trước mọi thứ khác; bóng bay bạc đứng im giữa luồng gió; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; tiếng gọi khàn mang đúng giọng người nghe; chiếc chìa khóa biến lạnh khi gần cửa; máy bán hàng sáng nhưng trống khoang tiền; cửa mở vào mặt sau của chính nó; hành lang hẹp có chiều sâu của hội trường; một cơn rùng mình xảy ra đồng thời trong cả phòng; chiếc ghế rỗng vẫn có tiếng quần áo cọ; đèn sáng nhưng bóng người lại tối hơn; một căn phòng rộng hơn mọi bức tường bao quanh; khoảng tối dày đến mức âm thanh bị gãy; mùi sắt tươi xuất hiện rồi mất không dấu vết; cuốn sổ chỉ có trang cuối; thảm đội lên thành đường gân dưới chân; tiếng va chạm truyền đến trước cử động; dấu ố cũ kéo dài dọc chân vách không đều."
+    },
+    "LEVEL.NODE.0.ZONE_01": {
+      "id": "LEVEL.NODE.0.ZONE_01",
+      "name": "Zone 01 · Yellow Rot",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Yellow Rot; giấy tường mục vàng; vết ố bò lên chân tường; thảm ẩm thối; Giấy tường vàng mục nát bong ra từng mảng; thảm ẩm sũng dưới chân; những đường ố chuyển màu lan như vết thương cũ chưa lành; người mang tên Lâm Nghi, người lạ đứng yên nghe tiếng vọng của mình; cửa kính cho thấy mặt sau chính căn phòng; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; tiếng rè bám vào góc phòng không đèn; vết chà xát như má kéo lê trên bề mặt lạnh; đèn báo đỏ sáng dưới lớp bụi kín; hành lang dài thêm khi người quan sát ngoái đầu; cửa mở vào mặt sau của chính nó; khoảng tối dày đến mức âm thanh bị gãy; một cơn rùng mình xảy ra đồng thời trong cả phòng; hộp nhạc không dây cót phát một âm trầm kéo dài; ghế nhựa quay mặt vào vách kín; tiếng va chạm truyền đến trước cử động; trần thả lệch tấm như hàm răng rỗng; một vệt như da non lộ dưới lớp sơn cũ; máy lấy số nhảy tới một con số âm; ống thông gió kéo dài qua nhiều góc không tồn tại; dấu ố cũ kéo dài dọc chân vách không đều."
+    },
+    "LEVEL.NODE.0.ZONE_01.SUB_01": {
+      "id": "LEVEL.NODE.0.ZONE_01.SUB_01",
+      "name": "Zone 01 / Sub 01 · Phòng Mốc",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_01",
+      "AUTHOR_CANON": "giấy tường mục vàng; vết ố bò lên chân tường; bề mặt ở sát tầm tay biến dạng theo lối đi; Đốm mốc lan từ chân tường lên mép thảm; đen và ẩm như bàn tay bệnh hoạn bò chậm trong bóng tối; người mang tên Dư Quý, lão già kéo một chiếc ghế không chân; trần giả rung như có bầu trời bị chôn phía trên; cửa mở vào mặt sau của chính nó; nhịp rung xa như triệu nơi chốn cùng thở; mùi sắt tươi xuất hiện rồi mất không dấu vết; chiếc ghế rỗng vẫn có tiếng quần áo cọ; máy bán hàng sáng nhưng trống khoang tiền; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; một mảnh thực tại bị thiếu nhưng không để lại lỗ; một cơn rùng mình xảy ra đồng thời trong cả phòng; đèn báo đỏ sáng dưới lớp bụi kín; góc tường gập thành một vực không mép; bóng một bàn tay quay ngược đốt ngón; một vệt đen sâu hơn cả bóng tối thường thấy; vết chà xát như má kéo lê trên bề mặt lạnh; cuốn sổ chỉ có trang cuối; chìa khóa ấm nằm trong mép giấy dán tường; gương phản chiếu căn phòng đã bị phá bỏ."
+    },
+    "LEVEL.NODE.0.ZONE_01.SUB_02": {
+      "id": "LEVEL.NODE.0.ZONE_01.SUB_02",
+      "name": "Zone 01 / Sub 02 · Hành Lang Dài",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_01",
+      "AUTHOR_CANON": "Yellow Rot; giấy tường mục vàng; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Chuỗi cửa và đèn kéo dài đến mỏi mắt; mỗi bước chân chỉ đổi lấy một khung cửa khác giống hệt khung cửa trước; đèn sáng nhưng bóng người lại tối hơn; bức tường mỏng chứa một tiếng vọng rất xa; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; vết chà xát như má kéo lê trên bề mặt lạnh; nhãn dán ghi tên vật chưa từng tồn tại; ghế nhựa quay mặt vào vách kín; vết cào nằm ở phía trong lớp sơn nguyên vẹn; nhịp rung xa như triệu nơi chốn cùng thở; dấu móng hằn ở bên trong mặt kính; chiếc ghế rỗng vẫn có tiếng quần áo cọ; bóng bay bạc đứng im giữa luồng gió; bản đồ vẽ đúng nhưng không thể bước theo; khoảng không khiến cự ly trở thành điều vô nghĩa; những vạch nhỏ xếp thành hình răng không có hàm; đèn báo đỏ sáng dưới lớp bụi kín; thảm đội lên thành đường gân dưới chân; đường viền căn phòng chuyển dịch theo nhịp đèn; nỗi chóng mặt đến trước khi nhận ra đang đứng yên."
+    },
+    "LEVEL.NODE.0.ZONE_01.SUB_03": {
+      "id": "LEVEL.NODE.0.ZONE_01.SUB_03",
+      "name": "Zone 01 / Sub 03 · Góc Khuất",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_01",
+      "AUTHOR_CANON": "giấy tường mục vàng; vết ố bò lên chân tường; tiếng vọng và nguồn âm biến dạng theo lối đi; Một góc tường mà từ vị trí đang đứng không thể nhìn hết; bóng tối đọng lại như một vết mực chưa khô; người mang tên Yên Từ, kẻ lạc đường đếm cửa bằng tiếng thì thầm; hành lang dài thêm khi người quan sát ngoái đầu; tiếng va chạm truyền đến trước cử động; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; một cơn rùng mình xảy ra đồng thời trong cả phòng; mảnh gương cất giữ phản chiếu chậm hơn thực tại; cửa kính cho thấy mặt sau chính căn phòng; ổ khóa ấm như vừa rút khỏi cơ thể; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; mùi sắt tươi xuất hiện rồi mất không dấu vết; chiếc chìa khóa biến lạnh khi gần cửa; bóng bay bạc đứng im giữa luồng gió; sàn nghiêng nhẹ khi không còn ai quan sát; vầng sáng lạnh kẹt trong lớp vật chất đặc; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; đồng hồ treo ngược không kim; đèn sáng nhưng bóng người lại tối hơn."
+    },
+    "LEVEL.NODE.0.ZONE_01.SUB_04": {
+      "id": "LEVEL.NODE.0.ZONE_01.SUB_04",
+      "name": "Zone 01 / Sub 04 · Phòng Trống",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_01",
+      "AUTHOR_CANON": "Yellow Rot; giấy tường mục vàng; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Phòng trống đến rợn người; không mốc nhận diện; không dấu vết để bám vào; chỉ có tường vàng và thảm ẩm lặp lại; ghế nhựa quay mặt vào vách kín; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; vầng sáng lạnh kẹt trong lớp vật chất đặc; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; điện thoại có dây chui xuống một vết rạn; máy bán hàng sáng nhưng trống khoang tiền; cầu thang kết thúc ngay dưới chân cầu thang khác; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; dấu móng hằn ở bên trong mặt kính; đồng hồ treo ngược không kim; trần giả rung như có bầu trời bị chôn phía trên; bức tường mỏng chứa một tiếng vọng rất xa; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; chiếc ghế rỗng vẫn có tiếng quần áo cọ; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; một khe tối khiến đồng tử co lại thay vì giãn."
+    },
+    "LEVEL.NODE.0.ZONE_02": {
+      "id": "LEVEL.NODE.0.ZONE_02",
+      "name": "Zone 02 · Deadlight",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Deadlight; đèn tắt sáng lệch nhịp; bóng tối nuốt mất đoạn chuyển động; hộp điện lạnh; tắt rồi sáng lệch nhịp; xé không gian thành những mảnh sáng tối chập chờn; ghế nhựa quay mặt vào vách kín; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; mảnh gương cất giữ phản chiếu chậm hơn thực tại; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; ổ khóa ấm như vừa rút khỏi cơ thể; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; mùi sắt tươi xuất hiện rồi mất không dấu vết; máy lấy số nhảy tới một con số âm; góc tường gập thành một vực không mép; bức tường mỏng chứa một tiếng vọng rất xa; sự im lặng có hướng và đang tiến lại gần; một cơn rùng mình xảy ra đồng thời trong cả phòng; đèn báo đỏ sáng dưới lớp bụi kín; trần giả rung như có bầu trời bị chôn phía trên; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; một mảnh thực tại bị thiếu nhưng không để lại lỗ."
+    },
+    "LEVEL.NODE.0.ZONE_02.SUB_01": {
+      "id": "LEVEL.NODE.0.ZONE_02.SUB_01",
+      "name": "Zone 02 / Sub 01 · Phòng Chớp",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_02",
+      "AUTHOR_CANON": "Deadlight; đèn tắt sáng lệch nhịp; bề mặt ở sát tầm tay biến dạng theo lối đi; Ánh sáng ngắt quãng chia chuyển động thành những khoảnh khắc rời rạc; như phim bị cắt vụn trong bóng tối; chìa khóa ấm nằm trong mép giấy dán tường; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; khoảng không khiến cự ly trở thành điều vô nghĩa; vết chà xát như má kéo lê trên bề mặt lạnh; hộp nhạc không dây cót phát một âm trầm kéo dài; góc tường gập thành một vực không mép; bản đồ vẽ đúng nhưng không thể bước theo; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; vật cứng phát nhịp đập dưới đầu ngón; cuốn sổ chỉ có trang cuối; cửa kính cho thấy mặt sau chính căn phòng; ổ khóa ấm như vừa rút khỏi cơ thể; một vệt đen sâu hơn cả bóng tối thường thấy; tiếng gọi khàn mang đúng giọng người nghe; điện thoại có dây chui xuống một vết rạn; bóng bay bạc đứng im giữa luồng gió; khe tường sâu đến mức nuốt mất tiếng gõ; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật."
+    },
+    "LEVEL.NODE.0.ZONE_02.SUB_02": {
+      "id": "LEVEL.NODE.0.ZONE_02.SUB_02",
+      "name": "Zone 02 / Sub 02 · Hành Lang Tối",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_02",
+      "AUTHOR_CANON": "đèn tắt sáng lệch nhịp; bóng tối nuốt mất đoạn chuyển động; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Đầu xa của hành lang chìm hẳn trong tối; giấy tường nhòe đi; khoảng cách méo mó không còn đo được; người mang tên Mạc Dần, lão già kéo một chiếc ghế không chân; đèn sáng nhưng bóng người lại tối hơn; vết cào nằm ở phía trong lớp sơn nguyên vẹn; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; chiếc ghế rỗng vẫn có tiếng quần áo cọ; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; mép cửa in bóng của vật chưa xuất hiện; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; những vạch nhỏ xếp thành hình răng không có hàm; điện thoại có dây chui xuống một vết rạn; bóng bay bạc đứng im giữa luồng gió; tiếng bước chân đi trước người bước; khoảng không khiến cự ly trở thành điều vô nghĩa; một vệt như da non lộ dưới lớp sơn cũ; cuốn sổ chỉ có trang cuối; góc tường gập thành một vực không mép."
+    },
+    "LEVEL.NODE.0.ZONE_02.SUB_03": {
+      "id": "LEVEL.NODE.0.ZONE_02.SUB_03",
+      "name": "Zone 02 / Sub 03 · Trạm Điện",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_02",
+      "AUTHOR_CANON": "Deadlight; đèn tắt sáng lệch nhịp; tiếng vọng và nguồn âm biến dạng theo lối đi; Vỏ hộp kim loại và đường dây kỹ thuật chạy dọc tường; lạnh và im như xác máy đã ngừng thở; thảm đội lên thành đường gân dưới chân; vết cào nằm ở phía trong lớp sơn nguyên vẹn; một vệt đen sâu hơn cả bóng tối thường thấy; vết chà xát như má kéo lê trên bề mặt lạnh; đồng hồ treo ngược không kim; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; tiếng bước chân đi trước người bước; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một cơn rùng mình xảy ra đồng thời trong cả phòng; chiếc ghế rỗng vẫn có tiếng quần áo cọ; ống thông gió kéo dài qua nhiều góc không tồn tại; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; vầng sáng lạnh kẹt trong lớp vật chất đặc; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; hộp nhạc không dây cót phát một âm trầm kéo dài; góc tường gập thành một vực không mép; biển chỉ đường dẫn tới căn phòng chưa tồn tại."
+    },
+    "LEVEL.NODE.0.ZONE_03": {
+      "id": "LEVEL.NODE.0.ZONE_03",
+      "name": "Zone 03 · Wetfloor",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Wetfloor; sàn phản chiếu ướt; thảm phồng; nước lạnh che mép tường; Thảm và nền ướt phản sáng loang lổ; mực chất lỏng không đều; mỗi bước chân đều để lại vệt tối ẩm; người mang tên Cố Nham, bà già đội chiếc đèn hỏng trên vai; thảm phồng che một rãnh tối dài; cầu thang kết thúc ngay dưới chân cầu thang khác; trần thả lệch tấm như hàm răng rỗng; vật cứng phát nhịp đập dưới đầu ngón; đồng hồ treo ngược không kim; mùi nước biển mắc trong tấm thảm vàng; tiếng bước chân đi trước người bước; vầng sáng lạnh kẹt trong lớp vật chất đặc; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; nhãn dán ghi tên vật chưa từng tồn tại; dòng nước rút ngược lên chân tường; đường viền căn phòng chuyển dịch theo nhịp đèn; giấy tường phồng theo nhịp thở lạ; vết chà xát như má kéo lê trên bề mặt lạnh; máy lấy số nhảy tới một con số âm; bong bóng nổi lên từ nền bê tông liền khối; các góc vuông cộng lại thành một vòng tròn; mùi sắt tươi xuất hiện rồi mất không dấu vết."
+    },
+    "LEVEL.NODE.0.ZONE_03.SUB_01": {
+      "id": "LEVEL.NODE.0.ZONE_03.SUB_01",
+      "name": "Zone 03 / Sub 01 · Vùng Đen",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_03",
+      "AUTHOR_CANON": "sàn phản chiếu ướt; thảm phồng; bề mặt ở sát tầm tay biến dạng theo lối đi; Một vùng tối đậm phủ kín chi tiết nền; như một hố mực loang trên sàn ướt; người mang tên Kỳ An, kẻ lang thang cười khúc khích trước tường kín; khúc hành lang khô phát tiếng nước nhỏ; tiếng va chạm truyền đến trước cử động; vầng sáng lạnh kẹt trong lớp vật chất đặc; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; cuốn sổ chỉ có trang cuối; bùn ướt in hình lòng bàn tay thiếu ngón; cầu thang kết thúc ngay dưới chân cầu thang khác; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; những vạch nhỏ xếp thành hình răng không có hàm; chiếc ghế rỗng vẫn có tiếng quần áo cọ; vũng nước phản chiếu bầu trời không thuộc căn phòng; đường viền căn phòng chuyển dịch theo nhịp đèn; một vệt đen sâu hơn cả bóng tối thường thấy; dấu móng hằn ở bên trong mặt kính; máy lấy số nhảy tới một con số âm; một vệt nước đen chạy qua vách mà không thấm; ổ khóa ấm như vừa rút khỏi cơ thể."
+    },
+    "LEVEL.NODE.0.ZONE_03.SUB_02": {
+      "id": "LEVEL.NODE.0.ZONE_03.SUB_02",
+      "name": "Zone 03 / Sub 02 · Thảm Phồng",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_03",
+      "AUTHOR_CANON": "Wetfloor; sàn phản chiếu ướt; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Thảm đội lên thành những gò mềm; khiến cảm nhận về độ vững của nền trở nên kém tin cậy; mỗi bước đi đều lún xuống một cách khó chịu; mùi nước biển mắc trong tấm thảm vàng; khe tường sâu đến mức nuốt mất tiếng gõ; một vệt đen sâu hơn cả bóng tối thường thấy; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; chiếc chìa khóa biến lạnh khi gần cửa; bùn ướt in hình lòng bàn tay thiếu ngón; một khe tối khiến đồng tử co lại thay vì giãn; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; tiếng gọi khàn mang đúng giọng người nghe; mảnh gương cất giữ phản chiếu chậm hơn thực tại; vũng nước phản chiếu bầu trời không thuộc căn phòng; ổ khóa ấm như vừa rút khỏi cơ thể; nhịp rung xa như triệu nơi chốn cùng thở; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; điện thoại có dây chui xuống một vết rạn; thảm phồng che một rãnh tối dài; gương phản chiếu căn phòng đã bị phá bỏ."
+    },
+    "LEVEL.NODE.0.ZONE_03.SUB_03": {
+      "id": "LEVEL.NODE.0.ZONE_03.SUB_03",
+      "name": "Zone 03 / Sub 03 · Phòng Ngập",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_03",
+      "AUTHOR_CANON": "sàn phản chiếu ướt; thảm phồng; tiếng vọng và nguồn âm biến dạng theo lối đi; Chất lỏng phủ kín sàn; che mất vật cản và chân tường; biến căn phòng thành một mặt nước bẩn phản chiếu ánh đèn vàng; người mang tên Mã Bân, người lạ đứng yên nghe tiếng vọng của mình; vũng nước phản chiếu bầu trời không thuộc căn phòng; gương phản chiếu căn phòng đã bị phá bỏ; đường thẳng kéo dài rồi quay về cùng một đầu mút; giấy tường phồng theo nhịp thở lạ; đồng hồ treo ngược không kim; một vệt nước đen chạy qua vách mà không thấm; bóng một bàn tay quay ngược đốt ngón; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; vết chà xát như má kéo lê trên bề mặt lạnh; đèn báo đỏ sáng dưới lớp bụi kín; mùi nước biển mắc trong tấm thảm vàng; vết cào nằm ở phía trong lớp sơn nguyên vẹn; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; cuốn sổ chỉ có trang cuối; thảm phồng che một rãnh tối dài."
+    },
+    "LEVEL.NODE.0.ZONE_03.SUB_04": {
+      "id": "LEVEL.NODE.0.ZONE_03.SUB_04",
+      "name": "Zone 03 / Sub 04 · Góc Thối",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_03",
+      "AUTHOR_CANON": "Wetfloor; sàn phản chiếu ướt; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Ở góc ít thông khí; mùi ẩm mục và bề mặt xuống cấp rõ hơn hẳn; không khí nặng như bị nén lại; một vệt nước đen chạy qua vách mà không thấm; bản đồ vẽ đúng nhưng không thể bước theo; một vệt đen sâu hơn cả bóng tối thường thấy; làn hơi thở hắt ra từ chỗ không có miệng; đèn báo đỏ sáng dưới lớp bụi kín; bong bóng nổi lên từ nền bê tông liền khối; khe tường sâu đến mức nuốt mất tiếng gõ; khoảng không khiến cự ly trở thành điều vô nghĩa; dấu móng hằn ở bên trong mặt kính; nhãn dán ghi tên vật chưa từng tồn tại; mùi nước biển mắc trong tấm thảm vàng; bóng đổ về phía đèn đang sáng; một mảnh thực tại bị thiếu nhưng không để lại lỗ; vết chà xát như má kéo lê trên bề mặt lạnh; chiếc chìa khóa biến lạnh khi gần cửa; thảm phồng che một rãnh tối dài; gương phản chiếu căn phòng đã bị phá bỏ; đường thẳng kéo dài rồi quay về cùng một đầu mút; cuốn sổ chỉ có trang cuối."
+    },
+    "LEVEL.NODE.0.ZONE_04": {
+      "id": "LEVEL.NODE.0.ZONE_04",
+      "name": "Zone 04 · Silent Hall",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Silent Hall; âm đèn bị rút sạch; ngã ba lặp; tiếng thì thầm sai hướng; Tiếng đèn huỳnh quang và bước chân ở đây suy giảm; lúc nghe gần lúc nghe xa; như âm thanh đang đi lạc trong tường; bóng bay bạc đứng im giữa luồng gió; bức tường mỏng chứa một tiếng vọng rất xa; nhịp rung xa như triệu nơi chốn cùng thở; tiếng gọi khàn mang đúng giọng người nghe; cuốn sổ chỉ có trang cuối; máy bán hàng sáng nhưng trống khoang tiền; tiếng bước chân đi trước người bước; một mảnh thực tại bị thiếu nhưng không để lại lỗ; làn hơi thở hắt ra từ chỗ không có miệng; máy lấy số nhảy tới một con số âm; cửa kính cho thấy mặt sau chính căn phòng; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; khoảng tối dày đến mức âm thanh bị gãy; vật cứng phát nhịp đập dưới đầu ngón; đồng hồ treo ngược không kim; ghế nhựa quay mặt vào vách kín; cầu thang kết thúc ngay dưới chân cầu thang khác; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; chiếc ghế rỗng vẫn có tiếng quần áo cọ."
+    },
+    "LEVEL.NODE.0.ZONE_04.SUB_01": {
+      "id": "LEVEL.NODE.0.ZONE_04.SUB_01",
+      "name": "Zone 04 / Sub 01 · Hành Lang Câm",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_04",
+      "AUTHOR_CANON": "Silent Hall; âm đèn bị rút sạch; bề mặt ở sát tầm tay biến dạng theo lối đi; Những âm thanh thường thấy trong hành lang này nghe rất yếu; hoặc sai hướng hoàn toàn; tiếng bước của chính mình cũng như vọng lại từ nơi khác; trần giả rung như có bầu trời bị chôn phía trên; một khe tối khiến đồng tử co lại thay vì giãn; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; vật cứng phát nhịp đập dưới đầu ngón; mảnh gương cất giữ phản chiếu chậm hơn thực tại; thảm đội lên thành đường gân dưới chân; đường viền căn phòng chuyển dịch theo nhịp đèn; khoảng không khiến cự ly trở thành điều vô nghĩa; một cơn rùng mình xảy ra đồng thời trong cả phòng; cuốn sổ chỉ có trang cuối; chìa khóa ấm nằm trong mép giấy dán tường; bức tường mỏng chứa một tiếng vọng rất xa; nhịp rung xa như triệu nơi chốn cùng thở; mùi sắt tươi xuất hiện rồi mất không dấu vết; hộp nhạc không dây cót phát một âm trầm kéo dài; góc tường gập thành một vực không mép."
+    },
+    "LEVEL.NODE.0.ZONE_04.SUB_02": {
+      "id": "LEVEL.NODE.0.ZONE_04.SUB_02",
+      "name": "Zone 04 / Sub 02 · Phòng Thì Thầm",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_04",
+      "AUTHOR_CANON": "âm đèn bị rút sạch; ngã ba lặp; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Âm nhỏ gần giống lời nói len qua tiếng nền; mờ và khó xác định nguồn; như có ai đó đang nói rất khẽ ở phía sau tường; người mang tên Mai Tử, người đàn ông tay giữ một chiếc đồng hồ không kim; máy bán hàng sáng nhưng trống khoang tiền; bản đồ vẽ đúng nhưng không thể bước theo; sự im lặng có hướng và đang tiến lại gần; hành lang hẹp có chiều sâu của hội trường; đèn báo đỏ sáng dưới lớp bụi kín; chìa khóa ấm nằm trong mép giấy dán tường; các góc vuông cộng lại thành một vòng tròn; vầng sáng lạnh kẹt trong lớp vật chất đặc; vật cứng phát nhịp đập dưới đầu ngón; chiếc ghế rỗng vẫn có tiếng quần áo cọ; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; biển chỉ đường dẫn tới căn phòng chưa tồn tại; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; một vệt như da non lộ dưới lớp sơn cũ; máy lấy số nhảy tới một con số âm; thảm đội lên thành đường gân dưới chân."
+    },
+    "LEVEL.NODE.0.ZONE_04.SUB_03": {
+      "id": "LEVEL.NODE.0.ZONE_04.SUB_03",
+      "name": "Zone 04 / Sub 03 · Ngã Ba Chết",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_04",
+      "AUTHOR_CANON": "Silent Hall; âm đèn bị rút sạch; tiếng vọng và nguồn âm biến dạng theo lối đi; Ba hướng rẽ gần như nhau; cùng độ tối ở đầu xa; khiến lựa chọn trở thành một trò đùa lạnh lẽo; hành lang dài thêm khi người quan sát ngoái đầu; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; nhịp rung xa như triệu nơi chốn cùng thở; một vệt như da non lộ dưới lớp sơn cũ; đèn báo đỏ sáng dưới lớp bụi kín; góc tường gập thành một vực không mép; không gian sau cột dày hơn phía trước cột; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; hộp nhạc không dây cót phát một âm trầm kéo dài; máy bán hàng sáng nhưng trống khoang tiền; bóng một bàn tay quay ngược đốt ngón; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; tiếng gọi khàn mang đúng giọng người nghe; chiếc chìa khóa biến lạnh khi gần cửa; thảm đội lên thành đường gân dưới chân; cửa mở vào mặt sau của chính nó; đồng hồ treo ngược không kim."
+    },
+    "LEVEL.NODE.0.ZONE_05": {
+      "id": "LEVEL.NODE.0.ZONE_05",
+      "name": "Zone 05 · Hollow Ceiling",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Hollow Ceiling; trần giả vỡ; khoang kỹ thuật đen; giếng trần ngược; Trần giả và các khoang rỗng phía trên tạo ra góc nhìn bị che; những mảng tối lơ lửng trên đầu như một tầng không gian khác; người mang tên Diệp Thu, người sống sót vẽ những ô vuông lên lòng bàn tay; đèn sáng nhưng bóng người lại tối hơn; các góc vuông cộng lại thành một vòng tròn; đường thẳng kéo dài rồi quay về cùng một đầu mút; một vệt như da non lộ dưới lớp sơn cũ; đồng hồ treo ngược không kim; trần giả rung như có bầu trời bị chôn phía trên; tiếng bước chân đi trước người bước; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; những vạch nhỏ xếp thành hình răng không có hàm; chiếc ghế rỗng vẫn có tiếng quần áo cọ; ống thông gió kéo dài qua nhiều góc không tồn tại; cửa mở vào mặt sau của chính nó; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; làn hơi thở hắt ra từ chỗ không có miệng; điện thoại có dây chui xuống một vết rạn; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón."
+    },
+    "LEVEL.NODE.0.ZONE_05.SUB_01": {
+      "id": "LEVEL.NODE.0.ZONE_05.SUB_01",
+      "name": "Zone 05 / Sub 01 · Trần Vỡ",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_05",
+      "AUTHOR_CANON": "trần giả vỡ; khoang kỹ thuật đen; bề mặt ở sát tầm tay biến dạng theo lối đi; Các mảng trần giả hư hại; vỡ ra để lộ khoảng tối phía trên; đen và sâu như một miệng hố ngược; người mang tên Tống Cẩn, kẻ khoác áo mưa quá dài với đôi giày khô; cửa kính cho thấy mặt sau chính căn phòng; gương phản chiếu căn phòng đã bị phá bỏ; khoảng tối dày đến mức âm thanh bị gãy; dấu móng hằn ở bên trong mặt kính; điện thoại có dây chui xuống một vết rạn; chìa khóa ấm nằm trong mép giấy dán tường; không gian sau cột dày hơn phía trước cột; một vệt đen sâu hơn cả bóng tối thường thấy; vật cứng phát nhịp đập dưới đầu ngón; chiếc chìa khóa biến lạnh khi gần cửa; góc tường gập thành một vực không mép; bản đồ vẽ đúng nhưng không thể bước theo; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; tiếng gọi khàn mang đúng giọng người nghe; máy lấy số nhảy tới một con số âm; máy bán hàng sáng nhưng trống khoang tiền; bóng một bàn tay quay ngược đốt ngón."
+    },
+    "LEVEL.NODE.0.ZONE_05.SUB_02": {
+      "id": "LEVEL.NODE.0.ZONE_05.SUB_02",
+      "name": "Zone 05 / Sub 02 · Khoang Kỹ Thuật",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_05",
+      "AUTHOR_CANON": "Hollow Ceiling; trần giả vỡ; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Ngách chật và bề mặt mang dáng mạng kỹ thuật; dây và tấm kim loại lạnh; gợi cảm giác đây là phần xương của tòa nhà; thảm đội lên thành đường gân dưới chân; sàn nghiêng nhẹ khi không còn ai quan sát; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; máy lấy số nhảy tới một con số âm; đèn sáng nhưng bóng người lại tối hơn; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; khoảng không khiến cự ly trở thành điều vô nghĩa; những vạch nhỏ xếp thành hình răng không có hàm; điện thoại có dây chui xuống một vết rạn; trần giả rung như có bầu trời bị chôn phía trên; gương phản chiếu căn phòng đã bị phá bỏ; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; hộp nhạc không dây cót phát một âm trầm kéo dài; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón."
+    },
+    "LEVEL.NODE.0.ZONE_05.SUB_03": {
+      "id": "LEVEL.NODE.0.ZONE_05.SUB_03",
+      "name": "Zone 05 / Sub 03 · Giếng Trần",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_05",
+      "AUTHOR_CANON": "trần giả vỡ; khoang kỹ thuật đen; tiếng vọng và nguồn âm biến dạng theo lối đi; Khoảng trống dọc theo trần mở ra như một giếng ngược; độ sâu và độ cao đều khó ước lượng; điểm cuối chưa được khóa; người mang tên Hứa Dụ, bà già đội chiếc đèn hỏng trên vai; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; một căn phòng rộng hơn mọi bức tường bao quanh; đường thẳng kéo dài rồi quay về cùng một đầu mút; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; đồng hồ treo ngược không kim; hành lang dài thêm khi người quan sát ngoái đầu; tiếng va chạm truyền đến trước cử động; sự im lặng có hướng và đang tiến lại gần; làn hơi thở hắt ra từ chỗ không có miệng; cuốn sổ chỉ có trang cuối; góc tường gập thành một vực không mép; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; khoảng không khiến cự ly trở thành điều vô nghĩa; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; chiếc chìa khóa biến lạnh khi gần cửa; đèn sáng nhưng bóng người lại tối hơn."
+    },
+    "LEVEL.NODE.0.ZONE_05.SUB_04": {
+      "id": "LEVEL.NODE.0.ZONE_05.SUB_04",
+      "name": "Zone 05 / Sub 04 · Phòng Treo",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_05",
+      "AUTHOR_CANON": "Hollow Ceiling; trần giả vỡ; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Bố cục phòng mang cảm giác đảo cao độ; trần và sàn như hoán đổi vị trí trong mắt người nhìn; khiến phương hướng trên dưới trở nên mơ hồ; ống thông gió kéo dài qua nhiều góc không tồn tại; một căn phòng rộng hơn mọi bức tường bao quanh; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; máy lấy số nhảy tới một con số âm; đèn sáng nhưng bóng người lại tối hơn; bức tường mỏng chứa một tiếng vọng rất xa; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; điện thoại có dây chui xuống một vết rạn; góc tường gập thành một vực không mép; tiếng bước chân đi trước người bước; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; tiếng gọi khàn mang đúng giọng người nghe; cuốn sổ chỉ có trang cuối; trần giả rung như có bầu trời bị chôn phía trên; dấu ố cũ kéo dài dọc chân vách không đều."
+    },
+    "LEVEL.NODE.0.ZONE_06": {
+      "id": "LEVEL.NODE.0.ZONE_06",
+      "name": "Zone 06 · Afterimage",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "Afterimage; ký ức vài giây bị viết lại; tường thay vị trí; tiếng gọi giống giọng người quen; Ấn tượng nhìn thấy ở đây có thể khác với ký ức vừa hình thành cách đó vài giây; ánh sáng đều lệch đi một chút; ghế nhựa quay mặt vào vách kín; tiếng bước chân đi trước người bước; khoảng tối dày đến mức âm thanh bị gãy; mùi sắt tươi xuất hiện rồi mất không dấu vết; đèn báo đỏ sáng dưới lớp bụi kín; trần giả rung như có bầu trời bị chôn phía trên; một căn phòng rộng hơn mọi bức tường bao quanh; sự im lặng có hướng và đang tiến lại gần; một vệt như da non lộ dưới lớp sơn cũ; điện thoại có dây chui xuống một vết rạn; hành lang dài thêm khi người quan sát ngoái đầu; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; nhịp rung xa như triệu nơi chốn cùng thở; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; hộp nhạc không dây cót phát một âm trầm kéo dài; chìa khóa ấm nằm trong mép giấy dán tường; các góc vuông cộng lại thành một vòng tròn."
+    },
+    "LEVEL.NODE.0.ZONE_06.SUB_01": {
+      "id": "LEVEL.NODE.0.ZONE_06.SUB_01",
+      "name": "Zone 06 / Sub 01 · Phòng Ký Ức",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_06",
+      "AUTHOR_CANON": "Afterimage; ký ức vài giây bị viết lại; bề mặt ở sát tầm tay biến dạng theo lối đi; Dấu hiệu trong phòng gợi lại ký ức; một khung cửa quen thuộc; phù hợp với baseline Memory Rooms; ống thông gió kéo dài qua nhiều góc không tồn tại; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu móng hằn ở bên trong mặt kính; máy lấy số nhảy tới một con số âm; bóng bay bạc đứng im giữa luồng gió; tấm kính nhìn về góc quan sát không thể có; vầng sáng lạnh kẹt trong lớp vật chất đặc; một vệt như da non lộ dưới lớp sơn cũ; cuốn sổ chỉ có trang cuối; chìa khóa ấm nằm trong mép giấy dán tường; gương phản chiếu căn phòng đã bị phá bỏ; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đồng hồ treo ngược không kim; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; không gian sau cột dày hơn phía trước cột; bóng vật thể kéo dài theo một nguồn sáng không tồn tại."
+    },
+    "LEVEL.NODE.0.ZONE_06.SUB_02": {
+      "id": "LEVEL.NODE.0.ZONE_06.SUB_02",
+      "name": "Zone 06 / Sub 02 · Tường Mất",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_06",
+      "AUTHOR_CANON": "ký ức vài giây bị viết lại; tường thay vị trí; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Ranh giới tường khó phân biệt giữa các lần quan sát; lần này thấy tường ở đây; lần sau lại thấy nó lùi ra hoặc tiến vào một chút; người mang tên Mộc Hàn, kẻ khoác áo mưa quá dài với đôi giày khô; hành lang dài thêm khi người quan sát ngoái đầu; đường viền căn phòng chuyển dịch theo nhịp đèn; một mảnh thực tại bị thiếu nhưng không để lại lỗ; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đồng hồ treo ngược không kim; máy bán hàng sáng nhưng trống khoang tiền; bức tường mỏng chứa một tiếng vọng rất xa; khoảng tối dày đến mức âm thanh bị gãy; làn hơi thở hắt ra từ chỗ không có miệng; nhãn dán ghi tên vật chưa từng tồn tại; trần giả rung như có bầu trời bị chôn phía trên; gương phản chiếu căn phòng đã bị phá bỏ; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; chiếc ghế rỗng vẫn có tiếng quần áo cọ."
+    },
+    "LEVEL.NODE.0.ZONE_06.SUB_03": {
+      "id": "LEVEL.NODE.0.ZONE_06.SUB_03",
+      "name": "Zone 06 / Sub 03 · Phòng Tiếng Gọi",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_06",
+      "AUTHOR_CANON": "Afterimage; ký ức vài giây bị viết lại; tiếng vọng và nguồn âm biến dạng theo lối đi; Âm giống tiếng gọi chen vào tiếng nền; như có ai đó đang gọi tên mình từ phía sau một bức tường; máy bán hàng sáng nhưng trống khoang tiền; biển chỉ đường dẫn tới căn phòng chưa tồn tại; vầng sáng lạnh kẹt trong lớp vật chất đặc; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; hộp nhạc không dây cót phát một âm trầm kéo dài; cửa kính cho thấy mặt sau chính căn phòng; bức tường mỏng chứa một tiếng vọng rất xa; một mảnh thực tại bị thiếu nhưng không để lại lỗ; dấu móng hằn ở bên trong mặt kính; cuốn sổ chỉ có trang cuối; đèn sáng nhưng bóng người lại tối hơn; cửa mở vào mặt sau của chính nó; sự im lặng có hướng và đang tiến lại gần; tiếng gọi khàn mang đúng giọng người nghe; điện thoại có dây chui xuống một vết rạn; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; một khe tối khiến đồng tử co lại thay vì giãn; nhịp rung xa như triệu nơi chốn cùng thở."
+    },
+    "LEVEL.NODE.0.ZONE_07": {
+      "id": "LEVEL.NODE.0.ZONE_07",
+      "name": "Zone 07 · The Loop",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "The Loop; vết ố lặp; cửa trùng hình; ngã tư trở về chính nó; Cửa và vết ố trùng lặp xuất hiện hết lần này đến lần khác; gây cảm giác quay lại chỗ cũ dù chân vẫn đi thẳng về phía trước; người mang tên Thạch Tiêu, bà lão tóc bạc đếm bước bằng móng tay; thảm đội lên thành đường gân dưới chân; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; vết chà xát như má kéo lê trên bề mặt lạnh; hộp nhạc không dây cót phát một âm trầm kéo dài; ghế nhựa quay mặt vào vách kín; biển chỉ đường dẫn tới căn phòng chưa tồn tại; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; mùi sắt tươi xuất hiện rồi mất không dấu vết; mảnh gương cất giữ phản chiếu chậm hơn thực tại; ống thông gió kéo dài qua nhiều góc không tồn tại; bóng đổ về phía đèn đang sáng; khoảng không khiến cự ly trở thành điều vô nghĩa; những vạch nhỏ xếp thành hình răng không có hàm; nhãn dán ghi tên vật chưa từng tồn tại; dấu ố cũ kéo dài dọc chân vách không đều."
+    },
+    "LEVEL.NODE.0.ZONE_07.SUB_01": {
+      "id": "LEVEL.NODE.0.ZONE_07.SUB_01",
+      "name": "Zone 07 / Sub 01 · Hành Lang Lặp",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_07",
+      "AUTHOR_CANON": "vết ố lặp; cửa trùng hình; bề mặt ở sát tầm tay biến dạng theo lối đi; Dãy cửa tương tự nhau kéo dài; làm suy yếu độ tin cậy của bản đồ trong đầu; người mang tên Tuyết Sâm, cô gái đeo kính nứt chỉ nhìn về sau; thảm đội lên thành đường gân dưới chân; không gian sau cột dày hơn phía trước cột; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đèn báo đỏ sáng dưới lớp bụi kín; ống thông gió kéo dài qua nhiều góc không tồn tại; bản đồ vẽ đúng nhưng không thể bước theo; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; điện thoại có dây chui xuống một vết rạn; hành lang dài thêm khi người quan sát ngoái đầu; ổ khóa ấm như vừa rút khỏi cơ thể; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; một vệt như da non lộ dưới lớp sơn cũ; máy lấy số nhảy tới một con số âm; máy bán hàng sáng nhưng trống khoang tiền; tiếng va chạm truyền đến trước cử động."
+    },
+    "LEVEL.NODE.0.ZONE_07.SUB_02": {
+      "id": "LEVEL.NODE.0.ZONE_07.SUB_02",
+      "name": "Zone 07 / Sub 02 · Phòng Bản Sao",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_07",
+      "AUTHOR_CANON": "The Loop; vết ố lặp; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Mẫu hình quen thuộc trong phòng có thể giống phòng từng gặp; cùng cách xếp tường; khiến người đi ngỡ mình đã quay lại; đèn sáng nhưng bóng người lại tối hơn; bức tường mỏng chứa một tiếng vọng rất xa; khoảng tối dày đến mức âm thanh bị gãy; những vạch nhỏ xếp thành hình răng không có hàm; đồng hồ treo ngược không kim; ống thông gió kéo dài qua nhiều góc không tồn tại; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; tiếng gọi khàn mang đúng giọng người nghe; điện thoại có dây chui xuống một vết rạn; góc tường gập thành một vực không mép; sàn nghiêng nhẹ khi không còn ai quan sát; vầng sáng lạnh kẹt trong lớp vật chất đặc; một vệt như da non lộ dưới lớp sơn cũ; đèn báo đỏ sáng dưới lớp bụi kín; ghế nhựa quay mặt vào vách kín; khe tường sâu đến mức nuốt mất tiếng gõ; đường thẳng kéo dài rồi quay về cùng một đầu mút."
+    },
+    "LEVEL.NODE.0.ZONE_07.SUB_03": {
+      "id": "LEVEL.NODE.0.ZONE_07.SUB_03",
+      "name": "Zone 07 / Sub 03 · Ngã Tư Vô Tận",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_07",
+      "AUTHOR_CANON": "vết ố lặp; cửa trùng hình; tiếng vọng và nguồn âm biến dạng theo lối đi; Nhánh rẽ gần trùng nhau tỏa ra nhiều hướng; không có dấu hiệu phân biệt rõ ràng; người mang tên Đào Nhĩ, người sống sót vẽ những ô vuông lên lòng bàn tay; đèn sáng nhưng bóng người lại tối hơn; các góc vuông cộng lại thành một vòng tròn; sự im lặng có hướng và đang tiến lại gần; một cơn rùng mình xảy ra đồng thời trong cả phòng; đồng hồ treo ngược không kim; ghế nhựa quay mặt vào vách kín; một căn phòng rộng hơn mọi bức tường bao quanh; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; vật cứng phát nhịp đập dưới đầu ngón; đèn báo đỏ sáng dưới lớp bụi kín; cửa kính cho thấy mặt sau chính căn phòng; cầu thang kết thúc ngay dưới chân cầu thang khác; một mảnh thực tại bị thiếu nhưng không để lại lỗ; những vạch nhỏ xếp thành hình răng không có hàm; điện thoại có dây chui xuống một vết rạn; máy bán hàng sáng nhưng trống khoang tiền; một khe tối khiến đồng tử co lại thay vì giãn."
+    },
+    "LEVEL.NODE.0.ZONE_07.SUB_04": {
+      "id": "LEVEL.NODE.0.ZONE_07.SUB_04",
+      "name": "Zone 07 / Sub 04 · Phòng Đảo",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_07",
+      "AUTHOR_CANON": "The Loop; vết ố lặp; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Chi tiết định hướng trong phòng có vẻ đổi phía; cửa từng ở bên trái nay như ở bên phải; vết ố từng ở trên nay như ở dưới; thảm đội lên thành đường gân dưới chân; vết cào nằm ở phía trong lớp sơn nguyên vẹn; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; tiếng gọi khàn mang đúng giọng người nghe; chiếc chìa khóa biến lạnh khi gần cửa; ghế nhựa quay mặt vào vách kín; bản đồ vẽ đúng nhưng không thể bước theo; khoảng tối dày đến mức âm thanh bị gãy; vết chà xát như má kéo lê trên bề mặt lạnh; hộp nhạc không dây cót phát một âm trầm kéo dài; hành lang dài thêm khi người quan sát ngoái đầu; biển chỉ đường dẫn tới căn phòng chưa tồn tại; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; vật cứng phát nhịp đập dưới đầu ngón; điện thoại có dây chui xuống một vết rạn; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; gương phản chiếu căn phòng đã bị phá bỏ."
+    },
+    "LEVEL.NODE.0.ZONE_08": {
+      "id": "LEVEL.NODE.0.ZONE_08",
+      "name": "Zone 08 · The Fracture",
+      "type": "ZONE",
+      "parent_id": "LEVEL.NODE.0",
+      "AUTHOR_CANON": "The Fracture; mặt phẳng trượt; sàn lệch; vách rạn; khe tối không đáy; sàn và vách bị lệch hoặc nứt; những đường nứt chạy chéo như vết rạn trên một tấm gương khổng lồ; máy bán hàng sáng nhưng trống khoang tiền; bóng đổ về phía đèn đang sáng; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; đồng hồ treo ngược không kim; thảm đội lên thành đường gân dưới chân; bóng một bàn tay quay ngược đốt ngón; khoảng không khiến cự ly trở thành điều vô nghĩa; tiếng gọi khàn mang đúng giọng người nghe; cuốn sổ chỉ có trang cuối; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; biển chỉ đường dẫn tới căn phòng chưa tồn tại; một vệt đen sâu hơn cả bóng tối thường thấy; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; chiếc chìa khóa biến lạnh khi gần cửa; hành lang dài thêm khi người quan sát ngoái đầu; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; khoảng tối dày đến mức âm thanh bị gãy; ghế nhựa quay mặt vào vách kín."
+    },
+    "LEVEL.NODE.0.ZONE_08.SUB_01": {
+      "id": "LEVEL.NODE.0.ZONE_08.SUB_01",
+      "name": "Zone 08 / Sub 01 · Tường Nứt",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_08",
+      "AUTHOR_CANON": "The Fracture; mặt phẳng trượt; bề mặt ở sát tầm tay biến dạng theo lối đi; Tường chia thành những mảng lệch; mép tường không còn thẳng hàng; tạo cảm giác cấu trúc đang bị bẻ cong rất chậm; góc tường gập thành một vực không mép; khe tường sâu đến mức nuốt mất tiếng gõ; đường thẳng kéo dài rồi quay về cùng một đầu mút; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; điện thoại có dây chui xuống một vết rạn; chìa khóa ấm nằm trong mép giấy dán tường; không gian sau cột dày hơn phía trước cột; khoảng tối dày đến mức âm thanh bị gãy; mùi sắt tươi xuất hiện rồi mất không dấu vết; đồng hồ treo ngược không kim; ống thông gió kéo dài qua nhiều góc không tồn tại; đường viền căn phòng chuyển dịch theo nhịp đèn; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; nhãn dán ghi tên vật chưa từng tồn tại; trần giả rung như có bầu trời bị chôn phía trên; gương phản chiếu căn phòng đã bị phá bỏ."
+    },
+    "LEVEL.NODE.0.ZONE_08.SUB_02": {
+      "id": "LEVEL.NODE.0.ZONE_08.SUB_02",
+      "name": "Zone 08 / Sub 02 · Sàn Lệch",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_08",
+      "AUTHOR_CANON": "mặt phẳng trượt; sàn lệch; chiều sâu và phép đo khoảng cách biến dạng theo lối đi; Ranh giới sàn và thảm không thẳng hàng; bước chân cứ hụt hẫng một cách khó chịu; người mang tên La Phủ, người sống sót lầm lì ôm một cánh cửa nhỏ; ghế nhựa quay mặt vào vách kín; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; đường thẳng kéo dài rồi quay về cùng một đầu mút; làn hơi thở hắt ra từ chỗ không có miệng; đèn báo đỏ sáng dưới lớp bụi kín; trần giả rung như có bầu trời bị chôn phía trên; không gian sau cột dày hơn phía trước cột; một mảnh thực tại bị thiếu nhưng không để lại lỗ; một vệt như da non lộ dưới lớp sơn cũ; nhãn dán ghi tên vật chưa từng tồn tại; góc tường gập thành một vực không mép; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; hộp nhạc không dây cót phát một âm trầm kéo dài; hành lang dài thêm khi người quan sát ngoái đầu."
+    },
+    "LEVEL.NODE.0.ZONE_08.SUB_03": {
+      "id": "LEVEL.NODE.0.ZONE_08.SUB_03",
+      "name": "Zone 08 / Sub 03 · Khe Tối",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_08",
+      "AUTHOR_CANON": "The Fracture; mặt phẳng trượt; tiếng vọng và nguồn âm biến dạng theo lối đi; Một khe tối không đủ sáng để đo chiều sâu; đen đặc từ mép đến phía trong; không thấy đáy hay điểm cuối; vệt sơn ố tạo hình bàn tay chỉ có sáu ngón; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; đường thẳng kéo dài rồi quay về cùng một đầu mút; một vệt như da non lộ dưới lớp sơn cũ; đèn báo đỏ sáng dưới lớp bụi kín; ống thông gió kéo dài qua nhiều góc không tồn tại; mép cửa in bóng của vật chưa xuất hiện; nhịp rung xa như triệu nơi chốn cùng thở; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; chiếc chìa khóa biến lạnh khi gần cửa; ghế nhựa quay mặt vào vách kín; các góc vuông cộng lại thành một vòng tròn; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; vật cứng phát nhịp đập dưới đầu ngón; cuốn sổ chỉ có trang cuối; hành lang dài thêm khi người quan sát ngoái đầu; tiếng va chạm truyền đến trước cử động; khoảng tối dày đến mức âm thanh bị gãy."
+    },
+    "LEVEL.NODE.0.ZONE_08.SUB_04": {
+      "id": "LEVEL.NODE.0.ZONE_08.SUB_04",
+      "name": "Zone 08 / Sub 04 · Phòng Giao Thoa",
+      "type": "SUB",
+      "parent_id": "LEVEL.NODE.0.ZONE_08",
+      "AUTHOR_CANON": "mặt phẳng trượt; sàn lệch; ký ức ngắn hạn và đường trở lại biến dạng theo lối đi; Các mặt phẳng trong phòng xếp chồng lên nhau; tường chồng lên sàn; sàn chồng lên trần; khiến tường và sàn khó nhận diện rạch ròi; người mang tên Cao Trực, cô gái đeo kính nứt chỉ nhìn về sau; thảm đội lên thành đường gân dưới chân; các góc vuông cộng lại thành một vòng tròn; khoảng không khiến cự ly trở thành điều vô nghĩa; một vệt như da non lộ dưới lớp sơn cũ; máy lấy số nhảy tới một con số âm; máy bán hàng sáng nhưng trống khoang tiền; bức tường mỏng chứa một tiếng vọng rất xa; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; tiếng gọi khàn mang đúng giọng người nghe; hộp nhạc không dây cót phát một âm trầm kéo dài; bóng bay bạc đứng im giữa luồng gió; cầu thang kết thúc ngay dưới chân cầu thang khác; dấu ố cũ kéo dài dọc chân vách không đều; vết chà xát như má kéo lê trên bề mặt lạnh; đồng hồ treo ngược không kim; góc tường gập thành một vực không mép."
+    },
+    "LEVEL.NODE.1": {
+      "id": "LEVEL.NODE.1",
+      "name": "Level 1 — Habitable Zone",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Bãi đỗ bê tông khổng lồ; cột tải trọng; dốc xe dốc dài; sương lạnh cục bộ; những đợt mất điện; xe bỏ hoang hiếm; Hound, Clump và Duller là nguy cơ đã ghi nhận; dấu chân trong bụi không chứng minh có người còn sống; đường dốc dẫn về chính điểm bắt đầu; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; sự im lặng có hướng và đang tiến lại gần; tiếng gọi khàn mang đúng giọng người nghe; chiếc chìa khóa biến lạnh khi gần cửa; biển tầng B1 nằm thấp hơn tầng B9; bức tường mỏng chứa một tiếng vọng rất xa; một bóng bánh xe lăn lên cột chịu lực; những vạch nhỏ xếp thành hình răng không có hàm; chiếc ghế rỗng vẫn có tiếng quần áo cọ; đèn pha bật sáng trong chiếc xe không có bình điện; tấm kính nhìn về góc quan sát không thể có; sương lạnh bám máy thu phí không người; làn hơi thở hắt ra từ chỗ không có miệng; điện thoại có dây chui xuống một vết rạn; mùi lốp cháy từ chỗ trống trên nền; một khe tối khiến đồng tử co lại thay vì giãn; vết dầu trên bê tông phản chiếu hàng xe khác."
+    },
+    "LEVEL.NODE.1.2": {
+      "id": "LEVEL.NODE.1.2",
+      "name": "Level 1.2",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.1",
+      "AUTHOR_CANON": "Nhịp cột bê tông lặp; tỷ lệ bãi đỗ xe méo lệch; khoảng cách giữa các cột không đều khi đếm lại; Nhịp cột bê tông đều đặn dựng lên trong khoảng không công nghiệp rộng lớn; quen thuộc đến kỳ lạ — như một bãi đỗ xe mà tỉ lệ đã bị vặn lệch đi đôi chút; hơi sương lạnh quẩn quanh một ô đỗ duy nhất; ổ khóa ấm như vừa rút khỏi cơ thể; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một vệt như da non lộ dưới lớp sơn cũ; vạch sơn trắng tiếp tục vào bê tông nguyên khối; máy thu vé in thời điểm chưa đến; bóng đổ về phía đèn đang sáng; một mảnh thực tại bị thiếu nhưng không để lại lỗ; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; chiếc ghế rỗng vẫn có tiếng quần áo cọ; vệt bánh xe dẫn thẳng vào tường không cửa; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; sự im lặng có hướng và đang tiến lại gần; vật cứng phát nhịp đập dưới đầu ngón; nhãn dán ghi tên vật chưa từng tồn tại; cột bê tông có bóng đổ của cột khác; bản đồ vẽ đúng nhưng không thể bước theo."
+    },
+    "LEVEL.NODE.1.5": {
+      "id": "LEVEL.NODE.1.5",
+      "name": "Level 1.5",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.1",
+      "AUTHOR_CANON": "Ánh sáng lạc hướng; bóng đổ đảo trục; mặt bê tông nghiêng về góc nhìn sai; dấu xe chạy ngược lên tường; Ánh sáng ở đây không đi thẳng; tạo ra những tương phản bất thường trên mặt bê tông có vẻ đảo trục; như thể cả không gian đang nghiêng đi trong im lặng; người mang tên Châu Dụ, ông lão quấn khăn che tai rồi nói một mình; mùi lốp cháy từ chỗ trống trên nền; tiếng va chạm truyền đến trước cử động; sự im lặng có hướng và đang tiến lại gần; tiếng gọi khàn mang đúng giọng người nghe; một bóng bánh xe lăn lên cột chịu lực; đèn pha bật sáng trong chiếc xe không có bình điện; tiếng bước chân đi trước người bước; khoảng tối dày đến mức âm thanh bị gãy; dấu móng hằn ở bên trong mặt kính; điện thoại có dây chui xuống một vết rạn; hơi sương lạnh quẩn quanh một ô đỗ duy nhất; các góc vuông cộng lại thành một vòng tròn; đường thẳng kéo dài rồi quay về cùng một đầu mút; một vệt như da non lộ dưới lớp sơn cũ; vạch sơn trắng tiếp tục vào bê tông nguyên khối."
+    },
+    "LEVEL.NODE.1.BASE_ALPHA": {
+      "id": "LEVEL.NODE.1.BASE_ALPHA",
+      "name": "Level 1 / Base Alpha",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.1",
+      "AUTHOR_CANON": "Base Alpha; góc kho vận giữa bãi đỗ; cột bê tông đổ bóng; khoảng trống như căn cứ bị bỏ lại; dấu sử dụng cũ; Base Alpha là vùng gợi dáng một căn cứ giữa hệ bê tông của Level 1; bề mặt kho vận lạnh lẽo và dấu vết sử dụng nếu quan sát thấy; máy thu vé in thời điểm chưa đến; bóng một bàn tay quay ngược đốt ngón; một vệt đen sâu hơn cả bóng tối thường thấy; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; một bóng bánh xe lăn lên cột chịu lực; vạch đỗ xe kéo dài lên mặt trần; vết cào nằm ở phía trong lớp sơn nguyên vẹn; đường thẳng kéo dài rồi quay về cùng một đầu mút; tiếng gọi khàn mang đúng giọng người nghe; máy lấy số nhảy tới một con số âm; đèn pha bật sáng trong chiếc xe không có bình điện; tấm kính nhìn về góc quan sát không thể có; khoảng không khiến cự ly trở thành điều vô nghĩa; những vạch nhỏ xếp thành hình răng không có hàm; tiếng động cơ đi qua ô đỗ trống; đường dốc dẫn về chính điểm bắt đầu; mép cửa in bóng của vật chưa xuất hiện."
+    },
+    "LEVEL.NODE.1.TRADERS_VAULT": {
+      "id": "LEVEL.NODE.1.TRADERS_VAULT",
+      "name": "Level 1 / Traders Vault",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.1",
+      "AUTHOR_CANON": "Traders Vault; ngưỡng bê tông kín; kho hàng lạnh; khe sáng xiên; kệ trống; cánh cửa như miệng hầm; Traders Vault là vùng mang nhãn đó trong môi trường Level 1; những ngưỡng kín khép lại như miệng hầm; mảng bê tông xám lạnh; hướng sáng chiếu xiên qua khe hẹp và cảm giác lưu trữ chưa từng được dùng đến; hơi sương lạnh quẩn quanh một ô đỗ duy nhất; bản đồ vẽ đúng nhưng không thể bước theo; sự im lặng có hướng và đang tiến lại gần; một vệt như da non lộ dưới lớp sơn cũ; đồng hồ treo ngược không kim; đường dốc dẫn về chính điểm bắt đầu; vệt bụi phủ dày nhưng chỉ thiếu một dấu ngón; một mảnh thực tại bị thiếu nhưng không để lại lỗ; tiếng gọi khàn mang đúng giọng người nghe; nhãn dán ghi tên vật chưa từng tồn tại; biển tầng B1 nằm thấp hơn tầng B9; tiếng va chạm truyền đến trước cử động; nhịp rung xa như triệu nơi chốn cùng thở; mùi sắt tươi xuất hiện rồi mất không dấu vết; chiếc ghế rỗng vẫn có tiếng quần áo cọ; vệt bánh xe dẫn thẳng vào tường không cửa."
+    },
+    "LEVEL.NODE.2": {
+      "id": "LEVEL.NODE.2",
+      "name": "Level 2 — Abandoned Utility Halls / Pipe Dreams",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Mạng đường ống gỉ; hầm kỹ thuật dài vô tận; khe chui nguy hiểm; hơi nóng và hơi lạnh thất thường; giếng sâu; nước trong ống không uống được; tiếng kim loại rung; nguy cơ Smiler, Hound và Skin-Stealer theo Canon; người mang tên Lâm Nghi, người phụ nữ ôm bảng tên trống; vết rỉ trên kim loại di chuyển ngược dòng; đường chỉ gỗ dẫn thẳng qua viên gạch không nứt; nhịp rung xa như triệu nơi chốn cùng thở; vật cứng phát nhịp đập dưới đầu ngón; máy lấy số nhảy tới một con số âm; đường ống phình như có tim đập bên trong; bức tường mỏng chứa một tiếng vọng rất xa; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; đồng hồ treo ngược không kim; ống thoát chạy xuyên qua bóng của chính nó; cầu thang kết thúc ngay dưới chân cầu thang khác; đường thẳng kéo dài rồi quay về cùng một đầu mút; những vạch nhỏ xếp thành hình răng không có hàm; chiếc chìa khóa biến lạnh khi gần cửa; van áp suất phát tiếng gõ từ mép kim loại."
+    },
+    "LEVEL.NODE.2.OFFICE_SPACE_EL3A": {
+      "id": "LEVEL.NODE.2.OFFICE_SPACE_EL3A",
+      "name": "Level 2 / Office Space EL3A",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.2",
+      "AUTHOR_CANON": "Office Space EL3A; vách văn phòng lẫn trong hành lang ống; giấy in ẩm; ống dẫn nở dưới bàn làm việc; Office Space EL3A là khu phụ tương phản lạnh lẽo giữa không gian văn phòng và kết cấu đường ống của Level 2; cổ ống mở sang khoang tối lớn hơn cả đường hầm; sàn nghiêng nhẹ khi không còn ai quan sát; khoảng không khiến cự ly trở thành điều vô nghĩa; một vệt như da non lộ dưới lớp sơn cũ; điện thoại có dây chui xuống một vết rạn; hạt nước lơ lửng trước miệng van; khe tường sâu đến mức nuốt mất tiếng gõ; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; chiếc ghế rỗng vẫn có tiếng quần áo cọ; ống thoát chạy xuyên qua bóng của chính nó; đường viền căn phòng chuyển dịch theo nhịp đèn; một vệt đen sâu hơn cả bóng tối thường thấy; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; máy lấy số nhảy tới một con số âm; vết rỉ trên kim loại di chuyển ngược dòng; một khe tối khiến đồng tử co lại thay vì giãn."
+    },
+    "LEVEL.NODE.3": {
+      "id": "LEVEL.NODE.3",
+      "name": "Level 3 — Electrical Station",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Trạm điện công nghiệp; máy biến áp; quạt thông gió; cuộn dây cao áp; tủ điện nặng; dây dẫn xuyên vách; nguồn điện chưa rõ; tiếng nổ điện xa; nguy cơ Deathmoth, Wretch và Cable Mimic; máy biến áp thở bằng tiếng ù khàn; mép cửa in bóng của vật chưa xuất hiện; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; những vạch nhỏ xếp thành hình răng không có hàm; đèn báo đỏ sáng dưới lớp bụi kín; tia hồ quang treo bất động giữa hai cực; cầu thang kết thúc ngay dưới chân cầu thang khác; đường thẳng kéo dài rồi quay về cùng một đầu mút; dấu móng hằn ở bên trong mặt kính; vệt hồ quang vẽ vòng tròn trên lớp bụi tối; vệt cháy trên sàn hiện trước tiếng nổ; sàn nghiêng nhẹ khi không còn ai quan sát; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; vật cứng phát nhịp đập dưới đầu ngón; đồng hồ treo ngược không kim; cột thu lôi quay về phía mặt đất; đầu dây đồng mang vết răng không khớp hàm; nỗi chóng mặt đến trước khi nhận ra đang đứng yên."
+    },
+    "LEVEL.NODE.4": {
+      "id": "LEVEL.NODE.4",
+      "name": "Level 4 — Abandoned Office",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Văn phòng bỏ hoang; dãy vách ngăn; máy tính phủ bụi; cửa sổ nhìn mưa kéo dài; đèn huỳnh quang lỗi; không xác nhận Entity cư trú ổn định; Almond Water có thể hiện diện nhưng không bảo đảm; hành lang văn phòng không người; người mang tên Nghiêm Thất, bà già đội chiếc đèn hỏng trên vai; đồng hồ chấm công in giờ âm; cửa mở vào mặt sau của chính nó; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; chiếc ghế rỗng vẫn có tiếng quần áo cọ; mưa ngoài cửa sổ rơi lên phía trên; không gian sau cột dày hơn phía trước cột; đường thẳng kéo dài rồi quay về cùng một đầu mút; vết chà xát như má kéo lê trên bề mặt lạnh; hộp nhạc không dây cót phát một âm trầm kéo dài; ghế xoay lặng lẽ quay mặt về vách trống; tấm kính nhìn về góc quan sát không thể có; nhịp rung xa như triệu nơi chốn cùng thở; mùi sắt tươi xuất hiện rồi mất không dấu vết; đồng hồ treo ngược không kim; bàn làm việc sắp thẳng tới điểm tụ không tồn tại."
+    },
+    "LEVEL.NODE.4.THE_OFFICE_MARKET": {
+      "id": "LEVEL.NODE.4.THE_OFFICE_MARKET",
+      "name": "Level 4 / The Office Market",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.4",
+      "AUTHOR_CANON": "The Office Market; lối đi văn phòng thẳng; quầy giao dịch trống; đèn hắt lên trần; không gian trao đổi không người; The Office Market là khu mang nhãn đó trong Level 4; ánh đèn văn phòng soi xuống những trục đi lại thẳng tắp; và sự vắng vẻ bao trùm một không gian từng có công năng trao đổi; bức fax ghi tên căn phòng vừa biến mất; tiếng bước chân đi trước người bước; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; tiếng gọi khàn mang đúng giọng người nghe; nhãn dán ghi tên vật chưa từng tồn tại; tấm kính nhìn sang một văn phòng không có mặt sàn; các góc vuông cộng lại thành một vòng tròn; mặt kính phòng họp phản chiếu một phòng khác; vết chà xát như má kéo lê trên bề mặt lạnh; máy lấy số nhảy tới một con số âm; máy in đẩy ra trang giấy đen đặc; sàn nghiêng nhẹ khi không còn ai quan sát; tiếng máy in vang từ đầu dãy tủ trống; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; đồng hồ treo ngược không kim; màn hình tắt lưu vệt sáng hình bàn tay."
+    },
+    "LEVEL.NODE.5": {
+      "id": "LEVEL.NODE.5",
+      "name": "Level 5 — Terror Hotel",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Terror Hotel; kiến trúc khách sạn cổ phi Euclid; sảnh lớn; phòng khiêu vũ; hành lang ngủ; nhà hàng; hồ bơi; lò hơi; khu bảo trì; The Beast of Level 5 là thợ săn đáng sợ; thảm dày nuốt tiếng bước chân; chuông quầy lễ tân rung trong ngăn kéo khóa; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; mùi sắt tươi xuất hiện rồi mất không dấu vết; nhãn dán ghi tên vật chưa từng tồn tại; cửa phòng đóng khít nhưng phát tiếng chìa khóa; khe tường sâu đến mức nuốt mất tiếng gõ; khoảng tối dày đến mức âm thanh bị gãy; dấu móng hằn ở bên trong mặt kính; chiếc chìa khóa biến lạnh khi gần cửa; thực đơn liệt kê những món ăn chưa thành hình; cửa mở vào mặt sau của chính nó; khoảng không khiến cự ly trở thành điều vô nghĩa; tiếng gọi khàn mang đúng giọng người nghe; mảnh gương cất giữ phản chiếu chậm hơn thực tại; hơi nước từ hồ bơi có mùi gỗ cũ; bóng một bàn tay quay ngược đốt ngón."
+    },
+    "LEVEL.NODE.5.1": {
+      "id": "LEVEL.NODE.5.1",
+      "name": "Level 5.1",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.5",
+      "AUTHOR_CANON": "Thảm khách sạn dày; đèn vàng bệnh hoạn; gỗ tối bóng; đồ đạc được lau sạch vô lý; tiếng chân chìm dưới thảm; Khu phụ này giữ nguyên âm sắc của Terror Hotel; đèn vàng ấm một cách bệnh hoạn; gỗ tối bóng loáng như vừa được lau chùi bằng bàn tay vô hình; thảm dày nuốt trọn tiếng bước chân; người mang tên Hà Trì, kẻ lang thang cười khúc khích trước tường kín; phòng khiêu vũ không có người vẫn in vệt bước chân; vết cào nằm ở phía trong lớp sơn nguyên vẹn; khoảng không khiến cự ly trở thành điều vô nghĩa; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; nhãn dán ghi tên vật chưa từng tồn tại; chuông quầy lễ tân rung trong ngăn kéo khóa; một khe tối khiến đồng tử co lại thay vì giãn; một mảnh thực tại bị thiếu nhưng không để lại lỗ; những vạch nhỏ xếp thành hình răng không có hàm; mảnh gương cất giữ phản chiếu chậm hơn thực tại; cửa phòng đóng khít nhưng phát tiếng chìa khóa; tiếng va chạm truyền đến trước cử động; máy lấy số nhảy tới một con số âm."
+    },
+    "LEVEL.NODE.6": {
+      "id": "LEVEL.NODE.6",
+      "name": "Level 6 — Lights Out",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Đồng tundra tối vĩnh viễn; đất đông cứng; tuyết rải rác; cây bụi héo; hồ nước hiếm; cột obelisk chưa rõ chức năng; lạnh buốt, thiếu ngủ và lạc đường; chưa xác nhận Entity cư trú; ánh sáng thiên nhiên gần như biến mất; người mang tên Bành Thạch, bà lão tóc bạc đếm bước bằng móng tay; một ngôi sao đen mọc dưới chân trời; tiếng vọng kéo dài sau khi miệng đã khép; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; tiếng gọi khàn mang đúng giọng người nghe; bụi cây héo chỉ đổ bóng khi quay lưng; đường chân trời uốn cong về phía sau người đứng; sự im lặng có hướng và đang tiến lại gần; lớp sương đen di chuyển thấp sát nền tuyết; đường chân trời lặp lại sau một đoạn đi bộ; vật ở xa phản chiếu thứ chưa từng hiện diện; một vết lõm hình người trải trên mặt băng; gió tuyết đổi hướng trước mỗi bước chân; mặt hồ đóng băng soi vùng đất không người; vệt bóng không thuộc bất kỳ vật thể nào; một mảnh thực tại bị thiếu nhưng không để lại lỗ."
+    },
+    "LEVEL.NODE.6.1": {
+      "id": "LEVEL.NODE.6.1",
+      "name": "Level 6.1",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.6",
+      "AUTHOR_CANON": "Đồng tundra đặc quánh bóng tối; tuyết gợn ánh sáng hiếm hoi; mặt đất lạnh cứng; dấu đường biến mất trước khi kịp nhớ; Tundra tối vĩnh viễn trải ra trong lạnh lẽo không có điểm dừng; tuyết rải rác lấp lánh yếu ớt dưới thứ ánh sáng hiếm hoi; và rìa bóng tuyết chỉ hiện lên khi được xác nhận bằng quan sát thực tế; đường chân trời lặp lại sau một đoạn đi bộ; vệt bóng không thuộc bất kỳ vật thể nào; một mảnh thực tại bị thiếu nhưng không để lại lỗ; làn hơi thở hắt ra từ chỗ không có miệng; dấu giày chỉ tồn tại ở khoảng trống giữa hai bước; độ xa bị rút ngắn mà không có chuyển động; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; mùi sắt tươi xuất hiện rồi mất không dấu vết; cột đá thở ra sương lạnh không tỏa; khoảng trống giữa hai vật rộng hơn toàn bộ vùng đất; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; lớp sương đen di chuyển thấp sát nền tuyết; một ngôi sao đen mọc dưới chân trời; tiếng vọng kéo dài sau khi miệng đã khép."
+    },
+    "LEVEL.NODE.7": {
+      "id": "LEVEL.NODE.7",
+      "name": "Level 7 — Thalassophobia",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Đại dương lạnh vô tận; bầu trời chìm trong sương xám; không phân biệt mặt biển với chân trời; nước sâu không thấy đáy; gợn sóng vô nguồn; bóng lớn dưới mặt nước chưa thể xác nhận là sinh vật; vệt bọt trắng tạo hình một lối đi sai hướng; dải nước đen hút ánh sáng theo chiều thẳng đứng; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; bóng người dài gấp đôi chiều sâu của nước; đường chân trời cuộn tròn như mép hố; độ xa bị rút ngắn mà không có chuyển động; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; đường chân trời gập xuống dưới mặt nước; đáy biển tưởng gần lại xa theo từng nhịp thở; một mảng trời xám có chiều sâu như giếng; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; tiếng chuông chìm vang lên không có nguồn; phương hướng khác nhau khi nhìn bằng hai mắt; vầng sáng lạnh kẹt trong lớp vật chất đặc; một đường nứt ánh sáng nằm dưới mặt biển; mặt nước phản chiếu một người đứng sau lưng."
+    },
+    "LEVEL.NODE.7.7": {
+      "id": "LEVEL.NODE.7.7",
+      "name": "Level 7.7",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.7",
+      "AUTHOR_CANON": "Sương biển đặc; khoảng xám không biên giới; mặt nước và trời nhập làm một; vật nổi chỉ tồn tại khi thật sự nhìn thấy; Trên nền đại dương của Level 7; chân trời xám chìm trong sương dày; làm mờ mọi khoảng cách; khiến mặt nước và bầu trời hòa vào nhau thành một khoảng xám không biên giới; người mang tên Lý Niên, người sống sót trôi dạt giữa sương xám; đáy biển tưởng gần lại xa theo từng nhịp thở; tiếng vọng kéo dài sau khi miệng đã khép; sự im lặng có hướng và đang tiến lại gần; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; gợn sóng đi ngang bất chấp phương gió; vật ở xa phản chiếu thứ chưa từng hiện diện; mùi muối thẫm đặc trong màn sương không gió; tiếng gọi khàn mang đúng giọng người nghe; đường chân trời cuộn tròn như mép hố; một mảng trời xám có chiều sâu như giếng; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một dòng nước đen rạch đôi mặt biển rồi tự khép; đường chân trời gập xuống dưới mặt nước; đường chân trời uốn cong về phía sau người đứng."
+    },
+    "LEVEL.NODE.7.THE_HADAL_ZONE": {
+      "id": "LEVEL.NODE.7.THE_HADAL_ZONE",
+      "name": "Level 7 / The Hadal Zone",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.7",
+      "AUTHOR_CANON": "The Hadal Zone; tầng nước sâu nuốt ánh sáng; áp lực tối mịt; đại dương dưới đại dương; phương hướng chìm vào vực lạnh; The Hadal Zone là khu gợi cảm giác nước sâu; nơi ánh sáng bị hấp thụ dần như chìm xuống một vực không đáy; người mang tên Tạ Lưu, người sống sót trôi dạt giữa sương xám; dải nước đen hút ánh sáng theo chiều thẳng đứng; vật ở xa phản chiếu thứ chưa từng hiện diện; vệt bọt không tiêu tan giữa sương xám; vầng sáng tối hơn sương đang chìm xuống biển; gợn sóng đi ngang bất chấp phương gió; bầu không khí rung nhẹ theo nhịp không có tim; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; đáy biển tưởng gần lại xa theo từng nhịp thở; phương hướng khác nhau khi nhìn bằng hai mắt; sự im lặng có hướng và đang tiến lại gần; mặt nước rùng lên mà không tạo sóng; nước đen rút xuống để lộ một khoảng trời thứ hai; một mảng trời xám có chiều sâu như giếng; nhịp rung xa như triệu nơi chốn cùng thở."
+    },
+    "LEVEL.NODE.8": {
+      "id": "LEVEL.NODE.8",
+      "name": "Level 8 — Cave Systems",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Mạng hang ngầm khổng lồ; vách đá ẩm; hang vòm cao; vực sâu; đường hầm bóp chặt; nước tù; tiếng vọng chồng lớp; đá lạnh cào da; ánh sáng khó tìm đường ra; người mang tên Mã Bân, kẻ lang thang cười khúc khích trước tường kín; hơi lạnh từ một mạch ngầm không nước; bản đồ vẽ đúng nhưng không thể bước theo; một mảnh thực tại bị thiếu nhưng không để lại lỗ; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; bụi đá bay lên khi nền bất động; cột đá mọc trên trần rồi chạm sàn sai góc; một căn phòng rộng hơn mọi bức tường bao quanh; khoảng không khiến cự ly trở thành điều vô nghĩa; vết chà xát như má kéo lê trên bề mặt lạnh; mặt thạch nhũ có những vòng vân như nhãn cầu; tiếng thở dội lại với một phổi khác; biển chỉ đường dẫn tới căn phòng chưa tồn tại; khoảng tối dày đến mức âm thanh bị gãy; một cơn rùng mình xảy ra đồng thời trong cả phòng; mảnh gương cất giữ phản chiếu chậm hơn thực tại; đường nứt kéo dài vào không gian không có đáy."
+    },
+    "LEVEL.NODE.8.THE_SANCTUM_SUBTERRANEOUS": {
+      "id": "LEVEL.NODE.8.THE_SANCTUM_SUBTERRANEOUS",
+      "name": "Level 8 / The Sanctum Subterraneous",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.8",
+      "AUTHOR_CANON": "The Sanctum Subterraneous; hang đá kín; các vòm đá như gian điện ngầm; tiếng vọng tự đuổi nhau; ánh sáng tắt ở vách; The Sanctum Subterraneous là khu phụ trong mạng hang Level 8; bề mặt đá lạnh và thô ráp; những chỗ tối sâu nuốt ánh sáng; tiếng vọng nhiều lớp dội qua dội lại như có nhiều giọng nói đang chồng lên nhau trong đá; người mang tên Lục Hiên, kẻ lạc đường đếm cửa bằng tiếng thì thầm; bùn in dấu móng nhưng không có dấu chân; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; đá ướt rịn hơi lạnh như vết thương; vách đá mang dấu ngón tay dài bằng cột; tấm kính nhìn về góc quan sát không thể có; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; vết chà xát như má kéo lê trên bề mặt lạnh; bụi đá bay lên khi nền bất động; đường nứt kéo dài vào không gian không có đáy; đường viền căn phòng chuyển dịch theo nhịp đèn."
+    },
+    "LEVEL.NODE.9": {
+      "id": "LEVEL.NODE.9",
+      "name": "Level 9 — The Suburbs",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Ngoại ô trong đêm vĩnh viễn; nhà thấp tầng; đường nhựa vắng; bãi cỏ ướt; cây trụi; đèn đường yếu; sương lạnh; cửa nhà đóng kín; những góc phố nối tiếp không dấu hiệu người ở; hòm thư chứa những lá thư viết sau ngày mai; dấu chân cũ xuất hiện ở phía trước bước mới; một vệt đen sâu hơn cả bóng tối thường thấy; tiếng gọi khàn mang đúng giọng người nghe; đèn đường sáng trễ hơn hình bóng đi ngang; cỏ trong vườn mọc ngược về phía nền; ánh sáng dừng lại trên một ranh giới vô hình; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; một vệt như da non lộ dưới lớp sơn cũ; đồng hồ treo ngược không kim; chuông cửa vang ở ngôi nhà chưa xây; tiếng vọng kéo dài sau khi miệng đã khép; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; đèn hiên soi một lối đi chưa từng có; mảnh gương cất giữ phản chiếu chậm hơn thực tại; đường nhựa kéo dài vào sân của chính nó; phương hướng khác nhau khi nhìn bằng hai mắt; vầng sáng lạnh kẹt trong lớp vật chất đặc."
+    },
+    "LEVEL.NODE.10": {
+      "id": "LEVEL.NODE.10",
+      "name": "Level 10 — Bumper Crop",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Đồng cỏ và ruộng canh tác vô tận; trời xám đứng im; kho thóc; hàng rào mục; nhà kho nông nghiệp; lối mòn giữa luống; cỏ mọc ngược gió; bóng cây trải dài trên ruộng không người; đồng lúa nghiêng về bốn hướng gió khác nhau; bầu không khí rung nhẹ theo nhịp không có tim; đường thẳng kéo dài rồi quay về cùng một đầu mút; cánh quạt máy gặt xoay khi máy tắt; bóng cây trải dài tới điểm không có mặt trời; tiếng vọng kéo dài sau khi miệng đã khép; khoảng tối dày đến mức âm thanh bị gãy; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; hạt giống rơi lên từ đất khô; vệt bóng không thuộc bất kỳ vật thể nào; một mảnh thực tại bị thiếu nhưng không để lại lỗ; tiếng chim phát ra từ lớp đất ẩm không dấu tổ; rơm ướt tạo thành hình một căn phòng; vật ở xa phản chiếu thứ chưa từng hiện diện; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; vật cứng phát nhịp đập dưới đầu ngón; rãnh nước chảy lên đỉnh đồi; một mảng trời xám có chiều sâu như giếng."
+    },
+    "LEVEL.NODE.10.1": {
+      "id": "LEVEL.NODE.10.1",
+      "name": "Level 10.1",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.10",
+      "AUTHOR_CANON": "Ruộng trũng; nước phẳng như kính; luống cây mục; gò đất thấp; cây soi bóng dài; bùn lạnh giấu mất dấu chân; Đồng ruộng của Level 10; nơi này trũng xuống thành những vùng đất thấp; mặt nước lặng lẽ phản chiếu bầu trời xám; bờ đất và bóng cây in dài trên mặt ruộng ẩm ướt; người mang tên Bùi Nhâm, cô gái đeo kính nứt chỉ nhìn về sau; rơm ướt tạo thành hình một căn phòng; một mảng trời xám có chiều sâu như giếng; sự im lặng có hướng và đang tiến lại gần; những vạch nhỏ xếp thành hình răng không có hàm; đồng lúa nghiêng về bốn hướng gió khác nhau; dấu chân cũ xuất hiện ở phía trước bước mới; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; bù nhìn quay lưng về phía ruộng; bầu không khí rung nhẹ theo nhịp không có tim; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; tiếng gọi khàn mang đúng giọng người nghe; hạt giống rơi lên từ đất khô; vệt bóng không thuộc bất kỳ vật thể nào."
+    },
+    "LEVEL.NODE.11": {
+      "id": "LEVEL.NODE.11",
+      "name": "Level 11 — Main",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Đô thị lạnh kéo dài; phố vắng; khối nhà chồng lớp; ngõ sâu; bê tông xám; ô cửa tối; giao lộ lặp; đường chân trời bị nhà cao che lấp; nguồn gốc và quy tắc thế giới chưa được xác nhận; người mang tên Tô Hà, lão già kéo một chiếc ghế không chân; cầu vượt biến mất trước khi chạm bên kia; tiếng bước chân đi trước người bước; nhịp rung xa như triệu nơi chốn cùng thở; tấm biển quảng cáo in bóng phố đã biến mất; hộp nhạc không dây cót phát một âm trầm kéo dài; thang thoát hiểm chạy vòng ra cùng một tầng; một căn phòng rộng hơn mọi bức tường bao quanh; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; bóng hai khuỷu tay nằm ở nơi lẽ ra là cổ; đồng hồ treo ngược không kim; cửa cuốn rung như có ai đẩy từ phía trong; bức tường mỏng chứa một tiếng vọng rất xa; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; vật cứng phát nhịp đập dưới đầu ngón; máy lấy số nhảy tới một con số âm; một biển số nhà lặp dọc cả con phố; vệt phanh kéo dài ngược lên mặt tòa nhà."
+    },
+    "LEVEL.NODE.11.3": {
+      "id": "LEVEL.NODE.11.3",
+      "name": "Level 11.3",
+      "type": "SUBLEVEL",
+      "parent_id": "LEVEL.NODE.11",
+      "AUTHOR_CANON": "Đô thị đỏ sẫm; tường như máu khô; khe phố đen; cửa kính màu rỉ sắt; những ô sáng đỏ không có nguồn phát; Phân khu đô thị này đẫm sắc đỏ sẫm trên nền tối; 9% — như máu khô loang trên tường đêm; tòa nhà cao tầng che một góc trời lớn hơn chính nó; cầu thang kết thúc ngay dưới chân cầu thang khác; nhịp rung xa như triệu nơi chốn cùng thở; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; hộp nhạc không dây cót phát một âm trầm kéo dài; bóng cột điện kéo dài ngược lên mặt kính; biển chỉ đường dẫn tới căn phòng chưa tồn tại; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; chiếc ghế rỗng vẫn có tiếng quần áo cọ; mặt đường phản chiếu phố chưa tồn tại; một khe tối khiến đồng tử co lại thay vì giãn; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; vật cứng phát nhịp đập dưới đầu ngón; đồng hồ treo ngược không kim; cầu vượt biến mất trước khi chạm bên kia; bóng đổ về phía đèn đang sáng."
+    },
+    "LEVEL.NODE.11.AFTER_HOURS": {
+      "id": "LEVEL.NODE.11.AFTER_HOURS",
+      "name": "Level 11 / After Hours",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.11",
+      "AUTHOR_CANON": "After Hours; thành phố xanh đen; giờ muộn bất tận; cửa cuốn lạnh; ngõ tối; bóng công trình kéo dài; After Hours là đoạn đô thị muộn trong Level 11; xanh đen và xám lạnh bao phủ những mảng xây dựng; ánh sáng thưa thớt để lại những khoảng tối dài giữa các khối nhà; người mang tên Tống Cẩn, kẻ khoác áo mưa quá dài với đôi giày khô; bốt điện thoại có tiếng mưa trong ống nghe; tiếng va chạm truyền đến trước cử động; khoảng không khiến cự ly trở thành điều vô nghĩa; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; đèn báo đỏ sáng dưới lớp bụi kín; cầu vượt biến mất trước khi chạm bên kia; bóng đổ về phía đèn đang sáng; một vệt đen sâu hơn cả bóng tối thường thấy; mùi sắt tươi xuất hiện rồi mất không dấu vết; mảnh gương cất giữ phản chiếu chậm hơn thực tại; mặt đường phản chiếu phố chưa tồn tại; các góc vuông cộng lại thành một vòng tròn; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; một vệt như da non lộ dưới lớp sơn cũ."
+    },
+    "LEVEL.NODE.11.ASSET_11P1": {
+      "id": "LEVEL.NODE.11.ASSET_11P1",
+      "name": "Level 11 / Asset 11p1",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.11",
+      "AUTHOR_CANON": "Asset 11p1; mảng đô thị tối không tên chính thức; mép bê tông lạnh; ô cửa rời rạc; góc phố chưa định hình; Asset 11p1 là khu phụ mang mã hình đó trong Level 11; người mang tên Đinh Độ, kẻ lang thang cười khúc khích trước tường kín; tòa nhà cao tầng che một góc trời lớn hơn chính nó; cửa mở vào mặt sau của chính nó; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; tiếng gọi khàn mang đúng giọng người nghe; đồng hồ treo ngược không kim; bốt điện thoại có tiếng mưa trong ống nghe; ổ khóa ấm như vừa rút khỏi cơ thể; nhịp rung xa như triệu nơi chốn cùng thở; vết chà xát như má kéo lê trên bề mặt lạnh; chiếc ghế rỗng vẫn có tiếng quần áo cọ; thang thoát hiểm chạy vòng ra cùng một tầng; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; sự im lặng có hướng và đang tiến lại gần; những vạch nhỏ xếp thành hình răng không có hàm; hộp nhạc không dây cót phát một âm trầm kéo dài; cầu vượt biến mất trước khi chạm bên kia; vệt phanh kéo dài ngược lên mặt tòa nhà."
+    },
+    "LEVEL.NODE.11.RADIO_BACKROOMS_STUDIO": {
+      "id": "LEVEL.NODE.11.RADIO_BACKROOMS_STUDIO",
+      "name": "Level 11 / Radio Backrooms Studio",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.11",
+      "AUTHOR_CANON": "Radio Backrooms Studio; phòng phát thanh cũ; tông nâu tối; bàn điều khiển; bóng đen giữa thiết bị; ánh báo yếu; Radio Backrooms Studio là góc không gian tối trong Level 11; bóng đen dày đặc và chỉ vài điểm sáng ít ỏi; bề mặt mang vẻ cũ kỹ và kín đáo như một căn phòng đã bị khóa từ lâu; người mang tên Hầu Quân, bà lão tóc bạc đếm bước bằng móng tay; cửa cách âm chặn lời nói nhưng lọt tiếng chân; bóng đổ về phía đèn đang sáng; cảm giác có bầu trời thứ hai nằm phía sau cảnh vật; một vệt như da non lộ dưới lớp sơn cũ; cuốn sổ chỉ có trang cuối; đèn ON AIR sáng dù bàn phát thanh đã ngắt; các góc vuông cộng lại thành một vòng tròn; một vệt đen sâu hơn cả bóng tối thường thấy; vật cứng phát nhịp đập dưới đầu ngón; máy lấy số nhảy tới một con số âm; đồng hồ quảng cáo đếm ngược vô hạn; bức tường mỏng chứa một tiếng vọng rất xa; nhịp rung xa như triệu nơi chốn cùng thở; mùi sắt tươi xuất hiện rồi mất không dấu vết; đồng hồ treo ngược không kim."
+    },
+    "LEVEL.NODE.11.SCENE_01P2": {
+      "id": "LEVEL.NODE.11.SCENE_01P2",
+      "name": "Level 11 / Scene 01p2",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.11",
+      "AUTHOR_CANON": "Scene 01p2; mảng đô thị phụ; cự ly đường phố đổi theo góc nhìn; khối nhà đứt đoạn; chưa có tên địa hình ổn định; Scene 01p2 là khu phụ mang mã đó; chỉ tiếp nối nhịp đô thị của Level 11 bằng tỉ lệ khối; độ sâu và góc nhìn từ vị trí hiện tại; người mang tên Mai Tử, người sống sót vẽ những ô vuông lên lòng bàn tay; bốt điện thoại có tiếng mưa trong ống nghe; gương phản chiếu căn phòng đã bị phá bỏ; sự im lặng có hướng và đang tiến lại gần; tiếng chân từ một vỉa hè không thấy; máy lấy số nhảy tới một con số âm; đèn giao thông chỉ hiện màu chưa có tên; khe tường sâu đến mức nuốt mất tiếng gõ; nỗi chóng mặt đến trước khi nhận ra đang đứng yên; làn hơi thở hắt ra từ chỗ không có miệng; điện thoại có dây chui xuống một vết rạn; tòa nhà cao tầng che một góc trời lớn hơn chính nó; tiếng bước chân đi trước người bước; đường thẳng kéo dài rồi quay về cùng một đầu mút; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; vệt phanh kéo dài ngược lên mặt tòa nhà."
+    },
+    "LEVEL.NODE.11.THE_HEADQUARTERS": {
+      "id": "LEVEL.NODE.11.THE_HEADQUARTERS",
+      "name": "Level 11 / The Headquarters",
+      "type": "AREA",
+      "parent_id": "LEVEL.NODE.11",
+      "AUTHOR_CANON": "The Headquarters; công trình xám nặng; tường cao không cửa sổ; mặt tiền như pháo đài; bóng công sở đổ xuống đường; The Headquarters là khu mang tên đó trong Level 11; đen và nâu lạnh bao phủ những hình khối nặng nề; tạo cảm giác công trình kín hơn mặt phố; như một pháo đài không cửa sổ đang nhìn xuống đường; đồng hồ quảng cáo đếm ngược vô hạn; tiếng bước chân đi trước người bước; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; máy lấy số nhảy tới một con số âm; đèn giao thông chỉ hiện màu chưa có tên; cầu thang kết thúc ngay dưới chân cầu thang khác; đường thẳng kéo dài rồi quay về cùng một đầu mút; mùi sắt tươi xuất hiện rồi mất không dấu vết; hộp nhạc không dây cót phát một âm trầm kéo dài; bóng cột điện kéo dài ngược lên mặt kính; bóng một bàn tay quay ngược đốt ngón; khoảng tối dày đến mức âm thanh bị gãy; một hình người sai tỷ lệ chỉ hiện khi ngoái nhìn; vệt phanh kéo dài ngược lên mặt tòa nhà."
+    },
+    "LEVEL.NODE.12": {
+      "id": "LEVEL.NODE.12",
+      "name": "Level 12 — Main",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Không gian xám gần trắng; mặt phẳng nhạt màu; ranh giới tường và sàn mờ; sắc độ gần trùng nhau; không đo chắc được cự ly; môi trường chưa có quy tắc đã xác nhận; những khoảng trống thừa ánh sáng; khe cửa trắng hơn cả bức tường xung quanh; cửa mở vào mặt sau của chính nó; một điểm vô cùng nhỏ mang bóng của thứ vô cùng lớn; tiếng gọi khàn mang đúng giọng người nghe; nhãn dán ghi tên vật chưa từng tồn tại; một đường chỉ đen treo ngang độ sâu vô hạn; không gian sau cột dày hơn phía trước cột; sự im lặng có hướng và đang tiến lại gần; vật cứng phát nhịp đập dưới đầu ngón; máy lấy số nhảy tới một con số âm; âm thanh rơi vào khoảng trống không màu; tấm kính nhìn về góc quan sát không thể có; nhịp rung xa như triệu nơi chốn cùng thở; dấu ngón tay chồng lên nhau mà không có lòng bàn tay; mảnh gương cất giữ phản chiếu chậm hơn thực tại; vết bẩn duy nhất nằm ở phía không nhìn thấy; mép cửa in bóng của vật chưa xuất hiện; đèn báo đỏ sáng dưới lớp bụi kín."
+    },
+    "LEVEL.NODE.13": {
+      "id": "LEVEL.NODE.13",
+      "name": "Level 13 — Main",
+      "type": "LEVEL",
+      "parent_id": null,
+      "AUTHOR_CANON": "Khu cư trú cũ; gỗ nâu sẫm; mảng cam ấm; hành lang tối; góc phòng bị ánh sáng bỏ quên; căn hộ liên tiếp; nội thất chỉ xác lập khi quan sát; quy tắc và cư dân chưa được xác nhận; người mang tên Tần Sương, người đàn ông đội mũ ướt không bao giờ tháo; cửa căn hộ có thêm một lỗ khóa không người dùng; tấm kính nhìn về góc quan sát không thể có; đường thẳng kéo dài rồi quay về cùng một đầu mút; một vệt như da non lộ dưới lớp sơn cũ; nhãn dán ghi tên vật chưa từng tồn tại; cầu thang thoát hiểm dẫn vào phòng khách; cánh cửa đóng nhưng khoảng trống phía sau vẫn rộng dần; bóng vật thể kéo dài theo một nguồn sáng không tồn tại; vết chà xát như má kéo lê trên bề mặt lạnh; đèn báo đỏ sáng dưới lớp bụi kín; ống nước gõ đều trong vách gỗ; sàn nghiêng nhẹ khi không còn ai quan sát; một mảnh thực tại bị thiếu nhưng không để lại lỗ; vật cứng phát nhịp đập dưới đầu ngón; cuốn sổ chỉ có trang cuối; thảm chùi chân in lời chào không ai đọc."
+    }
+  }
+}

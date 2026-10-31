@@ -1,0 +1,37 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const db=JSON.parse(fs.readFileSync('web/knowledge/KeyCanon.json','utf8'));
+const policy=JSON.parse(fs.readFileSync('web/knowledge/level_travel_policy.json','utf8'));
+const old=[...JSON.parse(fs.readFileSync('web/knowledge/level_0_canon_cards.json','utf8')).records,...JSON.parse(fs.readFileSync('web/knowledge/level_1plus_canon_cards.json','utf8')).records];
+const byKey=new Map(old.filter(x=>x.node_key).map(x=>[x.node_key,x]));
+const byId=new Map(old.map(x=>[x.id,x]));
+const ids=policy.nodes.map(n=>n.canonId);
+assert.equal(db.schemaVersion,1);
+assert.equal(db.packId,'KeyCanon');
+assert.equal(db.recordCount,policy.nodes.length);
+assert.deepEqual(Object.keys(db.records).sort(),ids.slice().sort());
+assert.equal(new Set(ids).size,ids.length);
+assert.deepEqual(policy.nodes.reduce((r,n)=>(r[n.kind]=(r[n.kind]||0)+1,r),{}),{LEVEL:14,SUBLEVEL:11,AREA:18,ZONE:20,SUB:77});
+const texts=new Set();let withCharacters=0,shortest=Infinity,longest=0;
+for(const node of policy.nodes){
+ const r=db.records[node.id],source=byId.get(node.id);
+ assert.ok(source,'Missing source location '+node.id);
+ assert.equal(r.id,node.id);assert.equal(r.name,node.name);assert.equal(r.type,node.kind);
+ const parent=source.parent_node_key?byKey.get(source.parent_node_key):null;
+ assert.equal(r.parent_id,parent?parent.id:null);
+ const content=r.AUTHOR_CANON;
+ assert.equal(typeof content,'string');
+ const count=Array.from(content.normalize('NFC')).length;
+ shortest=Math.min(count,shortest);longest=Math.max(count,longest);
+ assert.ok(count>=900&&count<=1000,node.id+' has '+count+' chars');
+ assert.ok(content.includes('; ')&&!content.includes('\n'),'Keyword formatting '+node.id);
+ assert.ok(!/ĐỀ XUẤT MIÊU TẢ CẢNH|PENDING_AUTHOR_REVIEW/i.test(content),'Internal flags leaked '+node.id);
+ assert.ok(!texts.has(content),'Duplicate scene '+node.id);texts.add(content);
+ if(/người mang tên |Lão già Dab lang thang điên loạn/.test(content))withCharacters++;
+}
+assert.ok(withCharacters>40&&withCharacters<100,'Characters selected, not forced for every location');
+assert.match(db.records['LEVEL.NODE.0'].AUTHOR_CANON,/chưa xác nhận Entity cư trú/);
+assert.match(db.records['LEVEL.NODE.0'].AUTHOR_CANON,/Lão già Dab lang thang điên loạn/);
+assert.match(db.records['LEVEL.NODE.6'].AUTHOR_CANON,/tundra tối vĩnh viễn/);
+assert.match(db.records['LEVEL.NODE.7'].AUTHOR_CANON,/Đại dương lạnh vô tận/);
+console.log('PASS: KeyCanon '+ids.length+' records, '+shortest+'-'+longest+' Unicode chars, '+withCharacters+' with characters');

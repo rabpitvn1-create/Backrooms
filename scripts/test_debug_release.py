@@ -84,6 +84,10 @@ class DebugReleaseTests(unittest.TestCase):
                 self.assertIn(b"BACKROOMS_CAO_MINH_ASSET_DATABASE", apk.read("assets/cao-minh-asset-db.js"))
                 self.assertIn(b"offline-character-assets.js", apk.read("assets/index.html"))
                 self.assertIn(b"characterSword", apk.read("assets/cloudinary-gameplay.js"))
+                keycanon = json.loads(apk.read("assets/knowledge/KeyCanon.json"))
+                self.assertEqual(keycanon["recordCount"], 140)
+                self.assertEqual(len(keycanon["records"]), 140)
+                self.assertIn("Lão già Dab", keycanon["records"]["LEVEL.NODE.0"]["AUTHOR_CANON"])
                 images_manifest = json.loads(apk.read("assets/characters/manifest.json"))
                 self.assertEqual(sum(1 for x in images_manifest["assets"]
                                      if x.get("public_id", "").startswith("backrooms/cao_minh/")), 4)

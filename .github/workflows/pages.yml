@@ -53,6 +53,8 @@ jobs:
         run: mvn -B -f engine/pom.xml package
       - name: Verify gameplay core and browser host
         run: node scripts/test_engine.cjs
+      - name: Validate KeyCanon database
+        run: node scripts/test_keycanon.cjs
       - name: Stage browser fixtures
         run: python3 scripts/build_pages.py --test-config
       - name: Install browser verification tools
