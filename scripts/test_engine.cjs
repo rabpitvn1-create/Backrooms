@@ -49,8 +49,12 @@ function call(name,...args){return JSON.parse(__webGame.call(name,...args));}
  console.log('PASS: Canon Runtime 2 supplies the full current Level 7 description');
 
  const keyCanon=JSON.parse(BACKROOMS_ASSETS['knowledge/KeyCanon.json']).records;
- const level0Prompt=core.corePrompt(JSON.stringify(state),'Quan sát phòng vàng',JSON.stringify({turn:state.turn,meta:false}));
- console.log('KEYCANON_DIAG',JSON.stringify({level:state.level,travelNode:state.levelTravel?.nodeId,promptPrefix:level0Prompt.slice(0,140),promptLength:level0Prompt.length,hasKey:level0Prompt.includes('[KEYCANON v1'),assetRegistered:typeof BACKROOMS_ASSETS['knowledge/KeyCanon.json']==='string'}));
+ const level0State=structuredClone(state);
+ level0State.level={number:0,name:'The Lobby',id:'LEVEL.NODE.0',nodeId:'LEVEL.NODE.0',canonScope:'LEVEL.00'};
+ level0State.levelTravel={...level0State.levelTravel,nodeId:'LEVEL.NODE.0'};
+ level0State.title='Level 0 — The Lobby';
+ level0State.location='Level 0';
+ const level0Prompt=core.corePrompt(JSON.stringify(level0State),'Quan sát phòng vàng',JSON.stringify({turn:level0State.turn,meta:false}));
  assert.ok(level0Prompt.includes('[KEYCANON v1 / CURRENT LOCATION: LEVEL.NODE.0]'),'KeyCanon must be selected by active Level');
  assert.ok(level0Prompt.includes(keyCanon['LEVEL.NODE.0'].AUTHOR_CANON),'Level 0 keywords must reach GM untruncated');
  assert.ok(level0Prompt.includes('Lão già Dab lang thang điên loạn'),'Level 0 symbolic character must be available');
