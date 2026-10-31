@@ -100,7 +100,7 @@
         const payload = JSON.parse(bodyText);
         const text = (payload.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
         const parsed = parseAnswer(text);
-        const itemRequest = parsed.itemUseRequest && typeof parsed.itemUseRequest === 'object' && !Array.isArray(parsed.itemUseRequest);
+        const itemRequest = Object.hasOwn(parsed, 'itemUseRequest') && parsed.itemUseRequest !== null;
         if (!itemRequest && (typeof parsed.reply !== 'string' || !parsed.reply.trim())) throw new Error('Phản hồi chưa có lời kể.');
         return parsed;
       } catch (error) {
