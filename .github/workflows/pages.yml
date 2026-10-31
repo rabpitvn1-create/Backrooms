@@ -62,8 +62,11 @@ jobs:
       - name: Stage browser fixtures
         run: python3 scripts/build_pages.py --test-config
       - name: Install browser verification tools
+        timeout-minutes: 8
         run: |
-          npm install --no-save --package-lock=false playwright@1.56.1
+          printf '%s\n' 'https://archive.ubuntu.com/ubuntu' | sudo tee /etc/apt/apt-mirrors.txt > /dev/null
+          printf 'Acquire::Retries "1";\nAcquire::http::Timeout "30";\nAcquire::https::Timeout "30";\n' | sudo tee /etc/apt/apt.conf.d/99-backrooms-timeouts > /dev/null
+          npm install --no-save --package-lock=false --no-audit --no-fund playwright@1.56.1
           npx playwright install --with-deps chromium
       - name: Verify the single mobile UI and gameplay at every viewport
         run: |
