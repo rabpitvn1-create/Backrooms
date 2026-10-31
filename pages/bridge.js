@@ -100,7 +100,8 @@
         const payload = JSON.parse(bodyText);
         const text = (payload.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
         const parsed = parseAnswer(text);
-        if (typeof parsed.reply !== 'string' || !parsed.reply.trim()) throw new Error('Phản hồi chưa có lời kể.');
+        const itemRequest = parsed.itemUseRequest && typeof parsed.itemUseRequest === 'object' && !Array.isArray(parsed.itemUseRequest);
+        if (!itemRequest && (typeof parsed.reply !== 'string' || !parsed.reply.trim())) throw new Error('Phản hồi chưa có lời kể.');
         return parsed;
       } catch (error) {
         failures.push(`Gemini ${model}: ${error.name === 'TimeoutError' ? 'hết thời gian chờ' : 'yêu cầu không hoàn tất'}`);

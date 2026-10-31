@@ -80,13 +80,14 @@ are blank in this build. A pinned four-byte edit to the credential validator
 permits blank fields. Primary nonempty values are checked before packaging;
 the runtime's distinct-key, value-length, and URL validation remain. The legacy
 base URL remains only to satisfy that validation and receives no requests.
-The primary router and all gameplay bytecode are unchanged.
+Provider routing is preserved. Current builds also apply the reviewed item-use
+patches described above.
 
 Android tests load the router directly from the APK and verify primary success,
 key switching, exhausting all six keys, rate-limit handling, and that a disabled
 fallback is never called. They also invoke the APK's credential validator with
-six keys and blank fallback credentials. All other recovered entries remain
-byte-identical except the version manifest and generated configuration.
+six keys and blank fallback credentials. Packaging verifies that recovered entries outside the explicit override set
+remain byte-identical.
 
 The workflow verifies APK signing and metadata, installs and launches the app
 on an Android 15 emulator, and publishes tag `v1.0.0.0` only after success.
