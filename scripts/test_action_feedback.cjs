@@ -10,7 +10,7 @@ function deferred(){let release;const promise=new Promise(resolve=>{release=reso
       const errors=[];page.on('pageerror',error=>errors.push(error.message));
       await page.addInitScript(()=>{Math.random=()=>0.61});
       let gate=null,requests=0;
-      await page.route('https://backrooms-api-proxy.lightangel1092.workers.dev/**',async route=>{
+      await page.route('https://backrooms-gemini-proxy.onrender.com/**',async route=>{
         requests++;
         if(gate)await gate.promise;
         await route.fulfill({status:200,contentType:'application/json',
