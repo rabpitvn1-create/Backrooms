@@ -10,7 +10,7 @@ const {chromium}=require('playwright');
    let requests=0;
    await page.route('https://backrooms-gemini-proxy.onrender.com/**',async route=>{
     requests++;
-    const response={reply:'Cao Minh dừng lại trước bức tường. Hắn quan sát các vết xước rồi kiểm tra khoảng trống phía trước, chưa vội chạm tay vào.',entityPreview:'Một tiếng động nhẹ vọng tới từ phía xa.'};
+    const response={itemUseRequest:null,reply:'Cao Minh dừng lại trước bức tường. Hắn quan sát các vết xước rồi kiểm tra khoảng trống phía trước, chưa vội chạm tay vào.',entityPreview:'Một tiếng động nhẹ vọng tới từ phía xa.'};
     await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({candidates:[{content:{parts:[{text:JSON.stringify(response)}]}}]})});
    });
    await page.goto(process.env.PAGES_TEST_URL||'http://127.0.0.1:4173/Backrooms/',{waitUntil:'domcontentloaded'});

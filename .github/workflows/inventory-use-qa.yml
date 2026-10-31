@@ -1,0 +1,109 @@
+name: Inventory-only item use QA
+on:
+  push:
+    branches: [fix/inventory-only-item-use]
+  pull_request:
+    paths: ['engine/**', 'pages/**', 'scripts/**', 'web/item-detail-actions.js', 'web/inventory-use-notice.js', '.github/workflows/inventory-use-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: engine/pom.xml
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and verify shared Core
+        run: |
+          python3 scripts/prepare_web_engine.py
+          mvn -B -f engine/pom.xml package
+          node scripts/test_engine.cjs
+          node scripts/test_inventory_use.cjs
+          node scripts/test_keycanon.cjs
+          node scripts/test_legacy_canon.cjs
+          python3 scripts/build_pages.py --test-config
+      - name: Install browser checks
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Check browser gameplay and Inventory
+        run: |
+          mkdir -p build/test-host
+          ln -s "$GITHUB_WORKSPACE/build/pages" build/test-host/Backrooms
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory build/test-host > build/browser-server.log 2>&1 &
+          node scripts/test_pages.cjs
+          node scripts/test_action_feedback.cjs
+          node scripts/test_inventory_use_pages.cjs
+          node scripts/test_combat_pages.cjs
+          node scripts/test_sword_animation.cjs
+          node scripts/test_mobile_only.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inventory-use-web-evidence
+          path: build/*inventory*.png
+          if-no-files-found: ignore
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Verify APK packaging and build disposable fixture
+        env:
+          GEMINI_API_KEY_1: offline-new-key-1
+          GEMINI_API_KEY_2: offline-new-key-2
+          GEMINI_API_KEY_3: offline-new-key-3
+          GEMINI_API_KEY_4: offline-new-key-4
+          GEMINI_API_KEY_5: offline-new-key-5
+          GEMINI_API_KEY_6: offline-new-key-6
+        run: |
+          python3 -m unittest discover -s scripts -p 'test_*.py' -v
+          python3 scripts/debug_release.py
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - name: Compile tests for actual APK
+        run: |
+          sdkmanager 'build-tools;35.0.0' 'platforms;android-35'
+          mkdir -p build/inventory-test-classes
+          javac -source 8 -target 8 -encoding UTF-8 -cp "$ANDROID_HOME/platforms/android-35/android.jar" -d build/inventory-test-classes scripts/InventoryUseSmoke.java
+          "$ANDROID_HOME/build-tools/35.0.0/d8" --min-api 24 --lib "$ANDROID_HOME/platforms/android-35/android.jar" --output build/inventory-tests.jar build/inventory-test-classes/*.class
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Exercise packaged Core on Android 15
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          script: |
+            adb push build/Backrooms-1.0.0.1-debug-unsigned.apk /data/local/tmp/backrooms.apk
+            adb push build/inventory-tests.jar /data/local/tmp/inventory-tests.jar
+            adb shell chmod 444 /data/local/tmp/backrooms.apk /data/local/tmp/inventory-tests.jar
+            adb shell 'CLASSPATH=/data/local/tmp/inventory-tests.jar app_process /system/bin InventoryUseSmoke /data/local/tmp/backrooms.apk' | tee build/inventory-android.txt
+            grep -F 'PASS: packaged Android Core' build/inventory-android.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inventory-use-android-evidence
+          path: build/inventory-android.txt
+          if-no-files-found: ignore

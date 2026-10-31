@@ -6,6 +6,7 @@ import subprocess
 import urllib.request
 import struct
 import level_travel
+import inventory_use
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "build/web-engine-tools"
@@ -51,6 +52,8 @@ def prepare():
     for name, digest in HASHES.items():
         source = ROOT / "apk-original" / name
         assert hashlib.sha256(source.read_bytes()).hexdigest() == digest
+        if name == "classes3.dex":
+            source = inventory_use.patched_dex(name)
         target = TOOLS / (name + ".jar")
         subprocess.run(["java", "-Xmx2g", "-cp", str(TOOLS / "dex-tools-v2.4/lib/*"),
                         "com.googlecode.dex2jar.tools.Dex2jarCmd", str(source), "-o", str(target), "--force"], check=True)

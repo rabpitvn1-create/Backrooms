@@ -18,6 +18,8 @@ public final class CoreBridge {
   static GameCoreFacade facade;
   @JSExport public static void coreAsset(String name,String text){android.content.res.AssetManager.files.put(name,text);}
   @JSExport public static boolean coreMeta(String action){return narrator.meta(action);}
+  @JSExport public static String coreItemUseBegin(String state,String action){try{InventoryUsePolicy.begin(facade,state,action);return "{}";}catch(Throwable t){return error(t);}}
+  @JSExport public static void coreItemUseCancel(){InventoryUsePolicy.cancel();}
   @JSExport public static String coreRolls(String state,String action,boolean meta){try{return narrator.rolls(state,action,meta);}catch(Throwable t){return error(t);}}
 
   // Location-scoped keyword Canon for CR2 narration. Gameplay remains authoritative.
@@ -66,7 +68,7 @@ public final class CoreBridge {
       if(result instanceof com.rabpit.backroom.core.canon.CanonOutcome.Ready)packet=((com.rabpit.backroom.core.canon.CanonOutcome.Ready)result).getPacket();
       if(result instanceof com.rabpit.backroom.core.canon.CanonOutcome.SafeLocalResolution)throw new IllegalStateException(((com.rabpit.backroom.core.canon.CanonOutcome.SafeLocalResolution)result).getReason());
       if (packet != null) packet += keyCanonFor(state);
-      return narrator.prompt(state,action,rolls,packet);
+      return InventoryUsePolicy.appendPrompt(narrator.prompt(state,action,rolls,packet));
     }catch(Throwable t){return error(t);}
   }
   @JSExport public static String coreCandidate(String state,String generated,String rolls,String action){try{return narrator.candidate(state,generated,rolls,action);}catch(Throwable t){return error(t);}}

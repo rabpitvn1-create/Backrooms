@@ -9,6 +9,22 @@ Extracted from `CAO_MINH-1.0.0.0.8.apk` (70 APK entries).
 
 Note: Android `classes*.dex` are compiled bytecode, not the original Kotlin/Java source. This extraction cannot recreate missing Gradle/build configuration. The APK manifest references some `characters/` and `item-icons/` media files that are not embedded in the APK; these need to be resolved from Cloudinary or other source to make all visuals work.
 
+## Item use
+
+Items can be used only by opening their Inventory detail and pressing `Dùng`.
+Text commands are interpreted by the GM, which returns `itemUseRequest` with
+a registered item ID, or `null` for ordinary narration. A verified request shows
+`Vui lòng vào kho đồ và nhấn sử dụng vật phẩm.` and restores the pre-action Core
+checkpoint: no consumption, effects, time, completed turn or exit streak change.
+Abilities such as thần niệm, ý niệm and thần thức remain narrative actions.
+
+`scripts/inventory_use.py` patches the recovered Core and Android bridge during
+build; original APK entries stay immutable. Pages and APK compile the same
+`InventoryUsePolicy.java`. ID classification is checked against the existing
+catalog and authoritative items, and fabricated or missing classifications fail
+without committing staged gameplay. Android QA exercises the actual packaged
+DEX on Android 15, in addition to browser and Core regression tests.
+
 ## Canon archives
 
 The current location-scoped scene authoring source is `web/knowledge/KeyCanon.json`.
@@ -64,13 +80,14 @@ are blank in this build. A pinned four-byte edit to the credential validator
 permits blank fields. Primary nonempty values are checked before packaging;
 the runtime's distinct-key, value-length, and URL validation remain. The legacy
 base URL remains only to satisfy that validation and receives no requests.
-The primary router and all gameplay bytecode are unchanged.
+Provider routing is preserved. Current builds also apply the reviewed item-use
+patches described above.
 
 Android tests load the router directly from the APK and verify primary success,
 key switching, exhausting all six keys, rate-limit handling, and that a disabled
 fallback is never called. They also invoke the APK's credential validator with
-six keys and blank fallback credentials. All other recovered entries remain
-byte-identical except the version manifest and generated configuration.
+six keys and blank fallback credentials. Packaging verifies that recovered entries outside the explicit override set
+remain byte-identical.
 
 The workflow verifies APK signing and metadata, installs and launches the app
 on an Android 15 emulator, and publishes tag `v1.0.0.0` only after success.
