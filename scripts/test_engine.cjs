@@ -44,7 +44,7 @@ function call(name,...args){return JSON.parse(__webGame.call(name,...args));}
  level7State.title='Level 7 — Thalassophobia';
  level7State.location='Level 7';
  const level7Prompt=core.corePrompt(JSON.stringify(level7State),'Quan sát đại dương',JSON.stringify({turn:level7State.turn,meta:false}));
- assert.match(level7Prompt,/\\[KNOWLEDGE_PACKET v1\\]/,'Canon Runtime 2 must be enabled');
+ assert.ok(level7Prompt.includes('[KNOWLEDGE_PACKET v1]'),'Canon Runtime 2 must be enabled');
  assert.ok(level7Prompt.includes(level7Record.text),'GM prompt must include full Level 7 canon description');
  console.log('PASS: Canon Runtime 2 supplies the full current Level 7 description');
  const identity=state.levelTravel.runId;
