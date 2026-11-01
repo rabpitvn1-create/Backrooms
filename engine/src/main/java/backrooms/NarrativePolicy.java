@@ -15,8 +15,37 @@ public final class NarrativePolicy {
   private static final String HISTORY = "narrativeLevelMemory";
   private static final String SEEN = "narrativeSeen";
   private static final int MAX_FACTS = 10, MAX_ACTORS = 6, MAX_RELATIONS = 16;
+  private static final java.util.Map<String,String> CANON = canonDirectory();
 
   private NarrativePolicy() {}
+
+  private static java.util.Map<String,String> canonDirectory() {
+    java.util.Map<String,String> names = new java.util.LinkedHashMap<String,String>();
+    for (com.rabpit.backroom.core.CharacterState actor :
+        com.rabpit.backroom.core.GameState.Companion.initial().getCharacters().values())
+      names.put(actor.getId(), actor.getName());
+    for (String id : com.rabpit.backroom.core.VietnameseFollowersCanon.INSTANCE.getIds())
+      names.put(id, com.rabpit.backroom.core.VietnameseFollowersCanon.INSTANCE.name(id));
+    return names;
+  }
+
+  // A remembered/separated character is not evidence of a current encounter.
+  private static void validateNarration(JSONObject state, String text) {
+    for (java.util.Map.Entry<String,String> actor : CANON.entrySet()) {
+      if (present(state,actor.getKey())) continue;
+      String name=actor.getValue().toLowerCase(java.util.Locale.ROOT);
+      for (String clause : text.toLowerCase(java.util.Locale.ROOT).split("[.!?;\\n]|,|\\bnhưng\\b|\\bbỗng\\b|\\bđột nhiên\\b")) {
+        int at=clause.indexOf(name);
+        if(at<0)continue;
+        String prefix=clause.substring(0,at);
+        // Reference cues apply only before this mention, never to a later assertion.
+        if(prefix.matches("(?s).*(?:nhớ|hồi tưởng|ký ức|nghĩ|lo cho|lo về|mong|tìm|gọi|hỏi|nếu|giả sử|từng|năm xưa|ngày ấy|trước kia|trước đây|không|chưa).*"))continue;
+        String rest=clause.substring(at+name.length());
+        if(rest.matches("(?s).*(?:thất lạc|biệt tăm|ở đâu|chưa rõ|không rõ).*"))continue;
+        throw new IllegalArgumentException("narrative_unconfirmed_canon_presence:"+actor.getKey());
+      }
+    }
+  }
 
   private static boolean genericName(String name) {
     String n = name.toLowerCase(java.util.Locale.ROOT).trim();
@@ -136,6 +165,10 @@ public final class NarrativePolicy {
 
   /** Applied after GM validation and before Core's authoritative turn commit. */
   public static void apply(JSONObject after, JSONObject before, JSONObject generated, JSONObject rolls) {
+    validateNarration(before,generated.optString("reply",""));
+    validateNarration(before,generated.optString("entityPreview",""));
+    JSONObject proposed=generated.optJSONObject("narrativeDelta");
+    if(proposed!=null)validateNarration(before,proposed.optString("summary",""));
     JSONObject currentFlags = after.optJSONObject("flags");
     if(currentFlags == null){currentFlags=new JSONObject();after.put("flags",currentFlags);}
     JSONObject priorFlags = before.optJSONObject("flags");
@@ -214,8 +247,12 @@ public final class NarrativePolicy {
           if(name.isEmpty()||!namesInUpdate.add(name))
             throw new IllegalArgumentException("narrative_actor_duplicate");
           JSONObject entry=participants.get(name);
-          if(canonId.isEmpty() && entry==null && alias.isEmpty())
-            canonId=presentActorId(before,name);
+          String resolved=canonActorId(before,name);
+          if(canonId.isEmpty())canonId=resolved;
+          else if(!CANON.containsKey(canonId) && !present(before,canonId))
+            throw new IllegalArgumentException("narrative_actor_unknown_id");
+          if((!resolved.isEmpty() || CANON.containsKey(canonId)) && !canonId.equals(resolved))
+            throw new IllegalArgumentException("narrative_actor_identity_changed");
           // The model may put an absent canon character into optional emotion
           // metadata (e.g. a separated follower recalled in prose). Ignore that
           // actor update without changing Core presence, Party or the active scene.
@@ -296,10 +333,11 @@ public final class NarrativePolicy {
     }
   }
 
-  // The model's actor.id is optional: resolve only exact names of present Core actors.
-  // Never infer an absent NPC or turn an arbitrary narrative name into a follower.
-  private static String presentActorId(JSONObject state,String name) {
+  // Resolve identity independently of presence; recollection never spawns a follower.
+  private static String canonActorId(JSONObject state,String name) {
     if("Cao Minh".equalsIgnoreCase(name))return "cao-minh";
+    for(java.util.Map.Entry<String,String> actor:CANON.entrySet())
+      if(name.equalsIgnoreCase(actor.getValue()))return actor.getKey();
     JSONArray party=state.optJSONArray("party");
     if(party!=null)for(int i=0;i<party.length();i++){
       JSONObject member=party.optJSONObject(i);
@@ -325,7 +363,7 @@ public final class NarrativePolicy {
   private static boolean known(JSONObject state,String id){
     if("cao-minh".equals(id))return true;
     JSONObject flags=state.optJSONObject("flags");
-    if(flags!=null&&flags.optJSONObject(id)!=null)return true;
+    if(CANON.containsKey(id)&&flags!=null&&flags.optJSONObject(id)!=null)return true;
     JSONArray party=state.optJSONArray("party");
     if(party!=null)for(int i=0;i<party.length();i++){
       JSONObject p=party.optJSONObject(i);
@@ -395,6 +433,7 @@ public final class NarrativePolicy {
       "không thêm Inventory, không sửa HP/EXP, combat, loot, party hoặc travel. "+
       "Chỉ ghi actors cho nhân vật đang trực tiếp hiện diện trong cảnh đã được Core xác nhận. "+
       "Nhân vật chỉ được nhắc lại trong ký ức hoặc đang thất lạc không thuộc actors; có thể ghi vào summary. "+
+      "Khi nhắc nhân vật vắng mặt trong reply hoặc summary, phải thể hiện rõ đây là hồi tưởng, suy nghĩ, tìm kiếm hoặc điều chưa biết; không kể họ hiện diện hay đối thoại trực tiếp. "+
       "Hãy xuất thêm narrativeDelta:null nếu không có thay đổi cần nhớ; "+
       "khi có, chỉ dùng {summary:string,actors:[{name,id?,aliasOf?,emotion,belief,intent}],closed:boolean,relationships:[{from,to,emotion}]}. "+
       "summary tối đa 600 ký tự, actors tối đa 6; relationship phải dùng ID nhân vật canon đã biết, "+

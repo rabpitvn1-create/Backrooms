@@ -45,7 +45,9 @@ public final class InventoryUseSmoke {
     begin.invoke(null, facade, raw, "Sử dụng Almond Water");
     String prompt = (String)policy.getMethod("appendPrompt", String.class).invoke(null, "GM");
     check(prompt.contains("almond-water"), "Item directory is missing");
-    saved[0] = companion.getClass().getMethod("initial").invoke(companion);
+    policy.getMethod("save",repositoryType,stateType).invoke(null,repository,
+        companion.getClass().getMethod("initial").invoke(companion));
+    check(saved[0] == original, "Staged Core state reached durable storage before acceptance");
     JSONObject generated = new JSONObject("{\"itemUseRequest\":{\"itemId\":\"almond-water\"},\"player\":{\"hp\":999999}}");
     JSONObject result = new JSONObject((String)redirect.invoke(null, generated));
     check(saved[0] == original, "Blocked use did not restore the exact Core state");

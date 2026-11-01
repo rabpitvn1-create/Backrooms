@@ -29,6 +29,7 @@ jobs:
           node scripts/test_engine.cjs
           node scripts/test_inventory_use.cjs
           node scripts/test_narrative.cjs
+          node scripts/test_narrative_gate.cjs
           node scripts/test_keycanon.cjs
           node scripts/test_legacy_canon.cjs
           python3 scripts/build_pages.py --test-config
@@ -60,6 +61,7 @@ jobs:
             build/*inventory*.png
             build/playable-live-turn.png
             build/playable-live-narrative.png
+            build/narrative-gate-probe.json
           if-no-files-found: ignore
   android:
     runs-on: ubuntu-24.04
@@ -131,9 +133,9 @@ jobs:
             grep -F 'PASS: packaged Android Core' build/inventory-android.txt
             adb push build/native-gameplay-fixture.apk /data/local/tmp/native-gameplay-fixture.apk
             adb shell chmod 444 /data/local/tmp/native-gameplay-fixture.apk
-            adb shell 'CLASSPATH=/data/local/tmp/inventory-tests.jar app_process /system/bin NativeGameplaySmoke /data/local/tmp/native-gameplay-fixture.apk probe' 2>&1 | tee build/native-gameplay-android.txt
+            adb shell 'CLASSPATH=/data/local/tmp/inventory-tests.jar app_process /system/bin NativeGameplaySmoke /data/local/tmp/native-gameplay-fixture.apk' 2>&1 | tee build/native-gameplay-android.txt
             adb logcat -d -t 2500 > build/native-gameplay-logcat.txt
-            grep -F 'NATIVE_GATE_RESULT:' build/native-gameplay-android.txt
+            grep -F 'NATIVE_GATE_RESULT: {"failures":0,' build/native-gameplay-android.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:

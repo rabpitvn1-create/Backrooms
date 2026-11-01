@@ -2,6 +2,7 @@
 from pathlib import Path
 from zipfile import ZipFile
 import hashlib
+import re
 import shutil
 import struct
 import subprocess
@@ -94,12 +95,30 @@ def patch_facade(text):
     return-object v0
 .end method
 """
+    for name in ("initializeLevelGame", "resumeLevelGame"):
+        signature = f".method public final declared-synchronized {name}(Ljava/lang/String;Z)Ljava/lang/String;"
+        text = replace_once(text, signature, signature.replace(name, name + "TransactionLegacy"))
+        text += f"""
+{signature}
+  .registers 4
+    invoke-static {{ }}, {POLICY}->cancel()V
+    invoke-virtual {{ p0, p1, p2 }}, {FACADE}->{name}TransactionLegacy(Ljava/lang/String;Z)Ljava/lang/String;
+    move-result-object v0
+    return-object v0
+.end method
+"""
     text += f"""
 .method public final inventoryUseCheckpoint()Lcom/rabpit/backroom/core/GameState;
   .registers 2
     iget-object v0, p0, {FACADE}->repository:Lcom/rabpit/backroom/core/SaveRepository;
     invoke-interface {{ v0 }}, Lcom/rabpit/backroom/core/SaveRepository;->load()Lcom/rabpit/backroom/core/GameState;
     move-result-object v0
+    return-object v0
+.end method
+
+.method public final inventoryUseRepository()Lcom/rabpit/backroom/core/SaveRepository;
+  .registers 2
+    iget-object v0, p0, {FACADE}->repository:Lcom/rabpit/backroom/core/SaveRepository;
     return-object v0
 .end method
 
@@ -112,6 +131,20 @@ def patch_facade(text):
     return-void
 .end method
 """
+    # Stage at the facade repository boundary, including local and combat paths.
+    # Never change the native SharedPreferences implementation or original DEX.
+    repository = r"Lcom/rabpit/backroom/core/SaveRepository;"
+    for name, target, descriptor, expected in [
+        ("load", "load", "()Lcom/rabpit/backroom/core/GameState;", 10),
+        ("save", "save", "(Lcom/rabpit/backroom/core/GameState;)V", 20),
+        ("clear", "clearRepository", "()V", 1),
+    ]:
+        pattern = r"invoke-interface (\{[^}]+\}), " + repository + "->" + re.escape(name + descriptor)
+        args, result = descriptor.split(")", 1)
+        replacement = r"invoke-static \1, " + POLICY + "->" + target + "(Lcom/rabpit/backroom/core/SaveRepository;" + args[1:] + ")" + result
+        text, count = re.subn(pattern, replacement, text)
+        if count != expected:
+            raise ValueError("Facade repository boundary changed: " + name + ": " + str(count))
     return text
 
 
@@ -131,11 +164,13 @@ def patch_bridge(text):
     original_state = '  .local v11, "before":Lorg/json/JSONObject;'
     body = replace_once(body, original_state, original_state +
         "\n    move-object/from16 v50, v11")
-    marker = "  :L23\n  .line 1092"
+    marker = "  .line 1074"
     body = replace_once(body, marker, marker +
+        "\n    if-nez v10, :narrative_meta_view\n" +
         f"\n    invoke-static {{ v11 }}, {NARRATIVE}->promptView(Lorg/json/JSONObject;)Lorg/json/JSONObject;\n"
         "    move-result-object v49\n"
-        "    move-object/from16 v11, v49")
+        "    move-object/from16 v11, v49\n"
+        "  :narrative_meta_view")
     # Restore the real state before receiving and committing the generated candidate.
     body = replace_once(body, '  .line 1187\n  .local v0, "generated":Lorg/json/JSONObject;',
         '  .line 1187\n  .local v0, "generated":Lorg/json/JSONObject;\n'
@@ -176,10 +211,25 @@ def patch_bridge(text):
     body = replace_once(body, marker, "  :inventory_use_local_error\n" + marker)
     marker = '  .line 1254\n  .local v0, "e":Ljava/lang/Exception;'
     body = replace_once(body, marker, marker + f"\n    invoke-static {{ }}, {POLICY}->cancel()V")
-    # The checkpoint must survive all post-classification checks. Every normal
-    # method return ends the transaction; the exception handler cancels first.
-    completion = "    invoke-static { }, " + POLICY + "->complete()V\n"
-    body = body.replace("    return-void", completion + "    return-void")
+    # Commit before each successful UI callback, never on the CR2 rejection path.
+    emit = "Lcom/rabpit/backroom/MainActivity;->\\u002d$$Nest$memit(Lcom/rabpit/backroom/MainActivity;Ljava/lang/String;Ljava/lang/String;)V"
+    for registers, expected in [("v0, v13, v5", 2), ("v5, v13, v6", 2),
+                                ("v0, v13, v4", 1), ("v8, v13, v7", 1),
+                                ("v4, v7, v6", 1)]:
+        call = "    invoke-static { " + registers + " }, " + emit
+        if body.count(call) != expected:
+            raise ValueError("Native turn delivery boundary changed: " + registers)
+        body = body.replace(call, "    invoke-static { }, " + POLICY + "->complete()V\n" + call)
+    rejected = "    invoke-static { v2, v10, v4 }, " + emit
+    body = replace_once(body, rejected,
+        "    invoke-static { }, " + POLICY + "->cancel()V\n" + rejected)
+    catch = body.index('  .local v0, "e":Ljava/lang/Exception;')
+    message = "invoke-virtual { v0 }, Ljava/lang/Exception;->getMessage()Ljava/lang/String;"
+    tail = body[catch:]
+    if tail.count(message) != 2:
+        raise ValueError("Native failure delivery changed")
+    body = body[:catch] + tail.replace(message,
+        "invoke-static { v0 }, " + POLICY + "->failure(Ljava/lang/Exception;)Ljava/lang/String;")
     return text[:start] + body + text[end:]
 
 
