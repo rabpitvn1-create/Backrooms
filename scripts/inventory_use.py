@@ -54,7 +54,7 @@ def patch_facade(text):
     ]
     # Baksmali escapes Unicode as \\uXXXX even when the original Java string does not.
     def smali_text(value):
-        return "".join("\\\\u%04x" % ord(char) if ord(char) > 127 else char for char in value)
+        return "".join(chr(92) + ("u%04x" % ord(char)) if ord(char) > 127 else char for char in value)
     for old, new in messages:
         text = replace_once(text, smali_text(old), smali_text(new))
     for name in ("processRule", "processNamedFollowerRule"):
