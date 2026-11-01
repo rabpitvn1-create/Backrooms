@@ -52,7 +52,7 @@ def build(test_config=False, config_path=None):
         assets[key] = (ROOT / 'Legacy/knowledge' / name).read_text(encoding='utf-8')
     for p in (ROOT/'web/canon').glob('*.md'): assets[p.relative_to(ROOT/'web').as_posix()] = p.read_text()
     (runtime/'assets.js').write_text('window.BACKROOMS_ASSETS='+json.dumps(assets,ensure_ascii=False)+';\n')
-    cfg = {'models':MODELS, 'version':'1.0.0.0-web'}
+    cfg = {'models':MODELS, 'version':'1.0.0.2-web'}
     (runtime/'config.js').write_text('window.BACKROOMS_CONFIG='+json.dumps(cfg)+';\n')
     digest=hashlib.sha256()
     for p in sorted(runtime.glob('*.js')): digest.update(p.read_bytes())

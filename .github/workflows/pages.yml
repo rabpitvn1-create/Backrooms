@@ -55,6 +55,7 @@ jobs:
         run: |
           node scripts/test_engine.cjs
           node scripts/test_inventory_use.cjs
+          node scripts/test_narrative.cjs
       - name: Validate KeyCanon database
         run: node scripts/test_keycanon.cjs
       - name: Validate Legacy Canon archive integrity
