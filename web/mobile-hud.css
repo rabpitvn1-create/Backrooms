@@ -21,7 +21,7 @@ img.demon-sword {   position: absolute;   left: auto;   top: auto;   right: -8%;
 .snapshot-scene-label[hidden] { display:none; }
 .topbar-controls { display:flex; align-items:center; flex:none; }
 .mobile-menu-close { display:none; }
-.mobile-menu-backdrop[hidden],.startup-recovery[hidden] { display:none!important; }
+.startup-recovery[hidden] { display:none!important; }
 .startup-recovery {
   margin:10px; padding:14px; display:grid; gap:10px; border:1px solid #aa774c;
   border-radius:7px; background:#252016; color:#ffead5;
@@ -87,17 +87,27 @@ html,body { height:100%; overflow:hidden; }
   .mobile-menu-backdrop {
     position:fixed; inset:0; background:#000a; border:0; z-index:119;
     width:100%; height:100%; padding:0;
+    opacity:0; visibility:hidden; transition:opacity .28s ease-out, visibility 0s .28s;
   }
-  .side { display:none; }
-  body.mobile-menu-open { overflow:hidden; }
-  body.mobile-menu-open .side {
+  body.mobile-menu-open .mobile-menu-backdrop {
+    opacity:1; visibility:visible; transition:opacity .28s ease-out;
+  }
+    .side {
     display:grid; position:fixed; inset:0; z-index:120; overflow-y:auto;
     overscroll-behavior:contain; padding:12px 12px max(18px,env(safe-area-inset-bottom));
     margin:0; align-content:start; background:#0b0e10; gap:10px;
+    transform:translateX(103%); visibility:hidden;
+    transition:transform .28s ease-out, visibility 0s .28s;
+    }
+  body.mobile-menu-open { overflow:hidden; }
+  body.mobile-menu-open .side {
+        transform:translateX(0); visibility:visible; transition:transform .28s ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .side, .mobile-menu-backdrop { transition:none; }
   }
 @media (max-width:360px) {
   .primary-action { font-size:12px; gap:5px; padding:10px 5px; }
   .action-icon { width:18px; height:18px; flex-basis:18px; }
 }
-
 
