@@ -106,10 +106,12 @@ function fresh(){
     closed.flags.narrativeScene.closed=true;
     const lateEncounter=structuredClone(closed);
     lateEncounter.flags.narrativeLevelMemory=closed.flags.narrativeLevelMemory;
+    core.coreItemUseBegin(JSON.stringify(lateEncounter),'Khám phá');
     const repeated=JSON.parse(core.coreCandidate(JSON.stringify(lateEncounter),
       JSON.stringify({itemUseRequest:null,reply:'Người vợ quay lại.',entityPreview:'',
         narrativeDelta:{summary:'Một cuộc gặp lại không hợp lệ.',actors:[{name:originalNpc,emotion:'vui mừng'}]}}),
       JSON.stringify({survivor:{success:true},entityEncounter:{success:false}}),'Khám phá'));
+    core.coreItemUseCancel();
     assert.ok(repeated.bridgeError&&repeated.bridgeError.includes('narrative_npc_reappeared'),
       'One-Time identity must not be permitted to repeat after closing');
     assert.equal(state.flags.narrativeLevelMemory.visit,memoryVisit);
