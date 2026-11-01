@@ -81,6 +81,7 @@ jobs:
         run: |
           python3 -m unittest discover -s scripts -p 'test_*.py' -v
           python3 scripts/debug_release.py
+          python3 scripts/native_gameplay_fixture.py
       - uses: android-actions/setup-android@v3
         with:
           packages: platform-tools
@@ -89,7 +90,7 @@ jobs:
         run: |
           sdkmanager 'build-tools;35.0.0' 'platforms;android-35'
           mkdir -p build/inventory-test-classes
-          javac -source 8 -target 8 -encoding UTF-8 -cp "$ANDROID_HOME/platforms/android-35/android.jar" -d build/inventory-test-classes scripts/InventoryUseSmoke.java
+          javac -source 8 -target 8 -encoding UTF-8 -cp "$ANDROID_HOME/platforms/android-35/android.jar" -d build/inventory-test-classes scripts/InventoryUseSmoke.java scripts/NativeGameplaySmoke.java
           "$ANDROID_HOME/build-tools/35.0.0/d8" --min-api 24 --lib "$ANDROID_HOME/platforms/android-35/android.jar" --output build/inventory-tests.jar build/inventory-test-classes/*.class
       - name: Enable KVM
         run: |
@@ -128,6 +129,10 @@ jobs:
             adb shell chmod 444 /data/local/tmp/backrooms.apk /data/local/tmp/inventory-tests.jar
             adb shell 'CLASSPATH=/data/local/tmp/inventory-tests.jar app_process /system/bin InventoryUseSmoke /data/local/tmp/backrooms.apk' | tee build/inventory-android.txt
             grep -F 'PASS: packaged Android Core' build/inventory-android.txt
+            adb push build/native-gameplay-fixture.apk /data/local/tmp/native-gameplay-fixture.apk
+            adb shell chmod 444 /data/local/tmp/native-gameplay-fixture.apk
+            adb shell 'CLASSPATH=/data/local/tmp/inventory-tests.jar app_process /system/bin NativeGameplaySmoke /data/local/tmp/native-gameplay-fixture.apk probe' | tee build/native-gameplay-android.txt
+            grep -F 'NATIVE_GATE_RESULT:' build/native-gameplay-android.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -139,4 +144,6 @@ jobs:
             build/qa-activity.txt
             build/qa-processes.txt
             build/qa-android-launch.png
+            build/native-gameplay-android.txt
+            build/native-gameplay-provenance.json
           if-no-files-found: ignore
