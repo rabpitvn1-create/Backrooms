@@ -8,12 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "build" / "native-inspect.txt"
 
 def method(text, name):
-    start = text.find(".method " + name)
+    start = text.find(".method private synthetic " + name)
     if start == -1:
-        start = text.find(name)
-        if start == -1:
-            raise RuntimeError("Missing native method: " + name)
-        start = text.rfind(".method ", 0, start)
+        raise RuntimeError("Missing native method: " + name)
     end = text.find(".end method", start)
     if end == -1:
         raise RuntimeError("Unterminated method: " + name)
