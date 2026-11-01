@@ -65,6 +65,21 @@ public final class NarrativePolicy {
     return -1;
   }
 
+  private static boolean travelArrival(JSONObject state) {
+    JSONObject travel=state.optJSONObject("levelTravel");
+    JSONObject flags=state.optJSONObject("flags");
+    JSONObject cont=flags==null?null:flags.optJSONObject("storyContinuity");
+    JSONArray events=cont==null?null:cont.optJSONArray("levelTravelEvents");
+    if(travel==null||events==null)return false;
+    String node=travel.optString("nodeId","");
+    for(int i=events.length()-1;i>=0;i--){
+      JSONObject e=events.optJSONObject(i);
+      if(e!=null&&node.equals(e.optString("nodeId","")))
+        return !"new_game".equals(e.optString("kind",""));
+    }
+    return false;
+  }
+
   /** Canon builders only receive a bounded, current-visit view; saved history stays intact. */
   public static JSONObject promptView(JSONObject original) {
     JSONObject safe = new JSONObject(original.toString());
@@ -74,7 +89,7 @@ public final class NarrativePolicy {
     if(log != null) {
       JSONArray recent = new JSONArray();
       int entry=entryTurn(safe), current=safe.optInt("turn",1);
-      int allowed=entry<0?6:Math.max(0,Math.min(6,(current-entry)*2));
+      int allowed=entry<0?6:Math.max(0,Math.min(6,(current-entry-(travelArrival(safe)?1:0))*2));
       int start=Math.max(0,log.length()-allowed);
       for(int i=start;i<log.length();i++){
         JSONObject item=log.optJSONObject(i);
@@ -113,9 +128,8 @@ public final class NarrativePolicy {
       JSONArray actors=delta.optJSONArray("actors");
       if(delta.has("actors")&&actors==null)throw new IllegalArgumentException("narrative_actors_invalid");
       if(actors!=null&&actors.length()>MAX_ACTORS)throw new IllegalArgumentException("narrative_actor_limit");
-      boolean hasActive=scene!=null&&!scene.optBoolean("closed",false)&&scene.optJSONArray("actors")!=null&&scene.optJSONArray("actors").length()>0;
-      if(actors!=null&&actors.length()>0&&!hasActive&&!newEncounter)
-        throw new IllegalArgumentException("narrative_unconfirmed_encounter");
+      // A survivor roll authorizes only newly appearing unregistered people.
+      // Named characters already present in the party may speak without a fresh roll.
       if(scene==null||scene.optBoolean("closed",false)){
         if(!newEncounter&&!delta.optString("summary","").isEmpty()&&actors!=null&&actors.length()>0)
           throw new IllegalArgumentException("narrative_unconfirmed_encounter");
@@ -124,12 +138,25 @@ public final class NarrativePolicy {
       if(actors!=null){
         JSONArray people=new JSONArray();
         Set<String> seen=new HashSet<String>();
+        JSONArray previous=scene.optJSONArray("actors");
+        Set<String> priorNames=new HashSet<String>();
+        if(previous!=null)for(int i=0;i<previous.length();i++){
+          JSONObject p=previous.optJSONObject(i);
+          if(p!=null)priorNames.add(p.optString("name",""));
+        }
         for(int i=0;i<actors.length();i++){
           JSONObject actor=actors.optJSONObject(i);
           if(actor==null)throw new IllegalArgumentException("narrative_actor_invalid");
           String name=shortText(actor.opt("name"),64);
+          String canonId=actor.has("id")?shortText(actor.opt("id"),64):"";
           if(name.isEmpty()||!seen.add(name))throw new IllegalArgumentException("narrative_actor_duplicate");
+          if(!canonId.isEmpty()){
+            if(!present(before,canonId))throw new IllegalArgumentException("narrative_canon_actor_not_present");
+          }else if(!priorNames.contains(name)&&!newEncounter){
+            throw new IllegalArgumentException("narrative_unconfirmed_encounter");
+          }
           JSONObject entry=new JSONObject().put("name",name);
+          if(!canonId.isEmpty())entry.put("id",canonId);
           for(String key:new String[]{"emotion","belief","intent"})
             if(actor.has(key))entry.put(key,shortText(actor.opt(key),180));
           people.put(entry);
@@ -177,6 +204,18 @@ public final class NarrativePolicy {
     }
   }
 
+  private static boolean present(JSONObject state,String id){
+    if("cao-minh".equals(id))return true;
+    JSONArray party=state.optJSONArray("party");
+    if(party!=null)for(int i=0;i<party.length();i++){
+      JSONObject p=party.optJSONObject(i);
+      if(p!=null&&id.equals(p.optString("id")))return true;
+    }
+    JSONObject flags=state.optJSONObject("flags");
+    JSONObject record=flags==null?null:flags.optJSONObject(id);
+    return record!=null&&record.optBoolean("present",false);
+  }
+
   private static boolean known(JSONObject state,String id){
     if("cao-minh".equals(id))return true;
     JSONObject flags=state.optJSONObject("flags");
@@ -208,7 +247,7 @@ public final class NarrativePolicy {
       "Vật phẩm không có ID do người chơi tự sáng tác chỉ tồn tại trong lời kể: có thể cứu người trong cảnh, "+
       "không thêm Inventory, không sửa HP/EXP, combat, loot, party hoặc travel. "+
       "Hãy xuất thêm narrativeDelta:null nếu không có thay đổi cần nhớ; "+
-      "khi có, chỉ dùng {summary:string,actors:[{name,emotion,belief,intent}],closed:boolean,relationships:[{from,to,emotion}]}. "+
+      "khi có, chỉ dùng {summary:string,actors:[{name,id?,emotion,belief,intent}],closed:boolean,relationships:[{from,to,emotion}]}. "+
       "summary tối đa 600 ký tự, actors tối đa 6; relationship phải dùng ID nhân vật canon đã biết, "+
       "có hướng, không tự suy tình cảm ngược chiều. Nêu kết quả qua hành động thay vì thông báo khô.\n";
   }
