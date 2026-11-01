@@ -131,8 +131,6 @@ public final class NarrativePolicy {
       // A survivor roll authorizes only newly appearing unregistered people.
       // Named characters already present in the party may speak without a fresh roll.
       if(scene==null||scene.optBoolean("closed",false)){
-        if(!newEncounter&&!delta.optString("summary","").isEmpty()&&actors!=null&&actors.length()>0)
-          throw new IllegalArgumentException("narrative_unconfirmed_encounter");
         scene=new JSONObject().put("visit",visit(before)).put("sceneKey",visit(before)+":TURN_"+before.optInt("turn",1)).put("closed",false).put("facts",new JSONArray()).put("actors",new JSONArray());
       }
       if(actors!=null){
