@@ -41,7 +41,8 @@ def main():
         shutil.rmtree(travel_out)
     inventory_use.run("com.googlecode.d2j.smali.BaksmaliCmd", "-o", travel_out, ROOT / "apk-original/classes3.dex")
     travel=(travel_out/"com/rabpit/backroom/core/LevelTravelEngine.smali").read_text(encoding="utf-8")
-    travel_start=travel.find(".method public final resolve(")
+    travel_start=travel.find(" resolve(")
+    if travel_start>=0: travel_start=travel.rfind(".method ",0,travel_start)
     if travel_start<0: raise RuntimeError("LevelTravelEngine.resolve declaration missing")
     travel_end=travel.find(".end method",travel_start)
     extract=travel[travel_start:travel_end+len(".end method")]
