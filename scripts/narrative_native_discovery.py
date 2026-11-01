@@ -47,6 +47,9 @@ def main():
     travel_end=travel.find(".end method",travel_start)
     extract=travel[travel_start:travel_end+len(".end method")]
     (ROOT/"build"/"native-travel-smali.txt").write_text(extract,encoding="utf-8")
+    facade=(travel_out/"com/rabpit/backroom/core/GameCoreFacade.smali").read_text(encoding="utf-8")
+    labels=[line for line in facade.splitlines() if "3/3" in line or "0/3" in line or "Chuỗi" in line or "địa điểm hiện tại" in line]
+    (ROOT/"build"/"native-travel-labels.txt").write_text("\\n".join(labels)+"\\n",encoding="utf-8")
     print("Travel method line count:",len(extract.splitlines()))
     print("Method line count:", len(lines))
     for i, line in enumerate(lines):
