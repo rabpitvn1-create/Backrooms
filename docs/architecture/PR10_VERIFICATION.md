@@ -29,7 +29,7 @@ Run the repository's normal build, followed by `test_engine.cjs`, `test_inventor
 
 `narrative_native_discovery.py` verifies original DEX hashes and exports the full original gameplay lambda, complete storage/finish methods, source hashes and checked-out commit. `native_gameplay_fixture.py` starts from the packaged fixture APK and replaces only provider transport, dice input and UI delivery for deterministic failure injection. It re-disassembles the result and proves the packaged gameplay lambda is unchanged. No fixture APK is used as a release package.
 
-On Android 15, `NativeGameplaySmoke` executes that lambda with the original native SharedPreferencesSaveRepository and controlled SharedPreferences responses. It covers successful commit, one durable write, transport/malformed JSON/canon/preview/actor failures, callback failure, stale run, double submit, failed persistence, travel, save/load and actual provider-bound scope filtering. Disk failure is injected at the SharedPreferences API boundary; it is not a physical storage-fault test.
+On Android 15, `NativeGameplaySmoke` executes that lambda with the original native SharedPreferencesSaveRepository and controlled SharedPreferences responses. It covers successful commit, one durable write, transport/malformed JSON/canon/preview/actor failures, callback failure, stale run, double submit, failed persistence, travel, save/load and actual provider-bound scope filtering. Its failed-commit fixture also updates SharedPreferences memory before returning false; the transaction restores the checkpoint in that case. Disk failure is injected at the API boundary, not by a physical storage fault.
 
 ## Limits
 

@@ -232,7 +232,14 @@ public final class InventoryUsePolicy {
   /** Commit once before UI delivery; a later callback failure cannot undo a turn. */
   public static void complete() {
     if (repository == null) return;
-    repository.save(staged);
+    try {
+      repository.save(staged);
+    } catch (RuntimeException error) {
+      // SharedPreferences may update its in-memory value even when disk commit fails.
+      try { repository.save(checkpoint); }
+      catch (RuntimeException rollback) { error.addSuppressed(rollback); }
+      throw error;
+    }
     committed = true;
     clear();
   }

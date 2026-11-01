@@ -54,10 +54,10 @@ public final class NativeGameplaySmoke {
               case "remove": pending.remove((String)ea[0]); return e;
               case "clear": pending.clear(); return e;
               case "commit": case "apply":
-                if(storageFailure && name.equals("caominh_game_state_core_v1"))return false;
+                boolean failure=storageFailure && name.equals("caominh_game_state_core_v1");
                 values.clear();values.putAll(pending);
-                if(name.equals("caominh_game_state_core_v1"))writes++;
-                return em.getName().equals("commit") ? true : null;
+                if(!failure&&name.equals("caominh_game_state_core_v1"))writes++;
+                return em.getName().equals("commit") ? !failure : null;
               default: throw new AssertionError(em.getName());
             }
           });
