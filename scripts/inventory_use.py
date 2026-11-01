@@ -42,6 +42,18 @@ def replace_once(text, old, new):
 
 
 def patch_facade(text):
+    # Keep the native narrative labels in sync with the patched 4/50 travel Core.
+    messages = [
+        ("Thoát thành công 3/3. Cao Minh đã đến một nơi mới, chưa xác định danh tính. Chuỗi thoát mới: 0/3.",
+         "Thoát thành công 4/4. Cao Minh đã no-clip sang một nơi mới, chưa xác định danh tính. Chuỗi thoát mới: 0/4."),
+        ("/3. Cao Minh vẫn ở địa điểm hiện tại.", "/4. Cao Minh vẫn ở địa điểm hiện tại."),
+        ("Lần thử thoát thất bại. Chuỗi trở về 0/3; Cao Minh vẫn ở địa điểm hiện tại.",
+         "Lần thử thoát thất bại. Chuỗi trở về 0/4; Cao Minh vẫn ở địa điểm hiện tại."),
+        ("Không gian quanh Cao Minh đột ngột lệch khỏi vị trí cũ. Hắn đã sang một nơi khác, chưa xác định danh tính.",
+         "Không gian quanh Cao Minh đột ngột lệch khỏi vị trí cũ. Hắn đã no-clip sang một nơi khác, chưa xác định danh tính."),
+    ]
+    for old, new in messages:
+        text = replace_once(text, old, new)
     for name in ("processRule", "processNamedFollowerRule"):
         signature = f".method public final {name}(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
         text = replace_once(text, signature, signature.replace(name, name + "InventoryLegacy"))
