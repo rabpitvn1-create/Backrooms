@@ -1,0 +1,78 @@
+name: Clean failed and cancelled CI runs
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Preview matching runs, or delete them permanently
+        type: choice
+        required: true
+        default: preview
+        options:
+          - preview
+          - delete
+
+permissions:
+  actions: write
+
+concurrency:
+  group: clean-failed-cancelled-ci
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Preview or delete completed failed and cancelled runs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          set -euo pipefail
+          if [[ "$MODE" != preview && "$MODE" != delete ]]; then
+            echo '::error::Invalid cleanup mode'
+            exit 2
+          fi
+
+          echo "### CI cleanup: $MODE" >> "$GITHUB_STEP_SUMMARY"
+          total_deleted=0
+          for outcome in failure cancelled; do
+            response="$(gh api --method GET "/repos/${REPOSITORY}/actions/runs?status=${outcome}&per_page=100")"
+            matches="$(jq -er '.total_count' <<< "$response")"
+            echo "$outcome: $matches completed runs"
+
+            if [[ "$MODE" == preview ]]; then
+              printf -- '- **%s:** %s matching runs\n' "$outcome" "$matches" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+
+            deleted=0
+            while :; do
+              response="$(gh api --method GET "/repos/${REPOSITORY}/actions/runs?status=${outcome}&per_page=100")"
+              remaining="$(jq -er '.total_count' <<< "$response")"
+              if (( remaining == 0 )); then
+                break
+              fi
+              mapfile -t ids < <(jq -r --arg outcome "$outcome" '.workflow_runs[] | select(.status == "completed" and .conclusion == $outcome) | .id' <<< "$response")
+              if (( ${#ids[@]} == 0 )); then
+                echo "::error::Expected completed $outcome runs but received none. Refusing to claim success."
+                exit 1
+              fi
+              for id in "${ids[@]}"; do
+                gh api --method DELETE "/repos/${REPOSITORY}/actions/runs/${id}" > /dev/null
+                deleted=$((deleted + 1))
+              done
+              echo "Deleted $deleted $outcome runs so far"
+            done
+            printf -- '- **%s:** deleted %s runs\n' "$outcome" "$deleted" >> "$GITHUB_STEP_SUMMARY"
+            total_deleted=$((total_deleted + deleted))
+          done
+
+          if [[ "$MODE" == delete ]]; then
+            echo "**Total deleted:** $total_deleted" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Preview only; choose the delete option to remove matching workflow runs.' >> "$GITHUB_STEP_SUMMARY"
+          fi
