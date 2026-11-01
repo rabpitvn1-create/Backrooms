@@ -75,6 +75,48 @@ function fresh(){
     assert.equal(state.turn,originalTurn);
     console.log('PASS: GM cannot invent One-Time NPC without a Core encounter roll');
 
+    // A synthetic survivor ticket tests the Core-locked path without changing RNG policy.
+    fresh();
+    const lockedAction='Khám phá', encounterBefore=JSON.stringify(state);
+    core.coreItemUseBegin(encounterBefore,lockedAction);
+    const requestedRolls={meta:false,turn:state.turn,survivor:{success:true},entityEncounter:{success:false}};
+    const prepared=JSON.parse(__webGame.call('prepareNamedFollowerTurn',encounterBefore,lockedAction,JSON.stringify(requestedRolls),'EXPLORE'));
+    assert.ok(prepared.state&&prepared.rolls,'prepareNamedFollowerTurn must return a plan');
+    const encounterReply={
+      itemUseRequest:null,reply:'Người chồng nắm tay người vợ, cả hai vừa thoát chết.',
+      entityPreview:'',narrativeDelta:{
+        summary:'Đôi vợ chồng vô danh được Cao Minh cứu sống.',
+        actors:[{name:'Người vợ',emotion:'biết ơn',belief:'Mình đã được cứu',intent:'ở cạnh chồng'},
+                {name:'Người chồng',emotion:'vui mừng',belief:'Vợ đã an toàn',intent:'bảo vệ vợ'}]
+      }
+    };
+    const committed=JSON.parse(core.coreCandidate(JSON.stringify(prepared.state),JSON.stringify(encounterReply),JSON.stringify(prepared.rolls),lockedAction));
+    assert.ok(!committed.bridgeError,committed.bridgeError);
+    core.coreItemUseComplete();
+    state=committed;
+    assert.equal(state.flags.narrativeScene.actors.length,2);
+    assert.equal(state.flags.narrativeScene.actors[0].emotion,'biết ơn');
+    assert.equal(state.flags.narrativeScene.actors[1].emotion,'vui mừng');
+    assert.equal(state.party.some(x=>x.name==='Người vợ'),false,'one-time encounter cannot become Party member');
+    assert.equal(state.flags.survivorRegistry&&JSON.stringify(state.flags.survivorRegistry).includes('Người vợ'),false);
+    console.log('PASS: Core-approved One-Time encounter maintains independent NPC emotions');
+    const scopedMarker='Đôi vợ chồng vô danh được Cao Minh cứu sống.';
+    let next=state;
+    Math.random=()=>0;
+    const firstNode=next.levelTravel.nodeId;
+    for(let i=0;i<4;i++){
+      const previous=JSON.stringify(next);
+      const nextCandidate=JSON.stringify({...next,turn:next.turn+1});
+      next=JSON.parse(__webGame.call('finishLevelTurn',previous,nextCandidate,'Khám phá'));
+      assert.ok(!next.bridgeError,next.bridgeError);
+    }
+    assert.notEqual(next.levelTravel.nodeId,firstNode,'four Core-accepted trials should no-clip');
+    assert.equal(next.levelTravel.exitStreak,0);
+    const afterTravelPrompt=core.corePrompt(JSON.stringify(next),'Cao Minh suy nghĩ',JSON.stringify({meta:false,turn:next.turn}));
+    assert.ok(!afterTravelPrompt.includes(scopedMarker),'one-time memory cannot reach GM after no-clip');
+    console.log('PASS: One-Time NPC memory expires when leaving the Level');
+    Math.random=()=>0.61;
+
     fresh();
     delta={relationships:[{from:'cao-minh',to:'luc-tram',emotion:'bất an'}]};
     await turn('Cao Minh suy nghĩ về Lục Trầm.');
