@@ -12,6 +12,8 @@ import org.json.JSONObject;
 public final class NarrativePolicy {
   private static final String MEMORY = "narrativeScene";
   private static final String RELATIONS = "narrativeRelations";
+  private static final String HISTORY = "narrativeLevelMemory";
+  private static final String SEEN = "narrativeSeen";
   private static final int MAX_FACTS = 10, MAX_ACTORS = 6, MAX_RELATIONS = 16;
 
   private NarrativePolicy() {}
@@ -84,7 +86,13 @@ public final class NarrativePolicy {
   public static JSONObject promptView(JSONObject original) {
     JSONObject safe = new JSONObject(original.toString());
     JSONObject flags = safe.optJSONObject("flags");
-    if(flags != null && scoped(safe)==null)flags.remove(MEMORY);
+    if (flags != null) {
+      if (scoped(safe) == null) flags.remove(MEMORY);
+      JSONObject history = flags.optJSONObject(HISTORY);
+      if (history != null && !visit(safe).equals(history.optString("visit", "~")))
+        flags.remove(HISTORY);
+      flags.remove(SEEN); // opaque lifetime markers are not information Cao Minh can recall
+    }
     JSONArray log = safe.optJSONArray("log");
     if(log != null) {
       JSONArray recent = new JSONArray();
@@ -112,6 +120,16 @@ public final class NarrativePolicy {
     // The model cannot replace the narrative stores through a generic flags patch.
     currentFlags.remove(MEMORY);
     currentFlags.remove(RELATIONS);
+    currentFlags.remove(HISTORY);
+    currentFlags.remove(SEEN);
+    JSONObject memoryBefore = priorFlags == null ? null : priorFlags.optJSONObject(HISTORY);
+    JSONObject history = memoryBefore != null && visit(before).equals(memoryBefore.optString("visit", "~"))
+        ? new JSONObject(memoryBefore.toString())
+        : new JSONObject().put("visit", visit(before)).put("facts", new JSONArray());
+    currentFlags.put(HISTORY, history);
+    JSONArray oldSeen = priorFlags == null ? null : priorFlags.optJSONArray(SEEN);
+    JSONArray seen = oldSeen == null ? new JSONArray() : new JSONArray(oldSeen.toString());
+    currentFlags.put(SEEN, seen);
     JSONObject existing=scoped(before);
     if(existing!=null)currentFlags.put(MEMORY,new JSONObject(existing.toString()));
     JSONObject oldRelations=priorFlags==null?null:priorFlags.optJSONObject(RELATIONS);
@@ -135,7 +153,7 @@ public final class NarrativePolicy {
       }
       if(actors!=null){
         JSONArray people=new JSONArray();
-        Set<String> seen=new HashSet<String>();
+        Set<String> namesInScene=new HashSet<String>();
         JSONArray previous=scene.optJSONArray("actors");
         Set<String> priorNames=new HashSet<String>();
         if(previous!=null)for(int i=0;i<previous.length();i++){
@@ -147,11 +165,16 @@ public final class NarrativePolicy {
           if(actor==null)throw new IllegalArgumentException("narrative_actor_invalid");
           String name=shortText(actor.opt("name"),64);
           String canonId=actor.has("id")?shortText(actor.opt("id"),64):"";
-          if(name.isEmpty()||!seen.add(name))throw new IllegalArgumentException("narrative_actor_duplicate");
+          if(name.isEmpty()||!namesInScene.add(name))throw new IllegalArgumentException("narrative_actor_duplicate");
           if(!canonId.isEmpty()){
             if(!present(before,canonId))throw new IllegalArgumentException("narrative_canon_actor_not_present");
-          }else if(!priorNames.contains(name)&&!newEncounter){
-            throw new IllegalArgumentException("narrative_unconfirmed_encounter");
+          }else if(!priorNames.contains(name)) {
+            if (!newEncounter) throw new IllegalArgumentException("narrative_unconfirmed_encounter");
+            String key = name.toLowerCase(java.util.Locale.ROOT);
+            for (int j=0; j<seen.length(); j++)
+              if (key.equals(seen.optString(j))) throw new IllegalArgumentException("narrative_npc_reappeared");
+            if (seen.length() >= 256) throw new IllegalArgumentException("narrative_npc_identity_limit");
+            seen.put(key);
           }
           JSONObject entry=new JSONObject().put("name",name);
           if(!canonId.isEmpty())entry.put("id",canonId);
@@ -171,6 +194,13 @@ public final class NarrativePolicy {
             next.put(facts.optString(i));
           next.put(fact);
           scene.put("facts",next);
+          JSONArray historyFacts=history.optJSONArray("facts");
+          JSONArray historyNext=new JSONArray();
+          for(int i=Math.max(0,historyFacts.length()-(MAX_FACTS-1));i<historyFacts.length();i++)
+            historyNext.put(historyFacts.optString(i));
+          historyNext.put(fact);
+          history.put("facts",historyNext);
+          currentFlags.put(HISTORY,history);
         }
       }
       if(delta.has("closed")) {
@@ -242,7 +272,12 @@ public final class NarrativePolicy {
   /** A completed travel removes the scene from the projected UI state. */
   public static JSONObject afterTravel(JSONObject state){
     JSONObject flags=state.optJSONObject("flags");
-    if(flags!=null&&scoped(state)==null)flags.remove(MEMORY);
+    if (flags != null && scoped(state) == null) flags.remove(MEMORY);
+    if (flags != null) {
+      JSONObject history=flags.optJSONObject(HISTORY);
+      if (history != null && !visit(state).equals(history.optString("visit","~")))
+        flags.remove(HISTORY);
+    }
     return state;
   }
 
