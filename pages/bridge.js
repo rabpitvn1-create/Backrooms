@@ -132,6 +132,7 @@
         if (result.handled) {
           const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
           emit('backroomTurn', next);
+          window.coreItemUseComplete();
           return;
         }
         result = object('processExplorationLoot', JSON.stringify(before), action, kind);

@@ -100,6 +100,10 @@ def patch_bridge(text):
     start = text.index(".method private synthetic lambda$submitGameplayAction$2(")
     end = text.index(".end method", start)
     body = text[start:end]
+    # Remove the contradictory native 3/40 narration rule rather than appending advice.
+    body = replace_once(body,
+        "40% success, 60% failure, requiring 3 consecutive successes",
+        "50% success, 50% failure, requiring 4 consecutive successes")
     # Two scratch registers keep the original state while constructing a scoped prompt.
     # The prompt builder uses low register v11; high registers are only used by move/from16.
     body = replace_once(body, ".registers 53", ".registers 55")
