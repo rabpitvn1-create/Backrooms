@@ -216,6 +216,11 @@ public final class NarrativePolicy {
           JSONObject entry=participants.get(name);
           if(canonId.isEmpty() && entry==null && alias.isEmpty())
             canonId=presentActorId(before,name);
+          // The model may put an absent canon character into optional emotion
+          // metadata (e.g. a separated follower recalled in prose). Ignore that
+          // actor update without changing Core presence, Party or the active scene.
+          // Validate before alias handling to avoid erasing an existing actor.
+          if(!canonId.isEmpty()&&!present(before,canonId))continue;
           if(!alias.isEmpty()){
             if(entry!=null||!participants.containsKey(alias))
               throw new IllegalArgumentException("narrative_actor_alias_invalid");
@@ -223,7 +228,6 @@ public final class NarrativePolicy {
             entry.put("name",name);
           }
           if(!canonId.isEmpty()){
-            if(!present(before,canonId))throw new IllegalArgumentException("narrative_canon_actor_not_present");
             if(entry!=null&&!entry.optString("id",canonId).equals(canonId))
               throw new IllegalArgumentException("narrative_actor_identity_changed");
           }else if(entry==null){
@@ -389,6 +393,8 @@ public final class NarrativePolicy {
       "Không bắt mỗi lượt phải gặp NPC, nói chuyện hoặc gây bi kịch. "+
       "Vật phẩm không có ID do người chơi tự sáng tác chỉ tồn tại trong lời kể: có thể cứu người trong cảnh, "+
       "không thêm Inventory, không sửa HP/EXP, combat, loot, party hoặc travel. "+
+      "Chỉ ghi actors cho nhân vật đang trực tiếp hiện diện trong cảnh đã được Core xác nhận. "+
+      "Nhân vật chỉ được nhắc lại trong ký ức hoặc đang thất lạc không thuộc actors; có thể ghi vào summary. "+
       "Hãy xuất thêm narrativeDelta:null nếu không có thay đổi cần nhớ; "+
       "khi có, chỉ dùng {summary:string,actors:[{name,id?,aliasOf?,emotion,belief,intent}],closed:boolean,relationships:[{from,to,emotion}]}. "+
       "summary tối đa 600 ký tự, actors tối đa 6; relationship phải dùng ID nhân vật canon đã biết, "+

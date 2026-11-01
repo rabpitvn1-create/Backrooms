@@ -126,6 +126,36 @@ public final class InventoryUseSmoke {
     check("luc-tram".equals(actorOutput.getJSONObject("flags").getJSONObject("narrativeScene")
         .getJSONArray("actors").getJSONObject(0).getString("id")),
         "Present follower without optional actor.id was rejected");
+    JSONObject absentCanon = new JSONObject(sceneState);
+    absentCanon.getJSONObject("flags").put("luc-tram",
+        new JSONObject().put("exists",true).put("continuity","SEPARATED"));
+    JSONObject absentCanonAfter = new JSONObject(absentCanon.toString());
+    narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
+        .invoke(null,absentCanonAfter,absentCanon,
+            new JSONObject("{\"narrativeDelta\":{\"summary\":\"Nhớ Lục Trầm đang thất lạc.\",\"actors\":[{\"name\":\"Lục Trầm\",\"id\":\"luc-tram\",\"emotion\":\"lo lắng\"},{\"name\":\"Cao Minh\",\"id\":\"cao-minh\",\"emotion\":\"trầm tư\"}]}}"),
+            new JSONObject("{\"survivor\":{\"success\":false}}"));
+    org.json.JSONArray activeActors = absentCanonAfter.getJSONObject("flags")
+        .getJSONObject("narrativeScene").getJSONArray("actors");
+    check(activeActors.length()==1 && "cao-minh".equals(activeActors.getJSONObject(0).getString("id")),
+        "Absent canon actor metadata must be ignored without dropping present actors");
+    check("SEPARATED".equals(absentCanonAfter.getJSONObject("flags")
+        .getJSONObject("luc-tram").getString("continuity")),
+        "Narrative metadata silently changed a separated follower's state");
+    check(absentCanonAfter.getJSONObject("flags").getJSONObject("narrativeLevelMemory")
+        .getJSONArray("facts").getString(0).contains("Lục Trầm"),
+        "Legitimate recollection was dropped with invalid actor metadata");
+    JSONObject invalidAliasBefore = new JSONObject(afterNarrative.toString());
+    invalidAliasBefore.getJSONObject("flags").put("luc-tram",
+        new JSONObject().put("exists",true).put("continuity","SEPARATED"));
+    JSONObject invalidAliasAfter = new JSONObject(invalidAliasBefore.toString());
+    narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
+        .invoke(null,invalidAliasAfter,invalidAliasBefore,
+            new JSONObject("{\"narrativeDelta\":{\"actors\":[{\"name\":\"Lục Trầm\",\"id\":\"luc-tram\",\"aliasOf\":\"Người vợ\"}]}}"),
+            new JSONObject("{\"survivor\":{\"success\":false}}"));
+    org.json.JSONArray intactActors = invalidAliasAfter.getJSONObject("flags")
+        .getJSONObject("narrativeScene").getJSONArray("actors");
+    check(intactActors.length()==2 && "Người vợ".equals(intactActors.getJSONObject(0).getString("name")),
+        "Discarding an absent actor must not erase a valid alias target");
     JSONObject scoped = (JSONObject)view.invoke(null,afterNarrative);
     check(scoped.getJSONObject("flags").has("narrativeScene"), "Native prompt lost current Level memory");
     JSONObject traveled = new JSONObject(afterNarrative.toString());
