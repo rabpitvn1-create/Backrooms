@@ -60,6 +60,17 @@ public final class InventoryUseSmoke {
     JSONObject misclassified = new JSONObject((String)redirect.invoke(null,
         new JSONObject("{\"itemUseRequest\":null,\"reply\":\"Cao Minh uống Almond Water.\"}")));
     check(NarrativePolicyMarker(misclassified), "Native inventory bypass was not stopped");
+    begin.invoke(null, facade, raw, "Almond Water, uống ngay");
+    check(NarrativePolicyMarker(new JSONObject((String)redirect.invoke(null,
+        new JSONObject("{\"itemUseRequest\":null,\"reply\":\"Cao Minh quan sát\"}")))),
+        "Native item-first imperative bypassed Inventory");
+    begin.invoke(null, facade, raw, "Cao Minh nhìn xung quanh");
+    try {
+      redirect.invoke(null, new JSONObject("{\"itemUseRequest\":null,\"reply\":\"Không có gì mới\",\"narrativeDelta\":{\"summary\":\"Cao Minh uống Almond Water.\"}}"));
+      throw new AssertionError("Native GM summary could bypass Inventory-only rule");
+    } catch (InvocationTargetException error) {
+      check(error.getCause().getMessage().equals("item_use_narrative_conflict"),"Wrong narrative conflict handling");
+    }
     begin.invoke(null, facade, raw, "Sử dụng Almond Water");
     try {
       redirect.invoke(null, new JSONObject("{\"itemUseRequest\":{\"itemId\":\"fake\"}}"));
