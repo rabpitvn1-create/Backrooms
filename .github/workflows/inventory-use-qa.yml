@@ -131,7 +131,8 @@ jobs:
             grep -F 'PASS: packaged Android Core' build/inventory-android.txt
             adb push build/native-gameplay-fixture.apk /data/local/tmp/native-gameplay-fixture.apk
             adb shell chmod 444 /data/local/tmp/native-gameplay-fixture.apk
-            adb shell 'CLASSPATH=/data/local/tmp/inventory-tests.jar app_process /system/bin NativeGameplaySmoke /data/local/tmp/native-gameplay-fixture.apk probe' | tee build/native-gameplay-android.txt
+            adb shell 'CLASSPATH=/data/local/tmp/inventory-tests.jar app_process /system/bin NativeGameplaySmoke /data/local/tmp/native-gameplay-fixture.apk probe' 2>&1 | tee build/native-gameplay-android.txt
+            adb logcat -d -t 2500 > build/native-gameplay-logcat.txt
             grep -F 'NATIVE_GATE_RESULT:' build/native-gameplay-android.txt
       - uses: actions/upload-artifact@v4
         if: always()
@@ -146,4 +147,5 @@ jobs:
             build/qa-android-launch.png
             build/native-gameplay-android.txt
             build/native-gameplay-provenance.json
+            build/native-gameplay-logcat.txt
           if-no-files-found: ignore

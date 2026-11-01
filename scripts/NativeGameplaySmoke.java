@@ -21,6 +21,9 @@ public final class NativeGameplaySmoke {
   static String prompt, error;
   static boolean transportFailure, storageFailure, callbackFailure, stale;
   static String initial;
+  static String answerRaw, newRun;
+  static double draw=0.61;
+  static boolean entitySuccess;
   static int writes, failed;
   static final Map<String, Map<String,Object>> stores = new HashMap<>();
 
@@ -70,6 +73,7 @@ public final class NativeGameplaySmoke {
   static void fresh() throws Exception {
     transportFailure=storageFailure=callbackFailure=stale=false;
     error=null;prompt="";
+    answerRaw=null;entitySuccess=false;draw=0.61;
     state=new JSONObject((String)call("initializeLevelGame",new Class<?>[]{String.class,boolean.class},initial,true));
     answer=new JSONObject().put("itemUseRequest",JSONObject.NULL)
         .put("reply","Cao Minh quan sát hành lang trước mặt.").put("entityPreview","")
@@ -83,30 +87,34 @@ public final class NativeGameplaySmoke {
   public static String generate(String text) throws Exception {
     prompt=text;
     if(transportFailure)throw new IllegalStateException("fixture_transport_failure");
-    if(stale)call("initializeLevelGame",new Class<?>[]{String.class,boolean.class},initial,true);
-    return answer.toString();
+    if(stale)newRun=new JSONObject((String)call("initializeLevelGame",new Class<?>[]{String.class,boolean.class},initial,true)).getJSONObject("levelTravel").getString("runId");
+    return answerRaw==null?answer.toString():answerRaw;
   }
   public static void emit(String name,String raw) throws Exception {
     if(name.equals("backroomTurn")) {
-      if(callbackFailure)throw new IllegalStateException("fixture_callback_failure");
       state=new JSONObject(raw);
+      if(callbackFailure)throw new IllegalStateException("fixture_callback_failure");
     } else if(name.equals("backroomError"))error=raw;
   }
   public static JSONObject rolls(JSONObject before,boolean meta) throws Exception {
     JSONObject r=new JSONObject().put("meta",meta).put("turn",before.optInt("turn",1));
     for(String key:new String[]{"survivor","entityEncounter","hazard","loot","almondWater","lucTramReunion","syvialReunion","anNhienEncounter","huaTieuLanEncounter","nguyenQuocNamEncounter"})
       r.put(key,new JSONObject().put("success",false));
+    if(entitySuccess)r.put("entityEncounter",new JSONObject().put("success",true)).put("roamingEntityKey","hound").put("roamingEntityName","Hound");
     return r;
   }
   static void field(Object target,String name,Object value) throws Exception {
     Field f=target.getClass().getDeclaredField(name);f.setAccessible(true);f.set(target,value);
   }
   public static void main(String[] args) throws Exception {
+    System.out.println("NATIVE_GATE_STAGE: start");
     Looper.prepareMainLooper();
+    System.out.println("NATIVE_GATE_STAGE: looper");
     loader=new DexClassLoader(args[0],"/data/local/tmp",null,NativeGameplaySmoke.class.getClassLoader());
     Constructor<AssetManager> assetsConstructor=AssetManager.class.getDeclaredConstructor();assetsConstructor.setAccessible(true);
     final AssetManager assets=assetsConstructor.newInstance();
     AssetManager.class.getMethod("addAssetPath",String.class).invoke(assets,args[0]);
+    System.out.println("NATIVE_GATE_STAGE: assets");
     Context context=new ContextWrapper(null) {
       public AssetManager getAssets(){return assets;}
       public Context getApplicationContext(){return this;}
@@ -119,7 +127,7 @@ public final class NativeGameplaySmoke {
         .getConstructor(Context.class).newInstance(context);
     Object logger=loader.loadClass("com.rabpit.backroom.core.NoOpGamePipelineLogger").getField("INSTANCE").get(null);
     Class<?> function=loader.loadClass("kotlin.jvm.functions.Function0");
-    Object random=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->0.61);
+    Object random=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->draw);
     Object tickets=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->6100);
     Class<?> policyType=loader.loadClass("com.rabpit.backroom.core.LevelTravelPolicy");
     Object policy=policyType.getConstructor(JSONObject.class).newInstance(new JSONObject(asset(assets,"knowledge/level_travel_policy.json")));
@@ -127,7 +135,9 @@ public final class NativeGameplaySmoke {
     Object travel=travelType.getConstructor(policyType,function).newInstance(policy,random);
     facade=facadeType.getConstructor(repositoryType,loader.loadClass("com.rabpit.backroom.core.GamePipelineLogger"),travelType,function)
         .newInstance(repository,logger,travel,tickets);
+    System.out.println("NATIVE_GATE_STAGE: facade");
     Object activity=loader.loadClass("com.rabpit.backroom.MainActivity").getConstructor().newInstance();
+    System.out.println("NATIVE_GATE_STAGE: activity");
     Method attach=ContextWrapper.class.getDeclaredMethod("attachBaseContext",Context.class);attach.setAccessible(true);attach.invoke(activity,context);
     field(activity,"gameCore",facade);
     Constructor<?> diagnostic=loader.loadClass("com.rabpit.backroom.AppDiagnosticLog").getDeclaredConstructor(Context.class);diagnostic.setAccessible(true);
@@ -139,13 +149,43 @@ public final class NativeGameplaySmoke {
     check(prompt.contains("NARRATIVE SCENE RULES"),"native provider receives shared narrative contract");
     fresh();String before=snapshot();transportFailure=true;turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native transport failure restores exact Core snapshot");
+    fresh();before=snapshot();answerRaw="{broken";turn(state.toString());
+    check(error!=null&&before.equals(snapshot()),"native malformed JSON restores exact Core snapshot");
+    fresh();before=snapshot();answer.put("reply","Cao Minh không thể dùng thần thức.");turn(state.toString());
+    check(error!=null&&before.equals(snapshot()),"native rejected canon restores exact Core snapshot");
+    fresh();before=snapshot();entitySuccess=true;turn(state.toString());
+    check(error!=null&&before.equals(snapshot()),"native missing entity preview restores exact Core snapshot");
     fresh();before=snapshot();answer.put("narrativeDelta",new JSONObject().put("actors",new JSONArray().put(new JSONObject().put("name","Người lạ"))));turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native invalid encounter metadata restores exact Core snapshot");
     fresh();before=snapshot();answer.put("reply","Lục Trầm bước tới trước mặt Cao Minh và nắm tay hắn.")
         .put("narrativeDelta",new JSONObject().put("actors",new JSONArray().put(new JSONObject().put("name","Lục Trầm").put("id","luc-tram"))));turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native prose cannot invent reunion after failed Core roll");
+    fresh();before=snapshot();callbackFailure=true;turn(state.toString());
+    check(state.getInt("turn")==new JSONObject(new JSONObject(snapshot()).getJSONObject("world").getString("levelTravelUi")).getInt("turn"),"native callback failure preserves committed UI/Core agreement");
+    fresh();stale=true;turn(state.toString());
+    check(newRun.equals(new JSONObject(new JSONObject(snapshot()).getJSONObject("world").getString("levelTravel")).getString("runId")),"native old response cannot overwrite new game");
+    fresh();String repeated=state.toString();turn(repeated);String committed=snapshot();turn(repeated);
+    check(committed.equals(snapshot()),"native double submit commits Core once");
     fresh();before=snapshot();storageFailure=true;turn(state.toString());storageFailure=false;
     check(error!=null&&before.equals(snapshot()),"native persistence failure leaves accepted save intact");
+    for(double value:new double[]{0,0.499999,0.5,0.999999}) {
+      fresh();draw=value;
+      JSONObject candidate=new JSONObject(state.toString()).put("turn",state.getInt("turn")+1);
+      JSONObject next=new JSONObject((String)call("finishLevelTurn",new Class<?>[]{String.class,String.class,String.class},state.toString(),candidate.toString(),"Khám phá"));
+      JSONObject result=next.getJSONObject("exitResult");
+      check(result.getInt("requiredStreak")==4&&result.getInt("chancePercent")==50&&result.getBoolean("success")== (value<0.5),"native exact travel boundary "+value);
+      check(state.getJSONObject("levelTravel").getString("nodeId").equals("LEVEL.NODE.0"),"native new game starts at Level 0");
+    }
+    fresh();draw=0.49;String node=state.getJSONObject("levelTravel").getString("nodeId");
+    for(int i=1;i<=4;i++) {
+      JSONObject candidate=new JSONObject(state.toString()).put("turn",state.getInt("turn")+1);
+      state=new JSONObject((String)call("finishLevelTurn",new Class<?>[]{String.class,String.class,String.class},state.toString(),candidate.toString(),"Khám phá"));
+      check(state.getJSONObject("exitResult").getBoolean("completed")==(i==4),"native four-streak step "+i);
+    }
+    check(!node.equals(state.getJSONObject("levelTravel").getString("nodeId")),"native four successes change Level");
+    String outside=state.getJSONObject("levelTravel").getString("nodeId");
+    state=new JSONObject((String)call("resumeLevelGame",new Class<?>[]{String.class,boolean.class},state.toString(),true));
+    check(outside.equals(state.getJSONObject("levelTravel").getString("nodeId")),"native existing nonzero-Level save remains in place");
     System.out.println("NATIVE_GATE_RESULT: "+new JSONObject().put("failures",failed).put("controlledIO",true));
     Field io=activity.getClass().getDeclaredField("io");io.setAccessible(true);
     ((java.util.concurrent.ExecutorService)io.get(activity)).shutdownNow();
