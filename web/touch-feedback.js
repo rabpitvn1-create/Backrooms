@@ -32,7 +32,27 @@
   },{capture:true,passive:true});
   document.addEventListener('pointerup',release,{capture:true,passive:true});
   document.addEventListener('pointercancel',release,{capture:true,passive:true});
-  document.addEventListener('click',event=>pulse(target(event)),true);
+  // Synthesized mouse-click sound on every button press; no audio asset needed.
+  let actx=null;
+  function clickSound(){
+    try{
+      actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+      if(actx.state==='suspended')actx.resume();
+      const t=actx.currentTime,dur=0.045,len=Math.max(1,Math.floor(actx.sampleRate*dur));
+      const buf=actx.createBuffer(1,len,actx.sampleRate),ch=buf.getChannelData(0);
+      for(let i=0;i<len;i++)ch[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.5);
+      const src=actx.createBufferSource();src.buffer=buf;
+      const hp=actx.createBiquadFilter();hp.type='highpass';hp.frequency.value=1800;
+      const g=actx.createGain();
+      g.gain.setValueAtTime(0.22,t);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+      src.connect(hp);hp.connect(g);g.connect(actx.destination);src.start(t);
+    }catch(_){/* audio unavailable: stay silent */}
+  }
+  document.addEventListener('click',event=>{
+    const el=target(event);
+    pulse(el);
+    if(available(el))clickSound();
+  },true);
   // The combat controller already renders hand/roll state; place extra text
   // inline in that same dice panel instead of an unrelated floating popup.
   window.backroomActionToast=function(message){
