@@ -1,4 +1,4 @@
-name: Clean failed and cancelled CI runs
+name: Clear failed, cancelled and skipped CI runs
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
-      - name: Preview or delete completed failed and cancelled runs
+      - name: Preview or delete completed failed, cancelled and skipped runs
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -39,7 +39,7 @@ jobs:
 
           echo "### CI cleanup: $MODE" >> "$GITHUB_STEP_SUMMARY"
           total_deleted=0
-          for outcome in failure cancelled; do
+          for outcome in failure cancelled skipped; do
             response="$(gh api --method GET "/repos/${REPOSITORY}/actions/runs?status=${outcome}&per_page=100")"
             matches="$(jq -er '.total_count' <<< "$response")"
             echo "$outcome: $matches completed runs"
