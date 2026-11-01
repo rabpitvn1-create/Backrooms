@@ -144,6 +144,24 @@ def patch_bridge(text):
     return text[:start] + body + text[end:]
 
 
+def patch_native_travel(text):
+    """Match the original LevelTravelEngine.resolve bytecode, never blind replace."""
+    sig = ".method private final resolve("
+    start = text.index(sig)
+    end = text.index(".end method", start)
+    body = text[start:end]
+    required = [
+        ("const/4 v2, 3", "const/4 v2, 4"),
+        ("const/4 v4, 3", "const/4 v4, 4"),
+        ("const-wide v20, 4600877379321698714L", "const-wide v20, 4602678819172646912L"),
+        ("const/16 v4, 40", "const/16 v4, 50"),
+        ("const/16 v4, 60", "const/16 v4, 50"),
+    ]
+    for old, new in required:
+        body = replace_once(body, old, new)
+    return text[:start] + body + text[end:]
+
+
 def patched_dex(name, source=None):
     tools()
     original = ROOT / "apk-original" / name
@@ -159,6 +177,9 @@ def patched_dex(name, source=None):
                          ("com/rabpit/backroom/MainActivity$GameBridge.smali", patch_bridge))
     path = work / relative
     path.write_text(patcher(path.read_text()), encoding="utf-8")
+    if name == "classes3.dex":
+        travel = work / "com/rabpit/backroom/core/LevelTravelEngine.smali"
+        travel.write_text(patch_native_travel(travel.read_text(encoding="utf-8")), encoding="utf-8")
     output = TOOLS / (name + "-inventory.dex")
     output.unlink(missing_ok=True)
     run("com.googlecode.d2j.smali.SmaliCmd", "-o", output, work)
