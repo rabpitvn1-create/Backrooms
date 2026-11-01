@@ -79,6 +79,23 @@ public final class InventoryUseSmoke {
         .invoke(null,afterNarrative,beforeNarrative,delta,survivorRoll);
     check(afterNarrative.getJSONObject("flags").getJSONObject("narrativeScene").getJSONArray("actors").length()==2,
         "Native narrative scene was not committed");
+    JSONObject nextBefore = new JSONObject(afterNarrative.toString());
+    JSONObject nextAfter = new JSONObject(afterNarrative.toString());
+    JSONObject partial = new JSONObject("{\"narrativeDelta\":{\"actors\":[{\"name\":\"Người vợ\",\"emotion\":\"yên tâm\"}]}}");
+    narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
+        .invoke(null,nextAfter,nextBefore,partial,new JSONObject("{\"survivor\":{\"success\":false}}"));
+    org.json.JSONArray people = nextAfter.getJSONObject("flags").getJSONObject("narrativeScene").getJSONArray("actors");
+    check(people.length()==2, "Partial NPC update erased an unmentioned character");
+    check(people.getJSONObject(0).getString("emotion").equals("yên tâm"),"NPC emotion update missing");
+    check(people.getJSONObject(1).getString("name").equals("Người chồng"),"Second NPC was lost");
+    JSONObject named = new JSONObject(nextAfter.toString());
+    JSONObject renamed = new JSONObject("{\"narrativeDelta\":{\"actors\":[{\"name\":\"Tô Mộc\",\"aliasOf\":\"Người vợ\"}]}}");
+    narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
+        .invoke(null,named,nextAfter,renamed,new JSONObject("{\"survivor\":{\"success\":false}}"));
+    check(named.getJSONObject("flags").getJSONObject("narrativeScene").getJSONArray("actors").length()==2,
+        "Learning a previously unnamed NPC's name created a new encounter");
+    check(named.getJSONObject("flags").getJSONArray("narrativeSeen").getString(0).equals("tô mộc"),
+        "New proper name did not get a stable anti-reappearance marker");
     JSONObject scoped = (JSONObject)view.invoke(null,afterNarrative);
     check(scoped.getJSONObject("flags").has("narrativeScene"), "Native prompt lost current Level memory");
     JSONObject traveled = new JSONObject(afterNarrative.toString());
