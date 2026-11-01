@@ -603,7 +603,10 @@
           await damage(e,group);
         }
         covered=end;
-        if(end===start)await wait(410);
+        if(end===start){
+          if(cue.kind==='entity')appendEntityResult(cue);
+          await wait(410);
+        }
       }
       for(var trailing=covered;trailing<events.length&&current();trailing++)await damage(events[trailing]);
       if(current())await wait(lastFeedbackEnd-Date.now());
