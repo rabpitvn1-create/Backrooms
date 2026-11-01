@@ -426,6 +426,7 @@ final class NarratorLogic {
     state.put("party",sanitizedParty(before.optJSONArray("party"),generated.optJSONArray("party"),rolls));
     state.put("inventory",sanitizedInventory(before.optJSONArray("inventory"),generated.optJSONArray("inventory"),rolls));
     state.put("flags",sanitizedFlags(before.optJSONObject("flags"),generated.optJSONObject("flags"),rolls,false));
+    NarrativePolicy.apply(state,before,generated,rolls);
     state.getJSONObject("flags").put("lastRolls",rolls);
     state.put("_snapshotEvent",new JSONObject().put("shouldGenerate",false));
     state.put("turn",before.optInt("turn",1)+1).put("mode","web · canon R06");
@@ -444,6 +445,6 @@ final class NarratorLogic {
         if(started.optBoolean("handled",false)&&started.optJSONObject("state")!=null)state=started.getJSONObject("state");
       }
     }
-    return state.toString();
+    return NarrativePolicy.afterTravel(state).toString();
   }
 }
