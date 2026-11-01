@@ -113,10 +113,16 @@ jobs:
             adb logcat -c
             adb shell am start -W -n com.rabpit.caominh/com.rabpit.backroom.MainActivity
             sleep 5
-            adb shell pidof com.rabpit.caominh
             adb logcat -d -s AndroidRuntime:E > build/qa-android-runtime.txt
-            if grep -E 'FATAL EXCEPTION|VerifyError' build/qa-android-runtime.txt; then exit 1; fi
+            adb logcat -d -t 1500 > build/qa-android-full-log.txt
+            adb shell dumpsys activity activities > build/qa-activity.txt
+            adb shell ps -A > build/qa-processes.txt
+            cat build/qa-android-runtime.txt
+            grep -E 'topResumedActivity|mResumedActivity|mLastPausedActivity|mLastStoppedActivity' build/qa-activity.txt || true
+            grep 'com.rabpit.caominh' build/qa-processes.txt || true
             adb exec-out screencap -p > build/qa-android-launch.png
+            if grep -E 'FATAL EXCEPTION|VerifyError' build/qa-android-runtime.txt; then exit 1; fi
+            adb shell pidof com.rabpit.caominh
             adb push build/Backrooms-1.0.0.1-debug-unsigned.apk /data/local/tmp/backrooms.apk
             adb push build/inventory-tests.jar /data/local/tmp/inventory-tests.jar
             adb shell chmod 444 /data/local/tmp/backrooms.apk /data/local/tmp/inventory-tests.jar
@@ -129,5 +135,8 @@ jobs:
           path: |
             build/inventory-android.txt
             build/qa-android-runtime.txt
+            build/qa-android-full-log.txt
+            build/qa-activity.txt
+            build/qa-processes.txt
             build/qa-android-launch.png
           if-no-files-found: ignore
