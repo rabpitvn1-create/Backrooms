@@ -103,9 +103,8 @@ jobs:
           disable-animations: true
           script: |
             keytool -genkeypair -keystore build/qa.keystore -storetype PKCS12 -storepass android -keypass android -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 365 -dname "CN=Backrooms QA,O=Backrooms,C=US"
-            tools="$ANDROID_HOME/build-tools/35.0.0"
-            "$tools/zipalign" -p -f 4 build/Backrooms-1.0.0.1-debug-unsigned.apk build/qa-aligned.apk
-            "$tools/apksigner" sign --ks build/qa.keystore --ks-key-alias androiddebugkey --ks-pass pass:android --key-pass pass:android --out build/qa-debug.apk build/qa-aligned.apk
+            "$ANDROID_HOME/build-tools/35.0.0/zipalign" -p -f 4 build/Backrooms-1.0.0.1-debug-unsigned.apk build/qa-aligned.apk
+            "$ANDROID_HOME/build-tools/35.0.0/apksigner" sign --ks build/qa.keystore --ks-key-alias androiddebugkey --ks-pass pass:android --key-pass pass:android --out build/qa-debug.apk build/qa-aligned.apk
             "$tools/apksigner" verify build/qa-debug.apk
             adb install -r build/qa-debug.apk
             adb logcat -c
