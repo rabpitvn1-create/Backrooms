@@ -69,6 +69,14 @@ function fresh(){
     assert.ok(state.flags.narrativeScene);
     console.log('PASS: save/load preserves visit-scoped narrative memory');
 
+    fresh();
+    delta=null;reply='Ánh sáng của chiếc đèn ký ức hắt lên vết nứt trong tường.';
+    await turn('Cao Minh tự sáng tác một chiếc đèn ký ức.');
+    assert.deepEqual(errors,[]);
+    assert.ok(state.flags.narrativeLevelMemory.facts.some(x=>/đèn ký ức/.test(x)),
+      'Accepted GM prose must be remembered even when AI omits narrativeDelta');
+    console.log('PASS: missing AI narrativeDelta retains a bounded prose memory');
+
     fresh();const before=snapshot(),originalTurn=state.turn;
     core.coreItemUseBegin(JSON.stringify(state),'Khám phá');
     const denied=JSON.parse(__webGame.call('prepareNamedFollowerTurn',JSON.stringify(state),

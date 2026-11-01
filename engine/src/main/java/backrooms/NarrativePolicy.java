@@ -123,6 +123,17 @@ public final class NarrativePolicy {
     return safe;
   }
 
+  private static void remember(JSONObject history, String raw) {
+    if(raw==null||raw.trim().isEmpty())return;
+    String text=raw.trim();
+    if(text.length()>500)text=text.substring(0,350)+" … "+text.substring(text.length()-140);
+    JSONArray old=history.optJSONArray("facts"),next=new JSONArray();
+    if(old!=null)for(int i=Math.max(0,old.length()-(MAX_FACTS-1));i<old.length();i++)
+      next.put(old.optString(i));
+    next.put(text);
+    history.put("facts",next);
+  }
+
   /** Applied after GM validation and before Core's authoritative turn commit. */
   public static void apply(JSONObject after, JSONObject before, JSONObject generated, JSONObject rolls) {
     JSONObject currentFlags = after.optJSONObject("flags");
@@ -159,7 +170,13 @@ public final class NarrativePolicy {
     JSONObject oldRelations=priorFlags==null?null:priorFlags.optJSONObject(RELATIONS);
     if(oldRelations!=null)currentFlags.put(RELATIONS,new JSONObject(oldRelations.toString()));
 
-    if(!generated.has("narrativeDelta") || generated.isNull("narrativeDelta"))return;
+    if(!generated.has("narrativeDelta") || generated.isNull("narrativeDelta")) {
+      // Models may omit optional JSON fields even when instructed otherwise.
+      // Preserve accepted narration as a bounded observation, never invent success.
+      remember(history,generated.optString("reply",""));
+      currentFlags.put(HISTORY,history);
+      return;
+    }
     JSONObject delta=generated.optJSONObject("narrativeDelta");
     if(delta==null)throw new IllegalArgumentException("narrative_delta_invalid");
     boolean wantsScene=delta.has("summary")||delta.has("actors")||delta.has("closed");
@@ -239,12 +256,7 @@ public final class NarrativePolicy {
             next.put(facts.optString(i));
           next.put(fact);
           scene.put("facts",next);
-          JSONArray historyFacts=history.optJSONArray("facts");
-          JSONArray historyNext=new JSONArray();
-          for(int i=Math.max(0,historyFacts.length()-(MAX_FACTS-1));i<historyFacts.length();i++)
-            historyNext.put(historyFacts.optString(i));
-          historyNext.put(fact);
-          history.put("facts",historyNext);
+          remember(history,fact);
           currentFlags.put(HISTORY,history);
         }
       }
