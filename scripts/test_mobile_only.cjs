@@ -72,16 +72,11 @@ function near(actual,expected,label,tolerance=2){
    assert.equal(layout.mobileMedia,true,
      'Actual mobile CSS breakpoint must match, including on desktop');
    assert.equal(layout.mode,'mobile-only');
-   if(layout.menuDisplay!=='none')console.log('STARTUP_MENU_DIAGNOSTIC',JSON.stringify(await frame.evaluate(()=>({
-     bodyClass:document.body.className,panel:document.getElementById('sidePanel').outerHTML.slice(0,180),
-     displayNow:getComputedStyle(document.getElementById('sidePanel')).display,
-     styles:[...document.styleSheets].map(s=>({href:s.href,disabled:s.disabled,media:s.media.mediaText,rules:[...s.cssRules]
-       .filter(r=>r.cssText.includes('.side')&&r.cssText.includes('display')).map(r=>r.cssText.slice(0,900))}))
-   }))));
-   assert.equal(layout.menuDisplay,'none');
+   assert.equal(await frame.locator('#sidePanel').isVisible(),false,'Closed menu must be hidden');
    assert.equal(layout.overflow,false);
    await frame.locator('#mobileMenuButton').click();
    await frame.locator('#mobileMenuClose').waitFor({state:'visible'});
+   await frame.waitForFunction(()=>Math.abs(document.getElementById('sidePanel').getBoundingClientRect().left)<2);
    const menu=await frame.locator('#sidePanel').evaluate(element=>{
      const rect=element.getBoundingClientRect();
      return {x:rect.x,width:rect.width,display:getComputedStyle(element).display};
