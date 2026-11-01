@@ -66,7 +66,12 @@ def prepare():
             with ZipFile(path) as z:
                 for name in z.namelist():
                     if name.startswith("com/rabpit/backroom/core/") and name.endswith(".class"):
-                        out.writestr(name, level_travel.patch(name, browser_compat_class(z.read(name))))
+                        converted = browser_compat_class(z.read(name))
+                        # The shared original DEX is now patched once in inventory_use.patched_dex.
+                        if name == 'com/rabpit/backroom/core/LevelTravelEngine.class':
+                            out.writestr(name, converted)
+                        else:
+                            out.writestr(name, level_travel.patch(name, converted))
                         count += 1
     print(f"Recovered {count} original gameplay classes for the browser compiler.")
 
