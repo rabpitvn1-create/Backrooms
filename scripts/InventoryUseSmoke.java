@@ -100,6 +100,28 @@ public final class InventoryUseSmoke {
     check(nativeFlags.has("narrativeSeen"), "Native Core lost One-Time identity markers");
     check(!new JSONObject(world.getString("levelTravelUi")).getJSONObject("flags").has("narrativeScene"),
         "Native UI save retained expired scene");
+    // Even a valid prose response cannot mutate Core-owned character, Party or loot.
+    JSONObject guardedBefore = new JSONObject(sceneState);
+    guardedBefore.put("player",new JSONObject().put("hp",23));
+    guardedBefore.put("party",new org.json.JSONArray());
+    guardedBefore.put("inventory",new org.json.JSONArray());
+    guardedBefore.getJSONObject("flags").put("hua_tieu_lan",new JSONObject().put("present",false));
+    JSONObject forged = new JSONObject(guardedBefore.toString());
+    forged.put("player",new JSONObject().put("hp",999999));
+    forged.put("party",new org.json.JSONArray().put(new JSONObject().put("id","invented-survivor")));
+    forged.put("inventory",new org.json.JSONArray().put(new JSONObject().put("name","Unlimited Almond Water")));
+    forged.getJSONObject("flags").put("hua_tieu_lan",new JSONObject().put("present",true));
+    forged.getJSONObject("flags").put("survivorRegistry",new JSONObject().put("invented",true));
+    forged.getJSONObject("flags").put("worldItems",new JSONObject().put("infinite-loot",true));
+    narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
+        .invoke(null,forged,guardedBefore,new JSONObject("{\"narrativeDelta\":null}"),new JSONObject());
+    check(forged.getJSONObject("player").getInt("hp")==23,"GM altered player HP");
+    check(forged.getJSONArray("party").length()==0,"GM inserted unconfirmed follower");
+    check(forged.getJSONArray("inventory").length()==0,"GM forged Inventory items");
+    check(!forged.getJSONObject("flags").getJSONObject("hua_tieu_lan").getBoolean("present"),
+        "GM bypassed named character encounter lock");
+    check(!forged.getJSONObject("flags").has("survivorRegistry"),"GM forged survivor registry");
+    check(!forged.getJSONObject("flags").has("worldItems"),"GM forged world loot");
     // Loading the native bridge verifies the edited method's DEX register and reference types.
     loader.loadClass("com.rabpit.backroom.MainActivity$GameBridge").getDeclaredMethods();
     System.out.println("PASS: packaged Android Core routes abilities to GM and restores blocked item use without turns, effects or streak changes");
