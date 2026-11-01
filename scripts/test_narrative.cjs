@@ -130,8 +130,10 @@ function fresh(){
     const finalPrepared=JSON.parse(__webGame.call('prepareNamedFollowerTurn',JSON.stringify(next),
       'Khám phá',JSON.stringify({survivor:{success:false},entityEncounter:{success:false}}),'EXPLORE'));
     assert.ok(finalPrepared.state&&finalPrepared.rolls,'final turn plan is required');
+    const preview=(finalPrepared.rolls.entityEncounter?.success && finalPrepared.rolls.roamingEntityKey)
+      ? 'Một dáng hình thấp thoáng ngoài rìa ánh sáng.' : '';
     const finalCandidate=JSON.parse(core.coreCandidate(JSON.stringify(finalPrepared.state),
-      JSON.stringify({itemUseRequest:null,reply:'Cao Minh bước qua bức tường chập chờn.',entityPreview:'',narrativeDelta:null}),
+      JSON.stringify({itemUseRequest:null,reply:'Cao Minh bước qua bức tường chập chờn.',entityPreview:preview,narrativeDelta:null}),
       JSON.stringify(finalPrepared.rolls),'Khám phá'));
     assert.ok(!finalCandidate.bridgeError,finalCandidate.bridgeError);
     core.coreItemUseComplete();
