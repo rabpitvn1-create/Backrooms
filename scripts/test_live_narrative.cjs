@@ -33,6 +33,15 @@ const fs = require('node:fs');
     });
     await page.goto(process.env.PAGES_TEST_URL || 'http://127.0.0.1:4173/Backrooms/',{waitUntil:'domcontentloaded'});
     await page.waitForFunction(() => typeof state !== 'undefined' && state.coreSnapshot && state.levelTravel);
+    await page.evaluate(()=>{
+      const actual=window.coreRolls;
+      window.coreRolls=(...args)=>{
+        const rolls=JSON.parse(actual(...args));
+        for(const key of ['survivor','entityEncounter','hazard','loot','almondWater','lucTramReunion','syvialReunion','anNhienEncounter','huaTieuLanEncounter','nguyenQuocNamEncounter'])
+          if(rolls[key])rolls[key].success=false;
+        return JSON.stringify(rolls);
+      };
+    });
     const before = await page.evaluate(() => ({
       turn:state.turn, node:state.levelTravel.nodeId,
       inventory:JSON.parse(Android.levelCoreSnapshot()).inventories

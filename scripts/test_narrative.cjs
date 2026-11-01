@@ -5,6 +5,14 @@ vm.runInThisContext(fs.readFileSync('pages/regex.js','utf8'));
 const core=require('../engine/target/javascript/game-core.js');
 Object.assign(globalThis,core);
 globalThis.window=globalThis;
+// Preserve actual Core plans while fixing the independent legacy narrator dice.
+const originalRolls=window.coreRolls;
+window.coreRolls=(...args)=>{
+  const rolls=JSON.parse(originalRolls(...args));
+  for(const key of ['survivor','entityEncounter','hazard','loot','almondWater','lucTramReunion','syvialReunion','anNhienEncounter','huaTieuLanEncounter','nguyenQuocNamEncounter'])
+    if(rolls[key])rolls[key].success=false;
+  return JSON.stringify(rolls);
+};
 globalThis.document={documentElement:{dataset:{}}};
 const store=new Map();
 globalThis.localStorage={getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,String(v)),removeItem:k=>store.delete(k)};
