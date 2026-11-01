@@ -42,14 +42,14 @@ function fresh(){
   try{
     fresh();
     assert.equal(state.levelTravel.nodeId,'LEVEL.NODE.0','New Game must start at Level 0');
-    const itemsBefore=JSON.stringify(snapshot().inventories);
+    const itemsBefore=structuredClone(snapshot().inventories);
     delta={summary:'Cao Minh dùng Hồi Hoàn Đan tự sáng tác để cứu người phụ nữ.'};
     reply='Người phụ nữ tỉnh dậy, người chồng òa khóc vì vui mừng.';
     await turn('Cao Minh dùng một viên Hồi Hoàn Đan do hắn tự tạo để cứu người phụ nữ.');
     assert.deepEqual(errors,[],'Non-ID narrative items must be allowed');
     assert.match(prompt,/NARRATIVE SCENE RULES/);
     assert.match(prompt,/ITEM_DIRECTORY/);
-    assert.equal(JSON.stringify(snapshot().inventories),itemsBefore,'Non-ID cannot create Core inventory');
+    assert.deepEqual(snapshot().inventories,itemsBefore,'Non-ID cannot create Core inventory');
     assert.ok(state.flags.narrativeScene,'Narrative memory must be saved in flags');
     assert.match(state.flags.narrativeScene.facts[0],/Hồi Hoàn Đan/);
     assert.equal(state.flags.narrativeScene.visit.includes('LEVEL.NODE.0'),true);
