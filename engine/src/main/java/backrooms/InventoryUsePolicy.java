@@ -109,9 +109,14 @@ public final class InventoryUsePolicy {
           String prefix = text.substring(Math.max(0, at - 100), at);
           int use = lastVerb(prefix, uses), observation = lastVerb(prefix, observations);
           if (use < 0 || use < observation) continue;
-          String beforeUse = prefix.substring(Math.max(0, use - 13), use).trim();
-          if (beforeUse.endsWith("không") || beforeUse.endsWith("chưa")
-              || beforeUse.endsWith("đừng") || beforeUse.endsWith("chẳng")) continue;
+          // Questions about an item are not requests to consume it.
+          if (prefix.matches("(?s).*(?:cách|hướng dẫn|làm sao để)\\s+(?:dùng|sử dụng|uống|ăn)\\s*$"))
+            continue;
+          // "Cho rằng" expresses an opinion, not an item transfer.
+          if (prefix.trim().endsWith("cho rằng")) continue;
+          String beforeUse = prefix.substring(Math.max(0, use - 24), use).trim();
+          if (beforeUse.matches("(?s).*(?:không(?:\\s+hề)?|chưa(?:\\s+từng)?|đừng|chẳng)\\s*$"))
+            continue;
           return id;
         }
       }
