@@ -2,6 +2,9 @@
 from pathlib import Path
 import re
 import shutil
+import hashlib
+import json
+import subprocess
 import inventory_use
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +20,9 @@ def method(text, name):
     return text[start:end + len(".end method")]
 
 def main():
+    for name,digest in inventory_use.HASHES.items():
+        if hashlib.sha256((ROOT/"apk-original"/name).read_bytes()).hexdigest()!=digest:
+            raise RuntimeError("Native inspection input hash mismatch: "+name)
     inventory_use.tools()
     output = inventory_use.TOOLS / "narrative-original-classes5"
     if output.exists():
@@ -48,6 +54,20 @@ def main():
     extract=travel[travel_start:travel_end+len(".end method")]
     (ROOT/"build"/"native-travel-smali.txt").write_text(extract,encoding="utf-8")
     facade=(travel_out/"com/rabpit/backroom/core/GameCoreFacade.smali").read_text(encoding="utf-8")
+    storage=[]
+    for name in ("SaveRepository", "SharedPreferencesSaveRepository"):
+        storage.append((travel_out/"com/rabpit/backroom/core"/(name+".smali")).read_text(encoding="utf-8"))
+    for name in ("loadOrInitialize", "initializeLevelGame", "resumeLevelGame", "commitNamedFollowerTurn", "finishLevelTurn", "processValidatedCandidate"):
+        signature=next(line for line in facade.splitlines() if line.startswith(".method ") and " "+name+"(" in line)
+        start=facade.index(signature);end=facade.index(".end method",start)+len(".end method")
+        storage.append(facade[start:end])
+    (ROOT/"build/native-storage-inspect.txt").write_text("\n\n".join(storage),encoding="utf-8")
+    provenance={"sourceCommit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),
+                "originalDexHashes":inventory_use.HASHES,"inspectedGameplaySha256":hashlib.sha256(gameplay.encode()).hexdigest(),
+                "sourceHashes":{}}
+    for relative in ("engine/src/main/java/backrooms/InventoryUsePolicy.java", "engine/src/main/java/backrooms/NarrativePolicy.java", "pages/bridge.js", "scripts/inventory_use.py"):
+        provenance["sourceHashes"][relative]=hashlib.sha256((ROOT/relative).read_bytes()).hexdigest()
+    (ROOT/"build/native-inspection-provenance.json").write_text(json.dumps(provenance,indent=2),encoding="utf-8")
     labels=[line for line in facade.splitlines() if "3/3" in line or "0/3" in line or "Chuỗi" in line or "địa điểm hiện tại" in line]
     (ROOT/"build"/"native-travel-labels.txt").write_text("\\n".join(labels)+"\\n",encoding="utf-8")
     print("Travel method line count:",len(extract.splitlines()))

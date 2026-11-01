@@ -30,4 +30,6 @@ jobs:
             build/native-inspect.txt
             build/native-travel-smali.txt
             build/native-travel-labels.txt
+            build/native-storage-inspect.txt
+            build/native-inspection-provenance.json
           if-no-files-found: error
