@@ -61,7 +61,7 @@ public final class InventoryUsePolicy {
         "Mọi JSON trả về BẮT BUỘC có itemUseRequest: null hoặc {\"itemId\":\"ID chính xác trong ITEM_DIRECTORY\"}. " +
         "Nếu người chơi yêu cầu sử dụng, ăn, uống, kích hoạt vật phẩm hoặc nhờ người khác dùng vật phẩm, kể cả lệnh ghép hay diễn đạt gián tiếp, " +
         "đặt itemUseRequest với ID có thật. Chỉ nhận diện ý định, không thực hiện, không kể đã dùng thành công, không áp dụng hiệu ứng hoặc thay đổi state. " +
-        "Vật phẩm có ID không có nghĩa là đang sở hữu. Không tự tạo ID. Nếu không xác định được ID, không được kể hoặc cấp hiệu ứng sử dụng vật phẩm. " +
+        "Vật phẩm có ID không có nghĩa là đang sở hữu. Không tự tạo ID. Khi người chơi tự sáng tác vật phẩm không khớp ITEM_DIRECTORY, đặt itemUseRequest:null và chỉ kể hiệu ứng trong cảnh truyện, không tự cấp item, đổi HP/EXP, combat, loot, party hoặc travel trong Core. " +
         "Nhắc tên, quan sát, hỏi thông tin, câu phủ định và trích dẫn không phải yêu cầu dùng vật phẩm. " +
         "Thần niệm, ý niệm, thần thức, mắt và tay không phải vật phẩm. Việc điều khiển hay chiến đấu bằng vũ khí đang trang bị không phải thao tác tiêu dùng trong kho. " +
         "Các hành động đó đặt itemUseRequest:null và kể theo canon cùng kết quả Core. " +
