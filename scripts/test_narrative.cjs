@@ -72,8 +72,10 @@ function fresh(){
     const denied=JSON.parse(__webGame.call('prepareNamedFollowerTurn',JSON.stringify(state),
       'Khám phá',JSON.stringify({survivor:{success:false},entityEncounter:{success:false}}),'EXPLORE'));
     assert.ok(denied.state&&denied.rolls,'Core must prepare negative survivor ticket');
+    const deniedPreview=(denied.rolls.entityEncounter?.success&&denied.rolls.roamingEntityKey)
+      ? 'Một bóng hình thoáng qua cuối hành lang.' : '';
     const refused=JSON.parse(core.coreCandidate(JSON.stringify(denied.state),
-      JSON.stringify({itemUseRequest:null,reply:'Một người lạ bước tới.',entityPreview:'',
+      JSON.stringify({itemUseRequest:null,reply:'Một người lạ bước tới.',entityPreview:deniedPreview,
         narrativeDelta:{summary:'Invented encounter',actors:[{name:'Người lạ',emotion:'sợ hãi'}]}}),
       JSON.stringify(denied.rolls),'Khám phá'));
     assert.ok(refused.bridgeError&&refused.bridgeError.includes('narrative_unconfirmed_encounter'),
