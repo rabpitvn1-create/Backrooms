@@ -45,7 +45,7 @@ function fresh(){
     const itemsBefore=JSON.stringify(snapshot().inventories);
     delta={summary:'Cao Minh dùng Hồi Hoàn Đan tự sáng tác để cứu người phụ nữ.'};
     reply='Người phụ nữ tỉnh dậy, người chồng òa khóc vì vui mừng.';
-    await turn('Cao Minh lấy một viên Hồi Hoàn Đan tự sáng tác, chữa cho người phụ nữ.');
+    await turn('Cao Minh dùng một viên Hồi Hoàn Đan do hắn tự tạo để cứu người phụ nữ.');
     assert.deepEqual(errors,[],'Non-ID narrative items must be allowed');
     assert.match(prompt,/NARRATIVE SCENE RULES/);
     assert.match(prompt,/ITEM_DIRECTORY/);
