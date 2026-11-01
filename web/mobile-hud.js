@@ -27,12 +27,10 @@
 
   function closeMenu() {
     document.body.classList.remove('mobile-menu-open');
-    backdrop.hidden = true;
     button.setAttribute('aria-expanded', 'false');
     panel.removeAttribute('aria-modal');
   }
   function openMenu() {
-    backdrop.hidden = false;
     document.body.classList.add('mobile-menu-open');
     button.setAttribute('aria-expanded', 'true');
     panel.setAttribute('aria-modal', 'true');
