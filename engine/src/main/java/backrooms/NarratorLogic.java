@@ -343,7 +343,7 @@ final class NarratorLogic {
             "DRIVE CANON:\n" + compactDriveCanon(before, action, rolls) + "\n\n" +
             "State hiện tại: " + before.toString() + "\nHành động: " + action +
             "\nGAMEPLAY_ROLLS: " + rolls.toString() +
-            "\nJSON schema bắt buộc: {\"reply\":\"phản hồi Game Master bằng tiếng Việt\",\"title\":\"tên khu vực\",\"level\":{\"number\":0,\"name\":\"The Lobby\"},\"location\":\"vị trí hiện tại\",\"player\":{},\"party\":[],\"inventory\":[],\"flags\":{},\"snapshotEvent\":{\"shouldGenerate\":false,\"kind\":\"\",\"reason\":\"\"},\"entityPreview\":\"\"}";
+            "\nJSON schema bắt buộc: {\"reply\":\"phản hồi Game Master bằng tiếng Việt\",\"title\":\"tên khu vực\",\"level\":{\"number\":0,\"name\":\"The Lobby\"},\"location\":\"vị trí hiện tại\",\"player\":{},\"party\":[],\"inventory\":[],\"flags\":{},\"snapshotEvent\":{\"shouldGenerate\":false,\"kind\":\"\",\"reason\":\"\"},\"entityPreview\":\"\",\"itemUseRequest\":null,\"narrativeDelta\":null}";
           if (canonPacket != null) {
             // CR2 is a REPLACEMENT, not an extra canon dump. Never append
             // the packet to the full legacy DRIVE_CANON prompt.
@@ -356,7 +356,7 @@ final class NarratorLogic {
               "\n\nSTATE:\n" + compactStateForPrompt(before).toString() +
               "\nACTION:\n" + action +
               "\nGAMEPLAY_ROLLS:\n" + rolls.toString() +
-              "\nOUTPUT JSON: {\"reply\":\"lời kể tiếng Việt\",\"title\":\"tên khu vực\",\"level\":{\"number\":0,\"name\":\"The Lobby\"},\"location\":\"vị trí\",\"player\":{},\"party\":[],\"inventory\":[],\"flags\":{},\"snapshotEvent\":{\"shouldGenerate\":false,\"kind\":\"\",\"reason\":\"\"},\"entityPreview\":\"\"}";
+              "\nOUTPUT JSON: {\"reply\":\"lời kể tiếng Việt\",\"title\":\"tên khu vực\",\"level\":{\"number\":0,\"name\":\"The Lobby\"},\"location\":\"vị trí\",\"player\":{},\"party\":[],\"inventory\":[],\"flags\":{},\"snapshotEvent\":{\"shouldGenerate\":false,\"kind\":\"\",\"reason\":\"\"},\"entityPreview\":\"\",\"itemUseRequest\":null,\"narrativeDelta\":null}";
           }
           prompt += "\n" + com.rabpit.backroom.core.canon.NarrativeGrounding.build(before.toString(), action) + "\n";
           // Artistic latitude is in sensory detail, dialogue and consequences, never in
