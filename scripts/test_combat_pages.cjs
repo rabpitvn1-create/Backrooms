@@ -31,6 +31,16 @@ await page.waitForFunction(v=>!window.__combatDiceBusy&&Boolean(state.combat?.di
 assert.equal(await page.locator('#pokerDiceRow .poker-die').first().getAttribute('aria-pressed'),String(!before.held));
 assert.equal(await page.locator('#backroomActionToast').count(),0,'Combat feedback must not use an intrusive floating toast');
 assert.match(await page.locator('#pokerDiceMeta').innerText(),/HOLD|xúc xắc|ROLL/,'Combat Dice must give in-panel feedback');
+const diceReadiness=await page.evaluate(()=>({
+  dice:state.combat?.diceState,
+  rollDisabled:document.getElementById('pokerDiceRoll')?.disabled,
+  diceBusy:window.__combatDiceBusy,
+  feedbackBusy:window.__combatFeedbackBusy,
+  rolling:window.__combatDiceRolling,
+  directPreparing:window.__directCombatPreparing
+}));
+console.log('COMBAT DICE READY:',JSON.stringify(diceReadiness));
+await page.waitForFunction(()=>!document.getElementById('pokerDiceRoll')?.disabled,{timeout:15000});
 await page.locator('#pokerDiceRoll').click();
 await page.waitForFunction(v=>!window.__combatDiceRolling&&!window.__combatDiceBusy&&state.combat?.diceState?.rerollsUsed>v,before.rerolls,{timeout:20000});
 await page.locator('#pokerDiceFinish').click();
