@@ -89,6 +89,27 @@ public final class InventoryUsePolicy {
             || !Character.isLetterOrDigit(text.charAt(at + term.length())));
   }
 
+  // The player may put an item first, followed by the instruction:
+  // "Almond Water, uống ngay". The AI alone must not be able to misclassify it.
+  private static boolean postfixedUse(String text, int itemEnd) {
+    String suffix = text.substring(itemEnd, Math.min(text.length(), itemEnd+90)).trim();
+    while (!suffix.isEmpty() && ",:;".indexOf(suffix.charAt(0))>=0)
+      suffix=suffix.substring(1).trim();
+    for (String subject : new String[] {"cao minh ", "hắn ", "ta ", "anh ta ", "cô ấy "})
+      if (suffix.startsWith(subject)){suffix=suffix.substring(subject.length()).trim();break;}
+    for (String verb : new String[] {"sử dụng", "dùng", "uống", "ăn", "bôi", "kích hoạt", "use", "drink", "consume"}) {
+      if (!suffix.startsWith(verb)||!itemWordAt(suffix,verb,0))continue;
+      String remaining=suffix.substring(verb.length()).trim();
+      if (remaining.contains("?")||remaining.startsWith("được không")||
+          remaining.startsWith("như thế nào")||remaining.startsWith("thế nào")||
+          remaining.startsWith("ra sao")||remaining.startsWith("để làm gì")||
+          remaining.startsWith("cách nào")||remaining.startsWith("gì"))
+        continue;
+      return true;
+    }
+    return false;
+  }
+
   private static String registeredUse(String input) {
     if (input == null || items.length() == 0) return "";
     String text = input.toLowerCase(Locale.ROOT)
@@ -106,6 +127,7 @@ public final class InventoryUsePolicy {
         int at = -1;
         while ((at = text.indexOf(name, at + 1)) >= 0) {
           if (!itemWordAt(text, name, at)) continue;
+          if (postfixedUse(text,at+name.length())) return id;
           String prefix = text.substring(Math.max(0, at - 100), at);
           int use = lastVerb(prefix, uses), observation = lastVerb(prefix, observations);
           if (use < 0 || use < observation) continue;
@@ -140,7 +162,11 @@ public final class InventoryUsePolicy {
       if (!generated.has("itemUseRequest")) throw new IllegalStateException("item_use_classification_missing");
       if (generated.isNull("itemUseRequest")) {
         if (!registeredUse(action).isEmpty()) return inventoryNotice();
-        if (!registeredUse(generated.optString("reply", "")).isEmpty())
+        if (!registeredUse(generated.optString("reply", "")).isEmpty() ||
+            !registeredUse(generated.optString("entityPreview", "")).isEmpty())
+          throw new IllegalStateException("item_use_narrative_conflict");
+        JSONObject narrative=generated.optJSONObject("narrativeDelta");
+        if(narrative!=null && !registeredUse(narrative.optString("summary","")).isEmpty())
           throw new IllegalStateException("item_use_narrative_conflict");
         return null;
       }

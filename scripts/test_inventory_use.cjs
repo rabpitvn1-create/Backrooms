@@ -17,7 +17,7 @@ globalThis.BACKROOMS_CONFIG = { models: ['fixture'] };
 vm.runInThisContext(fs.readFileSync('pages/bridge.js', 'utf8'));
 const html = fs.readFileSync('web/index.html', 'utf8');
 const initial = vm.runInNewContext(html.slice(html.indexOf('const prologue'), html.indexOf('const byId')) + '; initial');
-let state, errors = [], requests = 0, marker = null, narrationOverride = null;
+let state, errors = [], requests = 0, marker = null, narrationOverride = null, narrativeSummaryOverride = null, previewOverride = null;
 globalThis.backroomTurn = raw => { state = JSON.parse(raw); };
 globalThis.backroomError = message => errors.push(message);
 globalThis.backroomProvider = () => {};
@@ -27,7 +27,8 @@ globalThis.fetch = async (_, options) => {
   const prompt = JSON.parse(options.body).contents[0].parts[0].text;
   assert.ok(prompt.includes('[INVENTORY USE ONLY]'));
   assert.ok(prompt.includes('"almond-water":"Almond Water"'));
-  const generated = { reply: narrationOverride || 'Cao Minh quan sát những dấu vết trước mặt.', entityPreview: 'Một tiếng động vọng tới.' };
+  const generated = { reply: narrationOverride || 'Cao Minh quan sát những dấu vết trước mặt.', entityPreview: previewOverride || 'Một tiếng động vọng tới.' };
+  if (narrativeSummaryOverride) generated.narrativeDelta = { summary: narrativeSummaryOverride };
   if (marker !== undefined) generated.itemUseRequest = marker;
   if (marker) Object.assign(generated, { reply: '', player: { hp: 999999 }, inventory: [{ id: 'fake', quantity: 100 }], flags: { fakeItemEffect: true } });
   return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(generated) }] } }] }), { status: 200 });
@@ -113,6 +114,34 @@ async function turn(action) {
   assert.deepEqual(snapshot(), beforeNarration);
   assert.equal(state.turn, beforeTurn);
   narrationOverride = null;
+  for (const action of ['Almond Water, uống ngay', 'Almond Water, Cao Minh sử dụng ngay', 'Nước hạnh nhân, uống đi']) {
+    fresh();marker=null;
+    const original=snapshot(),turnNo=state.turn;
+    await turn(action);
+    assert.deepEqual(errors,[],'Item-first imperative must redirect: '+action);
+    assert.deepEqual(snapshot(),original,'Item-first command must preserve Core state');
+    assert.equal(state.turn,turnNo,'Item-first command must not consume a turn');
+    assert.equal(state.log.at(-1).text,'Vui lòng vào kho đồ và nhấn sử dụng vật phẩm.');
+  }
+  for (const action of ['Almond Water, uống được không?', 'Almond Water, sử dụng thế nào?']) {
+    fresh();marker=null;
+    const originalTurn=state.turn;
+    await turn(action);
+    assert.deepEqual(errors,[],'Item-first question must not redirect: '+action);
+    assert.equal(state.turn,originalTurn+1,'Question must reach GM');
+  }
+  for (const field of ['summary','entityPreview']) {
+    fresh();marker=null;
+    const original=snapshot(),turnNo=state.turn;
+    if(field==='summary')narrativeSummaryOverride='Cao Minh uống Almond Water để hồi phục.';
+    else previewOverride='Cao Minh sử dụng Almond Water để hồi phục.';
+    await turn('Cao Minh lắng nghe tiếng đèn.');
+    assert.ok(errors.some(e=>/item_use_narrative_conflict/.test(e)),field+' cannot record unapproved registered item use');
+    assert.deepEqual(snapshot(),original,field+' conflict must roll back Core');
+    assert.equal(state.turn,turnNo);
+    narrativeSummaryOverride=null;previewOverride=null;
+  }
+  console.log('PASS: item-first imperatives are redirected, questions remain legal, and fake delta/preview uses are rejected');
   console.log('PASS: registered item use cannot bypass Inventory through a false null classification');
   for (const invalid of [undefined, { itemId: 'gm-invented-item' }, 'almond-water', {}]) {
     fresh(); marker = invalid;
