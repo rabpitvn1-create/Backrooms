@@ -52,8 +52,11 @@ def patch_facade(text):
         ("Không gian quanh Cao Minh đột ngột lệch khỏi vị trí cũ. Hắn đã sang một nơi khác, chưa xác định danh tính.",
          "Không gian quanh Cao Minh đột ngột lệch khỏi vị trí cũ. Hắn đã no-clip sang một nơi khác, chưa xác định danh tính."),
     ]
+    # Baksmali escapes Unicode as \\uXXXX even when the original Java string does not.
+    def smali_text(value):
+        return "".join("\\\\u%04x" % ord(char) if ord(char) > 127 else char for char in value)
     for old, new in messages:
-        text = replace_once(text, old, new)
+        text = replace_once(text, smali_text(old), smali_text(new))
     for name in ("processRule", "processNamedFollowerRule"):
         signature = f".method public final {name}(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
         text = replace_once(text, signature, signature.replace(name, name + "InventoryLegacy"))
