@@ -19,8 +19,8 @@ import cao_minh_assets
 import inventory_use
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.0.2"
-VERSION_CODE = 90000003
+VERSION = "1.0.0.3"
+VERSION_CODE = 90000004
 DEX_SHA256 = "bd48603b3f302a7d39b4fcfe5a239612846b3251c40723ea9793a2ed074da5f5"
 DEFAULT_BASE = "https://api.vilao.ai/v1"
 DEFAULT_MODEL = "chib/gemini-3.8-flash"

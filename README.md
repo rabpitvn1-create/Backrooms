@@ -68,11 +68,11 @@ python3 scripts/build_pages.py --test-config
 For a configured local build, pass `--config path/to/runtime.json` containing
 a `keys` array of six distinct strings. Generated outputs are not committed.
 
-## Personal Android debug release 1.0.0.2
+## Personal Android debug release 1.0.0.3
 
-The `Backrooms debug release` workflow creates `Backrooms-1.0.0.2-debug.apk`
+The `Backrooms debug release` workflow creates `Backrooms-1.0.0.3-debug.apk`
 from the recovered APK entries, with `android:debuggable=true` and versionCode
-90000003. It does not claim to recover the original Android source project.
+90000004. It does not claim to recover the original Android source project.
 
 The six repository Secrets `GEMINI_API_KEY_1` through `GEMINI_API_KEY_6`
 provide the primary key pool in that order. Argon is temporarily disabled:
@@ -94,8 +94,8 @@ fallback is never called. They also invoke the APK's credential validator with
 six keys and blank fallback credentials. Packaging verifies that recovered entries outside the explicit override set
 remain byte-identical.
 
-The workflow verifies APK signing and metadata, installs and launches the app
-on an Android 15 emulator, and publishes tag `v1.0.0.2` only after success.
+The workflow verifies APK signing, metadata and native gameplay transaction regressions, installs and launches the app
+on an Android 15 emulator, and publishes tag `v1.0.0.3` only after success.
 Run it manually, or push a packaging change whose commit message includes
 `[release-debug]`. An existing release is never replaced automatically.
 
@@ -116,7 +116,7 @@ Subsequent visits resolve the avatar, combat overlay, exploration overlay
 and sword through local Blob URLs. Pages additionally uses a Service Worker
 to cache the static game shell for offline reopening. A new installation
 needs one successful online synchronization before the four images can work
-offline. The Android 1.0.0.2 debug packaging shares this cache implementation.
+offline. The Android 1.0.0.3 debug packaging shares this cache implementation.
 
 Inspect the current state using `window.backroomOfflineCharacterAssets.status()`.
 The `offlineReady` flag is true only when all four images are cached.

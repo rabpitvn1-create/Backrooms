@@ -74,8 +74,8 @@ class DebugReleaseTests(unittest.TestCase):
                 self.assertEqual(apk.getinfo("resources.arsc").compress_type, zipfile.ZIP_STORED)
                 self.assertEqual(json.loads(apk.read("assets/personal-provider-config.json")), config)
                 strings, attrs = release.axml(apk.read("AndroidManifest.xml"))
-                self.assertEqual(strings[attrs[("manifest", "versionName")][3]][0], "1.0.0.2")
-                self.assertEqual(attrs[("manifest", "versionCode")][3], 90000003)
+                self.assertEqual(strings[attrs[("manifest", "versionName")][3]][0], "1.0.0.3")
+                self.assertEqual(attrs[("manifest", "versionCode")][3], 90000004)
                 self.assertTrue(attrs[("application", "debuggable")][3])
                 image_db = json.loads(apk.read("assets/characters/cao-minh-assets.json"))
                 self.assertEqual({x["role"] for x in image_db["assets"]},

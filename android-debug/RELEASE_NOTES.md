@@ -1,6 +1,8 @@
-APK Android debug cá nhân, phiên bản 1.0.0.2, versionCode 90000003.
+APK Android debug cá nhân, phiên bản 1.0.0.3, versionCode 90000004.
 
-* Tích hợp các thay đổi đã merge từ PR #9 vào Game Core và Game Master.
+* Giữ các thay đổi PR #9 và tích hợp PR #10 đã merge, sửa lỗi lượt chơi bị chặn bởi metadata cảm xúc NPC vắng mặt.
+* Chặn việc kể NPC tái xuất khi chưa có xác nhận từ Core; không thay đổi luật gặp NPC.
+* Cải thiện toàn vẹn giao dịch: lỗi trước commit hoàn tác trạng thái, phản hồi AI cũ không ghi đè ván mới, và lỗi hiển thị sau commit không hủy lượt đã lưu.
 * Bổ sung cảnh truyện có ký ức trong phạm vi từng lần ghé Level, cảm xúc riêng của NPC và quan hệ có hướng.
 * Cho phép gặp NPC One-Time khi Core xác nhận. NPC không tự động vào Party, không tự tái xuất sau khi kết thúc cảnh.
 * Vật phẩm tự sáng tác không có item ID chỉ tạo hiệu ứng trong lời kể, không tự ý thay đổi Inventory hoặc chỉ số gameplay.

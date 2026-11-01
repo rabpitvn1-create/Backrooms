@@ -21,7 +21,7 @@ def method(text, signature):
 
 
 def build():
-    source = patch.ROOT / "build/Backrooms-1.0.0.2-debug-unsigned.apk"
+    source = patch.ROOT / "build/Backrooms-1.0.0.3-debug-unsigned.apk"
     work = patch.TOOLS / "native-gameplay-fixture"
     if work.exists():
         shutil.rmtree(work)
