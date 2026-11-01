@@ -445,6 +445,8 @@ final class NarratorLogic {
         if(started.optBoolean("handled",false)&&started.optJSONObject("state")!=null)state=started.getJSONObject("state");
       }
     }
-    return NarrativePolicy.afterTravel(state).toString();
+    NarrativePolicy.afterTravel(state);
+    NarrativePolicy.persistCommitted(CoreBridge.facade,state);
+    return state.toString();
   }
 }
