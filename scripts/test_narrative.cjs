@@ -127,9 +127,12 @@ function fresh(){
       assert.ok(!next.bridgeError,next.bridgeError);
     }
     core.coreItemUseBegin(JSON.stringify(next),'Khám phá');
-    const finalCandidate=JSON.parse(core.coreCandidate(JSON.stringify(next),
+    const finalPrepared=JSON.parse(__webGame.call('prepareNamedFollowerTurn',JSON.stringify(next),
+      'Khám phá',JSON.stringify({survivor:{success:false},entityEncounter:{success:false}}),'EXPLORE'));
+    assert.ok(finalPrepared.state&&finalPrepared.rolls,'final turn plan is required');
+    const finalCandidate=JSON.parse(core.coreCandidate(JSON.stringify(finalPrepared.state),
       JSON.stringify({itemUseRequest:null,reply:'Cao Minh bước qua bức tường chập chờn.',entityPreview:'',narrativeDelta:null}),
-      JSON.stringify({survivor:{success:false},entityEncounter:{success:false}}),'Khám phá'));
+      JSON.stringify(finalPrepared.rolls),'Khám phá'));
     assert.ok(!finalCandidate.bridgeError,finalCandidate.bridgeError);
     core.coreItemUseComplete();
     next=finalCandidate;
