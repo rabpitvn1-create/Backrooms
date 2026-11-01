@@ -181,6 +181,19 @@ public final class NarrativePolicy {
       if(scene.toString().length()>10000)throw new IllegalArgumentException("narrative_scene_limit");
       currentFlags.put(MEMORY,scene);
     }
+    // One-Time NPC cannot be promoted into the persistent survivor registry.
+    // Preserve only registry updates staged by Core before the GM response.
+    JSONArray announced=delta.optJSONArray("actors");
+    boolean oneTimeActor=false;
+    if(announced!=null)for(int i=0;i<announced.length();i++){
+      JSONObject actor=announced.optJSONObject(i);
+      if(actor!=null&&!actor.has("id"))oneTimeActor=true;
+    }
+    if(oneTimeActor){
+      if(priorFlags!=null&&priorFlags.has("survivorRegistry"))
+        currentFlags.put("survivorRegistry",new JSONObject(priorFlags.getJSONObject("survivorRegistry").toString()));
+      else currentFlags.remove("survivorRegistry");
+    }
     JSONArray changes=delta.optJSONArray("relationships");
     if(delta.has("relationships")&&changes==null)throw new IllegalArgumentException("narrative_relationships_invalid");
     if(changes!=null){
