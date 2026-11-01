@@ -28,6 +28,7 @@ jobs:
           mvn -B -f engine/pom.xml package
           node scripts/test_engine.cjs
           node scripts/test_inventory_use.cjs
+          node scripts/test_narrative.cjs
           node scripts/test_keycanon.cjs
           node scripts/test_legacy_canon.cjs
           python3 scripts/build_pages.py --test-config
