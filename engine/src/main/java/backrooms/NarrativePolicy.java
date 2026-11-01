@@ -35,7 +35,7 @@ public final class NarrativePolicy {
       JSONObject e = events.optJSONObject(i);
       if (e != null && node.equals(e.optString("nodeId", "")) &&
           ("new_game".equals(e.optString("kind")) || "arrival".equals(e.optString("kind")) ||
-           "level_transition".equals(e.optString("kind")) || "travel".equals(e.optString("kind")))) {
+           "level_transition".equals(e.optString("kind")) || "level_exit".equals(e.optString("kind")) || "travel".equals(e.optString("kind")))) {
         return run + ":" + node + ":" + e.optString("turnId", "");
       }
     }
