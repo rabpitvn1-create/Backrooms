@@ -37,15 +37,18 @@ public final class NarrativePolicy {
       if (authorized(state,rolls,actor.getKey())) continue;
       String name=actor.getValue().toLowerCase(java.util.Locale.ROOT);
       for (String clause : text.toLowerCase(java.util.Locale.ROOT).split("[.!?;\\n]|,|\\bnhưng\\b|\\btrong khi\\b|\\bbỗng\\b|\\bđột nhiên\\b")) {
-        int at=clause.indexOf(name);
-        if(at<0)continue;
-        String prefix=clause.substring(0,at);
-        // Reference cues apply only before this mention, never to a later assertion.
-        if(prefix.matches("(?s).*(?:nhớ|hồi tưởng|ký ức|nghĩ|lo cho|lo về|mong|tìm|gọi|hỏi|nhắc|kể về|nếu|giả sử|từng|năm xưa|ngày ấy|trước kia|trước đây|ảo ảnh|mơ thấy|ngỡ|tưởng)(?:\\s+\\S+){0,5}\\s*$"))continue;
-        if(prefix.matches("(?s).*(?:không|chưa|chẳng)\\s+(?:có|thấy|gặp|biết|nghe)(?:\\s+\\S+){0,3}\\s*$"))continue;
-        String rest=clause.substring(at+name.length());
-        if(rest.matches("(?s)\\s*(?:(?:đang|hiện|vẫn|còn)\\s+)*(?:thất lạc|biệt tăm|ở đâu|chưa rõ|không rõ|(?:không|chưa)\\s+(?:xuất hiện|có mặt|trở lại|đến|ở đây|đáp lại)).*"))continue;
-        throw new IllegalArgumentException("narrative_unconfirmed_canon_presence:"+actor.getKey());
+        // An earlier recollection does not authorize a later physical reunion.
+        // Validate each mention, not only the first mention in this clause.
+        int from=0, at;
+        while((at=clause.indexOf(name,from))>=0) {
+          String prefix=clause.substring(from,at);
+          from=at+name.length();
+          if(prefix.matches("(?s).*(?:nhớ|hồi tưởng|ký ức|nghĩ|lo cho|lo về|mong|tìm|gọi|hỏi|nhắc|kể về|nếu|giả sử|từng|năm xưa|ngày ấy|trước kia|trước đây|ảo ảnh|mơ thấy|ngỡ|tưởng)(?:\\s+\\S+){0,5}\\s*$"))continue;
+          if(prefix.matches("(?s).*(?:không|chưa|chẳng)\\s+(?:có|thấy|gặp|biết|nghe)(?:\\s+\\S+){0,3}\\s*$"))continue;
+          String rest=clause.substring(from);
+          if(rest.matches("(?s)\\s*(?:(?:đang|hiện|vẫn|còn)\\s+)*(?:thất lạc|biệt tăm|ở đâu|chưa rõ|không rõ|(?:không|chưa)\\s+(?:xuất hiện|có mặt|trở lại|đến|ở đây|đáp lại)).*"))continue;
+          throw new IllegalArgumentException("narrative_unconfirmed_canon_presence:"+actor.getKey());
+        }
       }
     }
   }
