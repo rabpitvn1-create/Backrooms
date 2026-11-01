@@ -100,6 +100,20 @@ function fresh(){
     assert.equal(state.party.some(x=>x.name==='Người vợ'),false,'one-time encounter cannot become Party member');
     assert.equal(Boolean(state.flags.survivorRegistry&&JSON.stringify(state.flags.survivorRegistry).includes('Người vợ')),false);
     console.log('PASS: Core-approved One-Time encounter maintains independent NPC emotions');
+    const originalNpc=state.flags.narrativeScene.actors[0].name;
+    const memoryVisit=state.flags.narrativeScene.visit;
+    const closed=structuredClone(state);
+    closed.flags.narrativeScene.closed=true;
+    const lateEncounter=structuredClone(closed);
+    lateEncounter.flags.narrativeLevelMemory=closed.flags.narrativeLevelMemory;
+    const repeated=JSON.parse(core.coreCandidate(JSON.stringify(lateEncounter),
+      JSON.stringify({itemUseRequest:null,reply:'Người vợ quay lại.',entityPreview:'',
+        narrativeDelta:{summary:'Một cuộc gặp lại không hợp lệ.',actors:[{name:originalNpc,emotion:'vui mừng'}]}}),
+      JSON.stringify({survivor:{success:true},entityEncounter:{success:false}}),'Khám phá'));
+    assert.ok(repeated.bridgeError&&repeated.bridgeError.includes('narrative_npc_reappeared'),
+      'One-Time identity must not be permitted to repeat after closing');
+    assert.equal(state.flags.narrativeLevelMemory.visit,memoryVisit);
+    console.log('PASS: repeated NPC identity is rejected and per-Level memory survives a closed scene');
     const scopedMarker='Đôi vợ chồng vô danh được Cao Minh cứu sống.';
     let next=state;
     Math.random=()=>0;
