@@ -56,6 +56,14 @@ public final class InventoryUseSmoke {
     begin.invoke(null, facade, raw, "Dùng thần niệm");
     check(redirect.invoke(null, new JSONObject("{\"itemUseRequest\":null}")) == null, "Ability narration was blocked");
     policy.getMethod("complete").invoke(null);
+    for (String negative : new String[] {"Cao Minh không muốn uống Almond Water",
+        "Cao Minh không định dùng Almond Water", "Cao Minh hỏi liệu có nên uống Almond Water?",
+        "Sử dụng Almond Water được không?"}) {
+      begin.invoke(null, facade, raw, negative);
+      check(redirect.invoke(null, new JSONObject("{\"itemUseRequest\":null,\"reply\":\"Cao Minh quan sát.\"}")) == null,
+          "Native item classifier intercepted a question or negation: " + negative);
+      policy.getMethod("complete").invoke(null);
+    }
     begin.invoke(null, facade, raw, "Sử dụng Almond Water");
     JSONObject misclassified = new JSONObject((String)redirect.invoke(null,
         new JSONObject("{\"itemUseRequest\":null,\"reply\":\"Cao Minh uống Almond Water.\"}")));
@@ -107,6 +115,17 @@ public final class InventoryUseSmoke {
         "Learning a previously unnamed NPC's name created a new encounter");
     check(named.getJSONObject("flags").getJSONArray("narrativeSeen").getString(0).equals("tô mộc"),
         "New proper name did not get a stable anti-reappearance marker");
+    JSONObject knownActor = new JSONObject(sceneState);
+    knownActor.put("party",new org.json.JSONArray().put(
+        new JSONObject().put("id","luc-tram").put("name","Lục Trầm")));
+    JSONObject actorOutput = new JSONObject(knownActor.toString());
+    narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
+        .invoke(null,actorOutput,knownActor,
+            new JSONObject("{\"narrativeDelta\":{\"actors\":[{\"name\":\"Lục Trầm\",\"emotion\":\"lo lắng\"}]}}"),
+            new JSONObject("{\"survivor\":{\"success\":false}}"));
+    check("luc-tram".equals(actorOutput.getJSONObject("flags").getJSONObject("narrativeScene")
+        .getJSONArray("actors").getJSONObject(0).getString("id")),
+        "Present follower without optional actor.id was rejected");
     JSONObject scoped = (JSONObject)view.invoke(null,afterNarrative);
     check(scoped.getJSONObject("flags").has("narrativeScene"), "Native prompt lost current Level memory");
     JSONObject traveled = new JSONObject(afterNarrative.toString());
@@ -134,6 +153,7 @@ public final class InventoryUseSmoke {
     guardedBefore.put("party",new org.json.JSONArray());
     guardedBefore.put("inventory",new org.json.JSONArray());
     guardedBefore.getJSONObject("flags").put("hua_tieu_lan",new JSONObject().put("present",false));
+    guardedBefore.getJSONObject("flags").put("survivorEncountersAllowed",true);
     JSONObject forged = new JSONObject(guardedBefore.toString());
     forged.put("player",new JSONObject().put("hp",999999));
     forged.put("party",new org.json.JSONArray().put(new JSONObject().put("id","invented-survivor")));
@@ -141,6 +161,7 @@ public final class InventoryUseSmoke {
     forged.getJSONObject("flags").put("hua_tieu_lan",new JSONObject().put("present",true));
     forged.getJSONObject("flags").put("survivorRegistry",new JSONObject().put("invented",true));
     forged.getJSONObject("flags").put("worldItems",new JSONObject().put("infinite-loot",true));
+    forged.getJSONObject("flags").put("survivorEncountersAllowed",false);
     narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
         .invoke(null,forged,guardedBefore,new JSONObject("{\"narrativeDelta\":null}"),new JSONObject());
     check(forged.getJSONObject("player").getInt("hp")==23,"GM altered player HP");
@@ -150,6 +171,8 @@ public final class InventoryUseSmoke {
         "GM bypassed named character encounter lock");
     check(!forged.getJSONObject("flags").has("survivorRegistry"),"GM forged survivor registry");
     check(!forged.getJSONObject("flags").has("worldItems"),"GM forged world loot");
+    check(forged.getJSONObject("flags").getBoolean("survivorEncountersAllowed"),
+        "GM disabled authoritative survivor encounter policy");
     // Loading the native bridge verifies the edited method's DEX register and reference types.
     loader.loadClass("com.rabpit.backroom.MainActivity$GameBridge").getDeclaredMethods();
     System.out.println("PASS: packaged Android Core routes abilities to GM and restores blocked item use without turns, effects or streak changes");

@@ -147,7 +147,8 @@ public final class NarrativePolicy {
     }
     // These flags belong to the Core and cannot be forged via generated.flags.
     for (String key : new String[] {"storyContinuity", "survivorRegistry", "worldItems",
-        "anNhien", "hua_tieu_lan", "nguyen_quoc_nam", "luc-tram", "syvial"}) {
+        "anNhien", "hua_tieu_lan", "nguyen_quoc_nam", "luc-tram", "syvial",
+        "survivorEncountersAllowed", "entityEncountersAllowed"}) {
       if (priorFlags != null && priorFlags.has(key))
         currentFlags.put(key, new JSONObject().put("value", priorFlags.get(key)).get("value"));
       else currentFlags.remove(key);
@@ -213,6 +214,8 @@ public final class NarrativePolicy {
           if(name.isEmpty()||!namesInUpdate.add(name))
             throw new IllegalArgumentException("narrative_actor_duplicate");
           JSONObject entry=participants.get(name);
+          if(canonId.isEmpty() && entry==null && alias.isEmpty())
+            canonId=presentActorId(before,name);
           if(!alias.isEmpty()){
             if(entry!=null||!participants.containsKey(alias))
               throw new IllegalArgumentException("narrative_actor_alias_invalid");
@@ -287,6 +290,20 @@ public final class NarrativePolicy {
       }
       currentFlags.put(RELATIONS,relations);
     }
+  }
+
+  // The model's actor.id is optional: resolve only exact names of present Core actors.
+  // Never infer an absent NPC or turn an arbitrary narrative name into a follower.
+  private static String presentActorId(JSONObject state,String name) {
+    if("Cao Minh".equalsIgnoreCase(name))return "cao-minh";
+    JSONArray party=state.optJSONArray("party");
+    if(party!=null)for(int i=0;i<party.length();i++){
+      JSONObject member=party.optJSONObject(i);
+      if(member==null || !name.equalsIgnoreCase(member.optString("name","")))continue;
+      String id=member.optString("id","");
+      if(!id.isEmpty() && present(state,id))return id;
+    }
+    return "";
   }
 
   private static boolean present(JSONObject state,String id){

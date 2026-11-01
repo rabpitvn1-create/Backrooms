@@ -180,5 +180,12 @@ function fresh(){
     assert.equal(state.flags.narrativeRelations['cao-minh>luc-tram'],'bất an');
     assert.equal(state.flags.narrativeRelations['luc-tram>cao-minh'],undefined);
     console.log('PASS: emotional relationships are directional, not automatically reciprocal');
+
+    fresh();
+    delta={actors:[{name:'Cao Minh',emotion:'bình tĩnh'}]};
+    await turn('Cao Minh tự trấn an rồi quan sát hành lang.');
+    assert.deepEqual(errors,[],'Known player without optional actor.id must be accepted');
+    assert.equal(state.flags.narrativeScene.actors[0].id,'cao-minh');
+    console.log('PASS: active canon actors do not require a redundant id in narrativeDelta');
   }finally{Math.random=random}
 })().catch(e=>{console.error(e);process.exitCode=1});

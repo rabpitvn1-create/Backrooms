@@ -66,7 +66,9 @@ async function turn(action) {
     assert.deepEqual(snapshot().inventories, before.inventories);
   }
   for (const action of ['Hỏi cách dùng Almond Water', 'Xem hướng dẫn sử dụng Almond Water',
-      'Cao Minh cho rằng Almond Water vẫn còn', 'Cao Minh không hề uống Almond Water']) {
+      'Cao Minh cho rằng Almond Water vẫn còn', 'Cao Minh không hề uống Almond Water',
+      'Cao Minh không muốn uống Almond Water', 'Cao Minh không định dùng Almond Water',
+      'Cao Minh hỏi liệu có nên uống Almond Water?', 'Sử dụng Almond Water được không?']) {
     fresh(); marker = null;
     const count = requests;
     await turn(action);
@@ -75,6 +77,11 @@ async function turn(action) {
     assert.notEqual(state.log.at(-1).text, 'Vui lòng vào kho đồ và nhấn sử dụng vật phẩm.');
   }
   console.log('PASS: questions, opinions and extended negations do not trigger false Inventory redirects');
+  fresh(); marker = null;
+  narrationOverride = 'Cao Minh không muốn uống Almond Water. Hắn tiếp tục quan sát.';
+  await turn('Cao Minh lặng nghe tiếng đèn.');
+  assert.deepEqual(errors, [], 'Negated GM prose must not trigger an Inventory conflict');
+  narrationOverride = null;
   console.log('PASS: abilities, weapon control, observation, negation and quotes reach GM without using items');
   for (const action of ['Sử dụng Almond Water', 'Tu một ngụm nước hạnh nhân', 'Nhờ Hứa Tiểu Lan uống Almond Water', 'Dùng thần niệm rồi uống Almond Water']) {
     fresh(); marker = { itemId: 'almond-water' };

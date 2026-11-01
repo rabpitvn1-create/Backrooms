@@ -110,6 +110,25 @@ public final class InventoryUsePolicy {
     return false;
   }
 
+  // Check the surrounding clause, not just the word immediately before "use".
+  // Negated actions and questions must reach GM rather than consume Inventory turns.
+  private static boolean nonUseContext(String text, int itemEnd, String prefix) {
+    String suffix = text.substring(itemEnd, Math.min(text.length(), itemEnd + 90)).trim();
+    while (!suffix.isEmpty() && ",;:".indexOf(suffix.charAt(0)) >= 0)
+      suffix = suffix.substring(1).trim();
+    if (suffix.startsWith("?") || suffix.startsWith("được không") ||
+        suffix.startsWith("có được không") || suffix.startsWith("hay không") ||
+        suffix.startsWith("thế nào") || suffix.startsWith("như thế nào"))
+      return true;
+    int boundary = -1;
+    for (char mark : new char[] {'.', ',', ';', '!', '?', '\n'})
+      boundary = Math.max(boundary, prefix.lastIndexOf(mark));
+    String clause = prefix.substring(boundary + 1).trim();
+    if (clause.matches("(?s).*(?:không|chưa|chẳng|đừng|tránh|từ chối|cấm|ngừng|khỏi)(?:\\s+\\S+){0,6}\\s*$"))
+      return true;
+    return clause.matches("(?s).*(?:hỏi|liệu|thắc mắc|có nên|có thể|hướng dẫn|cách|làm sao|muốn biết)(?:\\s+\\S+){0,7}\\s*$");
+  }
+
   private static String registeredUse(String input) {
     if (input == null || items.length() == 0) return "";
     String text = input.toLowerCase(Locale.ROOT)
@@ -130,7 +149,7 @@ public final class InventoryUsePolicy {
           if (postfixedUse(text,at+name.length())) return id;
           String prefix = text.substring(Math.max(0, at - 100), at);
           int use = lastVerb(prefix, uses), observation = lastVerb(prefix, observations);
-          if (use < 0 || use < observation) continue;
+          if (use < 0 || use < observation || nonUseContext(text, at+name.length(), prefix)) continue;
           // Questions about an item are not requests to consume it.
           if (prefix.matches("(?s).*(?:cách|hướng dẫn|làm sao để)\\s+(?:dùng|sử dụng|uống|ăn)\\s*$"))
             continue;
