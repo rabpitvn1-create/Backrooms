@@ -200,6 +200,16 @@ const watchdog=setTimeout(()=>{console.error('Narrative checks did not complete'
     assert.equal(state.flags.narrativeScene.actors[0].id,'cao-minh');
     console.log('PASS: active canon actors do not require a redundant id in narrativeDelta');
 
+    fresh();Math.random=()=>0.46;
+    delta={actors:[{name:'Hứa Tiểu Lan',emotion:'cảnh giác'}]};
+    reply='Cô gái lên tiếng tự giới thiệu: Tôi là Hứa Tiểu Lan.';
+    await turn('Cao Minh khám phá hành lang.');
+    assert.deepEqual(errors,[],'A Core-approved first encounter must remain narratable');
+    assert.equal(state.flags.hua_tieu_lan.present,true);
+    assert.equal(state.flags.narrativeScene.actors[0].id,'hua_tieu_lan');
+    Math.random=()=>0.61;
+    console.log('PASS: Core-confirmed canonical first encounters are preserved before Party admission');
+
     fresh();
     assert.equal(state.flags['luc-tram'].continuity,'SEPARATED');
     const absentActorTurn=state.turn;

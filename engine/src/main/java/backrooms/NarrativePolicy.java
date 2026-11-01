@@ -32,9 +32,9 @@ public final class NarrativePolicy {
   }
 
   // A remembered/separated character is not evidence of a current encounter.
-  private static void validateNarration(JSONObject state, String text) {
+  private static void validateNarration(JSONObject state, JSONObject rolls, String text) {
     for (java.util.Map.Entry<String,String> actor : CANON.entrySet()) {
-      if (present(state,actor.getKey())) continue;
+      if (authorized(state,rolls,actor.getKey())) continue;
       String name=actor.getValue().toLowerCase(java.util.Locale.ROOT);
       for (String clause : text.toLowerCase(java.util.Locale.ROOT).split("[.!?;\\n]|,|\\bnhưng\\b|\\btrong khi\\b|\\bbỗng\\b|\\bđột nhiên\\b")) {
         int at=clause.indexOf(name);
@@ -203,10 +203,10 @@ public final class NarrativePolicy {
   /** Applied after GM validation and before Core's authoritative turn commit. */
   public static void apply(JSONObject after, JSONObject before, JSONObject generated, JSONObject rolls) {
     validateSchema(before.optJSONObject("flags"));
-    validateNarration(before,generated.optString("reply",""));
-    validateNarration(before,generated.optString("entityPreview",""));
+    validateNarration(before,rolls,generated.optString("reply",""));
+    validateNarration(before,rolls,generated.optString("entityPreview",""));
     JSONObject proposed=generated.optJSONObject("narrativeDelta");
-    if(proposed!=null)validateNarration(before,proposed.optString("summary",""));
+    if(proposed!=null)validateNarration(before,rolls,proposed.optString("summary",""));
     JSONObject priorFlags = before.optJSONObject("flags");
     // Only the checked narrative delta may change memory; generic flags stay Core-owned.
     JSONObject currentFlags=priorFlags==null?new JSONObject():new JSONObject(priorFlags.toString());
@@ -291,7 +291,7 @@ public final class NarrativePolicy {
           // metadata (e.g. a separated follower recalled in prose). Ignore that
           // actor update without changing Core presence, Party or the active scene.
           // Validate before alias handling to avoid erasing an existing actor.
-          if(!canonId.isEmpty()&&!present(before,canonId))continue;
+          if(!canonId.isEmpty()&&!authorized(before,rolls,canonId))continue;
           if(!alias.isEmpty()){
             if(entry!=null||!participants.containsKey(alias))
               throw new IllegalArgumentException("narrative_actor_alias_invalid");
@@ -370,9 +370,10 @@ public final class NarrativePolicy {
         JSONObject c=changes.optJSONObject(i);
         if(c==null)throw new IllegalArgumentException("narrative_relationship_invalid");
         String from=shortText(c.opt("from"),64),to=shortText(c.opt("to"),64),value=shortText(c.opt("emotion"),160);
-        if(!known(before,from)||!known(before,to)||from.equals(to))
+        if((!known(before,from)&&!authorized(before,rolls,from))||
+            (!known(before,to)&&!authorized(before,rolls,to))||from.equals(to))
           throw new IllegalArgumentException("narrative_relationship_unknown_actor");
-        if(!present(before,from))continue;
+        if(!authorized(before,rolls,from))continue;
         String key=from+">"+to;
         if(!relations.has(key)&&relations.length()>=MAX_RELATIONS)
           throw new IllegalArgumentException("narrative_relationship_limit");
@@ -408,6 +409,18 @@ public final class NarrativePolicy {
     JSONObject flags=state.optJSONObject("flags");
     JSONObject record=flags==null?null:flags.optJSONObject(id);
     return record!=null&&record.optBoolean("present",false);
+  }
+
+  private static boolean authorized(JSONObject state,JSONObject rolls,String id) {
+    if(present(state,id))return true;
+    String roll="";
+    if("luc-tram".equals(id))roll="lucTramReunion";
+    else if("syvial".equals(id))roll="syvialReunion";
+    else if("an-nhien".equals(id))roll="anNhienEncounter";
+    else if("hua_tieu_lan".equals(id))roll="huaTieuLanEncounter";
+    else if("nguyen_quoc_nam".equals(id))roll="nguyenQuocNamEncounter";
+    JSONObject outcome=rolls.optJSONObject(roll);
+    return outcome!=null&&outcome.optBoolean("success",false);
   }
 
   private static boolean known(JSONObject state,String id){
