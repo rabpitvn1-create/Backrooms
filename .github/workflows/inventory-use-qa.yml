@@ -49,7 +49,9 @@ jobs:
           node scripts/test_mobile_only.cjs
       - name: Real Gemini narration in non-deployed PR build
         timeout-minutes: 5
-        run: node scripts/test_live_turn.cjs
+        run: |
+          node scripts/test_live_turn.cjs
+          node scripts/test_live_narrative.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -57,6 +59,7 @@ jobs:
           path: |
             build/*inventory*.png
             build/playable-live-turn.png
+            build/playable-live-narrative.png
           if-no-files-found: ignore
   android:
     runs-on: ubuntu-24.04
