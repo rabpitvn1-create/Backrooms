@@ -114,8 +114,8 @@
     const input = JSON.parse(raw);
     delete input.itemUseNotice;
     raw = JSON.stringify(input);
-    check(window.coreItemUseBegin(raw, action));
     try {
+      check(window.coreItemUseBegin(raw, action));
       let result = object('processLevelAction', raw, action);
       if (result.handled) { emit('backroomTurn', result.state); window.coreItemUseComplete(); return; }
       let before = result.state;

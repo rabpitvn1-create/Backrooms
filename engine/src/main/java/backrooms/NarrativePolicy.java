@@ -135,7 +135,8 @@ public final class NarrativePolicy {
       else after.remove(key);
     }
     // These flags belong to the Core and cannot be forged via generated.flags.
-    for (String key : new String[] {"storyContinuity", "survivorRegistry", "worldItems"}) {
+    for (String key : new String[] {"storyContinuity", "survivorRegistry", "worldItems",
+        "anNhien", "hua_tieu_lan", "nguyen_quoc_nam", "luc-tram", "syvial"}) {
       if (priorFlags != null && priorFlags.has(key))
         currentFlags.put(key, new JSONObject().put("value", priorFlags.get(key)).get("value"));
       else currentFlags.remove(key);
