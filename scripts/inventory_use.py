@@ -143,7 +143,11 @@ def patch_bridge(text):
         "    if-nez v30, :L81")
     body = replace_once(body, "  .line 1252\n",
         f"  .line 1252\n    invoke-static {{ v5 }}, {NARRATIVE}->afterTravel(Lorg/json/JSONObject;)Lorg/json/JSONObject;\n"
-        "    move-result-object v5\n")
+        "    move-result-object v5\n"
+        "    iget-object v4, v1, Lcom/rabpit/backroom/MainActivity$GameBridge;->this$0:Lcom/rabpit/backroom/MainActivity;\n"
+        "    invoke-static { v4 }, Lcom/rabpit/backroom/MainActivity;->\\u002d$Nest$mrequireGameCore(Lcom/rabpit/backroom/MainActivity;)Lcom/rabpit/backroom/core/GameCoreFacade;\n"
+        "    move-result-object v4\n"
+        f"    invoke-static {{ v4, v5 }}, {NARRATIVE}->persistCommitted({FACADE}Lorg/json/JSONObject;)V\n")
     # The named-follower branch already has this guard; match its behavior for local rules.
     marker = '  .local v0, "localState":Lorg/json/JSONObject;'
     body = replace_once(body, marker, marker + """
