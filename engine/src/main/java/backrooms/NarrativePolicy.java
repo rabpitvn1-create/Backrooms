@@ -176,40 +176,57 @@ public final class NarrativePolicy {
         scene=new JSONObject().put("visit",visit(before)).put("sceneKey",visit(before)+":TURN_"+before.optInt("turn",1)).put("closed",false).put("facts",new JSONArray()).put("actors",new JSONArray());
       }
       if(actors!=null){
-        JSONArray people=new JSONArray();
-        Set<String> namesInScene=new HashSet<String>();
+        // Each actor delta updates only the named participant. Do not drop other
+        // people from an ongoing scene when the model mentions just one speaker.
+        java.util.LinkedHashMap<String,JSONObject> participants =
+            new java.util.LinkedHashMap<String,JSONObject>();
         JSONArray previous=scene.optJSONArray("actors");
-        Set<String> priorNames=new HashSet<String>();
         if(previous!=null)for(int i=0;i<previous.length();i++){
           JSONObject p=previous.optJSONObject(i);
-          if(p!=null)priorNames.add(p.optString("name",""));
+          if(p!=null&&!p.optString("name","").isEmpty())
+            participants.put(p.optString("name"),new JSONObject(p.toString()));
         }
+        Set<String> namesInUpdate=new HashSet<String>();
         for(int i=0;i<actors.length();i++){
           JSONObject actor=actors.optJSONObject(i);
           if(actor==null)throw new IllegalArgumentException("narrative_actor_invalid");
           String name=shortText(actor.opt("name"),64);
           String canonId=actor.has("id")?shortText(actor.opt("id"),64):"";
-          if(name.isEmpty()||!namesInScene.add(name))throw new IllegalArgumentException("narrative_actor_duplicate");
+          String alias=actor.has("aliasOf")?shortText(actor.opt("aliasOf"),64):"";
+          if(name.isEmpty()||!namesInUpdate.add(name))
+            throw new IllegalArgumentException("narrative_actor_duplicate");
+          JSONObject entry=participants.get(name);
+          if(!alias.isEmpty()){
+            if(entry!=null||!participants.containsKey(alias))
+              throw new IllegalArgumentException("narrative_actor_alias_invalid");
+            entry=participants.remove(alias);
+            entry.put("name",name);
+          }
           if(!canonId.isEmpty()){
             if(!present(before,canonId))throw new IllegalArgumentException("narrative_canon_actor_not_present");
-          }else if(!priorNames.contains(name)) {
-            if (!newEncounter) throw new IllegalArgumentException("narrative_unconfirmed_encounter");
-            // "Người vợ" and similar descriptors are roles, not globally unique names.
-            // The Core encounter ticket + sceneKey identifies each anonymous person.
-            if (!genericName(name)) {
-              String key = name.toLowerCase(java.util.Locale.ROOT);
-              for (int j=0; j<seen.length(); j++)
-                if (key.equals(seen.optString(j))) throw new IllegalArgumentException("narrative_npc_reappeared");
-              if (seen.length() >= 256) throw new IllegalArgumentException("narrative_npc_identity_limit");
-              seen.put(key);
-            }
+            if(entry!=null&&!entry.optString("id",canonId).equals(canonId))
+              throw new IllegalArgumentException("narrative_actor_identity_changed");
+          }else if(entry==null){
+            if(!newEncounter)throw new IllegalArgumentException("narrative_unconfirmed_encounter");
           }
-          JSONObject entry=new JSONObject().put("name",name);
+          if(entry==null)entry=new JSONObject().put("name",name);
           if(!canonId.isEmpty())entry.put("id",canonId);
+          // A name is not a globally unique identity when it is merely a
+          // descriptor such as "Người vợ". The sceneKey distinguishes those.
+          if(entry!=null&&(!participants.containsKey(name))&&!genericName(name)&&canonId.isEmpty()){
+            String key=name.toLowerCase(java.util.Locale.ROOT);
+            for(int j=0;j<seen.length();j++)
+              if(key.equals(seen.optString(j)))throw new IllegalArgumentException("narrative_npc_reappeared");
+            seen.put(key);
+          }
           for(String key:new String[]{"emotion","belief","intent"})
             if(actor.has(key))entry.put(key,shortText(actor.opt(key),180));
-          people.put(entry);
+          participants.put(name,entry);
         }
+        if(participants.size()>MAX_ACTORS)
+          throw new IllegalArgumentException("narrative_actor_limit");
+        JSONArray people=new JSONArray();
+        for(JSONObject person:participants.values())people.put(person);
         scene.put("actors",people);
       }
       if(delta.has("summary")){
@@ -344,8 +361,8 @@ public final class NarrativePolicy {
       "Vật phẩm không có ID do người chơi tự sáng tác chỉ tồn tại trong lời kể: có thể cứu người trong cảnh, "+
       "không thêm Inventory, không sửa HP/EXP, combat, loot, party hoặc travel. "+
       "Hãy xuất thêm narrativeDelta:null nếu không có thay đổi cần nhớ; "+
-      "khi có, chỉ dùng {summary:string,actors:[{name,id?,emotion,belief,intent}],closed:boolean,relationships:[{from,to,emotion}]}. "+
+      "khi có, chỉ dùng {summary:string,actors:[{name,id?,aliasOf?,emotion,belief,intent}],closed:boolean,relationships:[{from,to,emotion}]}. "+
       "summary tối đa 600 ký tự, actors tối đa 6; relationship phải dùng ID nhân vật canon đã biết, "+
-      "có hướng, không tự suy tình cảm ngược chiều. Nêu kết quả qua hành động thay vì thông báo khô.\n";
+      "có hướng, không tự suy tình cảm ngược chiều. Dùng aliasOf khi NPC vô danh tiết lộ tên thật. Nêu kết quả qua hành động thay vì thông báo khô.\n";
   }
 }
