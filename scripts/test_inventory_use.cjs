@@ -17,7 +17,7 @@ globalThis.BACKROOMS_CONFIG = { models: ['fixture'] };
 vm.runInThisContext(fs.readFileSync('pages/bridge.js', 'utf8'));
 const html = fs.readFileSync('web/index.html', 'utf8');
 const initial = vm.runInNewContext(html.slice(html.indexOf('const prologue'), html.indexOf('const byId')) + '; initial');
-let state, errors = [], requests = 0, marker = null;
+let state, errors = [], requests = 0, marker = null, narrationOverride = null;
 globalThis.backroomTurn = raw => { state = JSON.parse(raw); };
 globalThis.backroomError = message => errors.push(message);
 globalThis.backroomProvider = () => {};
@@ -27,7 +27,7 @@ globalThis.fetch = async (_, options) => {
   const prompt = JSON.parse(options.body).contents[0].parts[0].text;
   assert.ok(prompt.includes('[INVENTORY USE ONLY]'));
   assert.ok(prompt.includes('"almond-water":"Almond Water"'));
-  const generated = { reply: 'Cao Minh quan sát những dấu vết trước mặt.', entityPreview: 'Một tiếng động vọng tới.' };
+  const generated = { reply: narrationOverride || 'Cao Minh quan sát những dấu vết trước mặt.', entityPreview: 'Một tiếng động vọng tới.' };
   if (marker !== undefined) generated.itemUseRequest = marker;
   if (marker) Object.assign(generated, { reply: '', player: { hp: 999999 }, inventory: [{ id: 'fake', quantity: 100 }], flags: { fakeItemEffect: true } });
   return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(generated) }] } }] }), { status: 200 });
@@ -92,7 +92,19 @@ async function turn(action) {
     assert.deepEqual(snapshot(), before, 'Invalid classifications cannot commit staged changes');
   }
   console.log('PASS: missing, malformed and fabricated item IDs fail without changing Core');
-  fresh(true); marker = { itemId: 'com-tam' };
+  fresh(); marker = null;
+  const checkpoint = snapshot(), uiTurn = state.turn, savedRng = Math.random;
+  Math.random = () => 0.01;
+  narrationOverride = 'Cao Minh cạn ma nguyên.';
+  await Android.submitGameplayAction(JSON.stringify(state), 'SEARCH', 'search');
+  await __webGame.idle;
+  narrationOverride = null;
+  Math.random = savedRng;
+  assert.ok(errors.some(error => /canon_validation_failed/.test(error)), 'fixture must be rejected after classification');
+  assert.deepEqual(snapshot(), checkpoint, 'Rejected GM response must roll back Core loot and command receipts');
+  assert.equal(state.turn, uiTurn, 'Rejected turn cannot advance UI');
+  console.log('PASS: rejected post-classification GM turn restores entire Core checkpoint');
+    fresh(true); marker = { itemId: 'com-tam' };
   const before = snapshot();
   await turn('Ăn cơm tấm');
   assert.deepEqual(snapshot(), before);
