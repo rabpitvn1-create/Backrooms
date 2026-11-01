@@ -95,8 +95,9 @@ def patch_bridge(text):
         "    move-object/from16 v50, v11\n"
         "    move-object/from16 v11, v49")
     # Restore the real state before receiving and committing the generated candidate.
-    body = replace_once(body, "  .line 1185\n",
-        "  .line 1185\n    move-object/from16 v11, v50\n")
+    body = replace_once(body, '  .line 1187\n  .local v0, "generated":Lorg/json/JSONObject;',
+        '  .line 1187\n  .local v0, "generated":Lorg/json/JSONObject;\n'
+        '    move-object/from16 v11, v50')
     call = f"    invoke-virtual {{ v10, v11, v3 }}, {FACADE}->processLevelAction(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
     body = replace_once(body, call,
         f"    invoke-static {{ v10, v11, v3 }}, {POLICY}->begin({FACADE}Ljava/lang/String;Ljava/lang/String;)V\n" + call)
