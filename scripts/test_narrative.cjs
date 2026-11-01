@@ -187,5 +187,26 @@ function fresh(){
     assert.deepEqual(errors,[],'Known player without optional actor.id must be accepted');
     assert.equal(state.flags.narrativeScene.actors[0].id,'cao-minh');
     console.log('PASS: active canon actors do not require a redundant id in narrativeDelta');
+
+    fresh();
+    assert.equal(state.flags['luc-tram'].continuity,'SEPARATED');
+    const absentActorTurn=state.turn;
+    const absentActorParty=structuredClone(state.party);
+    delta={summary:'Cao Minh nhớ lại Lục Trầm nhưng nàng vẫn biệt tăm.',actors:[
+      {name:'Lục Trầm',id:'luc-tram',emotion:'băn khoăn'},
+      {name:'Cao Minh',id:'cao-minh',emotion:'trầm tư'},
+      {name:'Người không có thật',id:'unregistered-npc',emotion:'sợ hãi'}
+    ]};
+    reply='Cao Minh đứng một mình trong hành lang và nhớ đến người bạn đồng hành đã mất liên lạc.';
+    await turn('Cao Minh hồi tưởng về những người đang thất lạc.');
+    assert.deepEqual(errors,[],'Optional absent-actor emotion must not invalidate a valid turn');
+    assert.equal(state.turn,absentActorTurn+1);
+    assert.deepEqual(state.party,absentActorParty,'An absent actor cannot join Party');
+    assert.equal(state.flags['luc-tram'].continuity,'SEPARATED');
+    assert.deepEqual(state.flags.narrativeScene.actors.map(actor=>actor.id),['cao-minh'],
+      'Only present Core actors may receive emotional metadata');
+    assert.ok(state.flags.narrativeLevelMemory.facts.some(text=>text.includes('Lục Trầm')),
+      'Legitimate recollection must be retained without inventing a reunion');
+    console.log('PASS: absent canon actor metadata is discarded without aborting the turn or forging an encounter');
   }finally{Math.random=random}
 })().catch(e=>{console.error(e);process.exitCode=1});
