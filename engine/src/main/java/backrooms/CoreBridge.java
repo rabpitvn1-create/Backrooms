@@ -20,6 +20,7 @@ public final class CoreBridge {
   @JSExport public static boolean coreMeta(String action){return narrator.meta(action);}
   @JSExport public static String coreItemUseBegin(String state,String action){try{InventoryUsePolicy.begin(facade,state,action);return "{}";}catch(Throwable t){return error(t);}}
   @JSExport public static void coreItemUseCancel(){InventoryUsePolicy.cancel();}
+  @JSExport public static void coreItemUseComplete(){InventoryUsePolicy.complete();}
   @JSExport public static String coreRolls(String state,String action,boolean meta){try{return narrator.rolls(state,action,meta);}catch(Throwable t){return error(t);}}
 
   // Location-scoped keyword Canon for CR2 narration. Gameplay remains authoritative.
