@@ -26,5 +26,7 @@ jobs:
         if: always()
         with:
           name: narrative-native-evidence
-          path: build/native-inspect.txt
+          path: |
+            build/native-inspect.txt
+            build/native-travel-smali.txt
           if-no-files-found: error
