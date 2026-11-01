@@ -117,6 +117,18 @@ public final class NarrativePolicy {
     JSONObject currentFlags = after.optJSONObject("flags");
     if(currentFlags == null){currentFlags=new JSONObject();after.put("flags",currentFlags);}
     JSONObject priorFlags = before.optJSONObject("flags");
+    // Core owns gameplay state. AI proposals can describe effects but must never
+    // silently change HP, item ownership or Party through its arbitrary JSON.
+    for (String key : new String[] {"player", "party", "inventory"}) {
+      if (before.has(key)) after.put(key, new JSONObject().put("value", before.get(key)).get("value"));
+      else after.remove(key);
+    }
+    // These flags belong to the Core and cannot be forged via generated.flags.
+    for (String key : new String[] {"storyContinuity", "survivorRegistry", "worldItems"}) {
+      if (priorFlags != null && priorFlags.has(key))
+        currentFlags.put(key, new JSONObject().put("value", priorFlags.get(key)).get("value"));
+      else currentFlags.remove(key);
+    }
     // The model cannot replace the narrative stores through a generic flags patch.
     currentFlags.remove(MEMORY);
     currentFlags.remove(RELATIONS);
@@ -211,19 +223,6 @@ public final class NarrativePolicy {
       if(scene.toString().length()>10000)throw new IllegalArgumentException("narrative_scene_limit");
       currentFlags.put(MEMORY,scene);
     }
-    // One-Time NPC cannot be promoted into the persistent survivor registry.
-    // Preserve only registry updates staged by Core before the GM response.
-    JSONArray announced=delta.optJSONArray("actors");
-    boolean oneTimeActor=false;
-    if(announced!=null)for(int i=0;i<announced.length();i++){
-      JSONObject actor=announced.optJSONObject(i);
-      if(actor!=null&&!actor.has("id"))oneTimeActor=true;
-    }
-    if(oneTimeActor){
-      if(priorFlags!=null&&priorFlags.has("survivorRegistry"))
-        currentFlags.put("survivorRegistry",new JSONObject(priorFlags.getJSONObject("survivorRegistry").toString()));
-      else currentFlags.remove("survivorRegistry");
-    }
     JSONArray changes=delta.optJSONArray("relationships");
     if(delta.has("relationships")&&changes==null)throw new IllegalArgumentException("narrative_relationships_invalid");
     if(changes!=null){
@@ -290,13 +289,31 @@ public final class NarrativePolicy {
     JSONObject world = actual.getJSONObject("world");
     JSONObject safe = new JSONObject(ui.toString());
     safe.remove("coreSnapshot");
-    JSONObject flags = safe.optJSONObject("flags");
-    if (flags == null) throw new IllegalStateException("narrative_flags_missing");
-    world.put("flagsJson", flags.toString());
+    JSONObject uiFlags = safe.optJSONObject("flags");
+    if (uiFlags == null) throw new IllegalStateException("narrative_flags_missing");
+    JSONObject persistedFlags = new JSONObject(world.optString("flagsJson", "{}"));
+    // Only our four owned fields are projected back. All Core flags remain
+    // authoritative, especially receipts, continuity, survivor and world loot.
+    for (String key : new String[] {MEMORY, RELATIONS, HISTORY, SEEN}) {
+      if (uiFlags.has(key)) persistedFlags.put(key, uiFlags.get(key));
+      else persistedFlags.remove(key);
+    }
+    world.put("flagsJson", persistedFlags.toString());
+    safe.put("flags", new JSONObject(persistedFlags.toString()));
     world.put("levelTravelUi", safe.toString());
     com.rabpit.backroom.core.GameState decoded =
         com.rabpit.backroom.core.GameStateCodec.INSTANCE.decode(actual.toString());
     facade.restoreInventoryUse(decoded);
+    ui.put("flags", persistedFlags);
+  }
+
+  /** Shared travel-commit boundary for narration, local rules and combat. */
+  public static String finishAndPersist(com.rabpit.backroom.core.GameCoreFacade facade, String result) {
+    JSONObject ui = new JSONObject(result);
+    if (!ui.has("flags") || !ui.has("levelTravel") || ui.has("error")) return result;
+    afterTravel(ui);
+    persistCommitted(facade, ui);
+    return ui.toString();
   }
 
   public static String guidelines(String prompt){

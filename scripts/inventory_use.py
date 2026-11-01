@@ -57,6 +57,21 @@ def patch_facade(text):
         return "".join(chr(92) + ("u%04x" % ord(char)) if ord(char) > 127 else char for char in value)
     for old, new in messages:
         text = replace_once(text, smali_text(old), smali_text(new))
+    # Every completed turn must finalize narrative scope before control returns,
+    # including combat and locally handled actions that bypass the GM path.
+    travel_signature = ".method public final finishLevelTurn(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+    text = replace_once(text, travel_signature,
+        travel_signature.replace("finishLevelTurn(", "finishLevelTurnNarrativeLegacy("))
+    text += f"""
+.method public final finishLevelTurn(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  .registers 6
+    invoke-virtual {{ p0, p1, p2, p3 }}, {FACADE}->finishLevelTurnNarrativeLegacy(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+    invoke-static {{ p0, v0 }}, {NARRATIVE}->finishAndPersist({FACADE}Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+    return-object v0
+.end method
+"""
     for name in ("processRule", "processNamedFollowerRule"):
         signature = f".method public final {name}(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
         text = replace_once(text, signature, signature.replace(name, name + "InventoryLegacy"))
@@ -141,13 +156,6 @@ def patch_bridge(text):
     body = replace_once(body, "  .line 1230\n    if-nez v30, :L81",
         f"  .line 1230\n    invoke-static {{ v5, v11, v0, v9 }}, {NARRATIVE}->apply(Lorg/json/JSONObject;Lorg/json/JSONObject;Lorg/json/JSONObject;Lorg/json/JSONObject;)V\n"
         "    if-nez v30, :L81")
-    body = replace_once(body, "  .line 1252\n",
-        f"  .line 1252\n    invoke-static {{ v5 }}, {NARRATIVE}->afterTravel(Lorg/json/JSONObject;)Lorg/json/JSONObject;\n"
-        "    move-result-object v5\n"
-        "    iget-object v4, v1, Lcom/rabpit/backroom/MainActivity$GameBridge;->this$0:Lcom/rabpit/backroom/MainActivity;\n"
-        "    invoke-static { v4 }, Lcom/rabpit/backroom/MainActivity;->\\u002d$Nest$mrequireGameCore(Lcom/rabpit/backroom/MainActivity;)Lcom/rabpit/backroom/core/GameCoreFacade;\n"
-        "    move-result-object v4\n"
-        f"    invoke-static {{ v4, v5 }}, {NARRATIVE}->persistCommitted({FACADE}Lorg/json/JSONObject;)V\n")
     # The named-follower branch already has this guard; match its behavior for local rules.
     marker = '  .local v0, "localState":Lorg/json/JSONObject;'
     body = replace_once(body, marker, marker + """
