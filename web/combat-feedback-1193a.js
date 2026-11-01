@@ -525,7 +525,10 @@
     }
   }
   function appendEntityResult(cue){
-    // Every defender is logged from its own typed damage event, never prose.
+    // Never invent an attack when the authoritative Core emitted no hit or miss.
+    appendCombatLine('entity',[
+      combatSemantic('entity',String(cue.entityName||'Entity')),
+      ' không tung đòn tấn công trong lượt này.']);
   }
 
   function playTypedTurnTimeline(packet,token,anchors,slots){
