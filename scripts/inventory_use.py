@@ -59,7 +59,11 @@ def patch_facade(text):
         text = replace_once(text, smali_text(old), smali_text(new))
     # Every completed turn must finalize narrative scope before control returns,
     # including combat and locally handled actions that bypass the GM path.
-    travel_signature = ".method public final finishLevelTurn(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+    signatures = [line for line in text.splitlines()
+                  if line.startswith(".method ") and " finishLevelTurn(" in line]
+    if len(signatures) != 1:
+        raise ValueError("Unexpected native finishLevelTurn declaration: " + repr(signatures))
+    travel_signature = signatures[0]
     text = replace_once(text, travel_signature,
         travel_signature.replace("finishLevelTurn(", "finishLevelTurnNarrativeLegacy("))
     text += f"""
