@@ -60,6 +60,8 @@ function fresh(){
     assert.deepEqual(errors,[]);
     assert.ok(prompt.includes('Hồi Hoàn Đan'),'Current Level must remember previous scene');
     console.log('PASS: scene memory returns to GM in same Level');
+    assert.ok(!prompt.includes('"narrativeSeen"'),'Opaque NPC identifiers must not leak into prompt');
+    assert.ok(!prompt.includes('coreSnapshot'),'Nested Core snapshots must not leak into canon builders');
 
     const stored=snapshot(),ui=JSON.stringify(state);
     core.coreInit(BACKROOMS_ASSETS['knowledge/level_travel_policy.json'],JSON.stringify(stored));
@@ -96,7 +98,7 @@ function fresh(){
       itemUseRequest:null,reply:'Người chồng nắm tay người vợ, cả hai vừa thoát chết.',
       entityPreview:'',narrativeDelta:{
         summary:'Đôi vợ chồng vô danh được Cao Minh cứu sống.',
-        actors:[{name:'Người vợ',emotion:'biết ơn',belief:'Mình đã được cứu',intent:'ở cạnh chồng'},
+        actors:[{name:'Tô Mộc',emotion:'biết ơn',belief:'Mình đã được cứu',intent:'ở cạnh chồng'},
                 {name:'Người chồng',emotion:'vui mừng',belief:'Vợ đã an toàn',intent:'bảo vệ vợ'}]
       }
     };
@@ -107,8 +109,8 @@ function fresh(){
     assert.equal(state.flags.narrativeScene.actors.length,2);
     assert.equal(state.flags.narrativeScene.actors[0].emotion,'biết ơn');
     assert.equal(state.flags.narrativeScene.actors[1].emotion,'vui mừng');
-    assert.equal(state.party.some(x=>x.name==='Người vợ'),false,'one-time encounter cannot become Party member');
-    assert.equal(Boolean(state.flags.survivorRegistry&&JSON.stringify(state.flags.survivorRegistry).includes('Người vợ')),false);
+    assert.equal(state.party.some(x=>x.name==='Tô Mộc'),false,'one-time encounter cannot become Party member');
+    assert.equal(Boolean(state.flags.survivorRegistry&&JSON.stringify(state.flags.survivorRegistry).includes('Tô Mộc')),false);
     console.log('PASS: Core-approved One-Time encounter maintains independent NPC emotions');
     const originalNpc=state.flags.narrativeScene.actors[0].name;
     const memoryVisit=state.flags.narrativeScene.visit;
@@ -158,7 +160,7 @@ function fresh(){
     assert.equal(persistedFlags.narrativeScene,undefined,'Core save must not retain expired NPC scene');
     assert.equal(persistedFlags.narrativeLevelMemory,undefined,'Core save must not retain expired Level facts');
     assert.equal(persistedUi.flags.narrativeScene,undefined,'saved UI projection must forget NPC scene');
-    assert.ok((persistedFlags.narrativeSeen||[]).includes('người vợ'),'NPC identity marker survives without retaining biography');
+    assert.ok((persistedFlags.narrativeSeen||[]).includes('tô mộc'),'Named NPC identity marker survives without retaining biography');
     console.log('PASS: authoritative Core snapshot no longer stores expired scene and Level memory');
     console.log('PASS: One-Time NPC memory expires when leaving the Level');
     Math.random=()=>0.61;

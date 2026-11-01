@@ -18,6 +18,13 @@ public final class NarrativePolicy {
 
   private NarrativePolicy() {}
 
+  private static boolean genericName(String name) {
+    String n = name.toLowerCase(java.util.Locale.ROOT).trim();
+    return n.startsWith("người ") || n.startsWith("một ") || n.startsWith("kẻ ")
+        || n.startsWith("đứa ") || n.startsWith("cô gái") || n.startsWith("chàng trai")
+        || n.startsWith("survivor ") || n.startsWith("unknown ") || n.startsWith("nhân vật ");
+  }
+
   private static String shortText(Object value, int limit) {
     if (!(value instanceof String)) throw new IllegalArgumentException("narrative_text_invalid");
     String s = ((String)value).trim();
@@ -85,6 +92,7 @@ public final class NarrativePolicy {
   /** Canon builders only receive a bounded, current-visit view; saved history stays intact. */
   public static JSONObject promptView(JSONObject original) {
     JSONObject safe = new JSONObject(original.toString());
+    safe.remove("coreSnapshot"); // Never pass nested Core/save snapshots into any GM canon builder.
     JSONObject flags = safe.optJSONObject("flags");
     if (flags != null) {
       if (scoped(safe) == null) flags.remove(MEMORY);
@@ -109,6 +117,9 @@ public final class NarrativePolicy {
       }
       safe.put("log",recent);
     }
+    // Level travel receipt history is Core-owned and not NPC knowledge.
+    if (flags != null && flags.optJSONObject("storyContinuity") != null)
+      flags.getJSONObject("storyContinuity").remove("levelTravelEvents");
     return safe;
   }
 
@@ -182,11 +193,15 @@ public final class NarrativePolicy {
             if(!present(before,canonId))throw new IllegalArgumentException("narrative_canon_actor_not_present");
           }else if(!priorNames.contains(name)) {
             if (!newEncounter) throw new IllegalArgumentException("narrative_unconfirmed_encounter");
-            String key = name.toLowerCase(java.util.Locale.ROOT);
-            for (int j=0; j<seen.length(); j++)
-              if (key.equals(seen.optString(j))) throw new IllegalArgumentException("narrative_npc_reappeared");
-            if (seen.length() >= 256) throw new IllegalArgumentException("narrative_npc_identity_limit");
-            seen.put(key);
+            // "Người vợ" and similar descriptors are roles, not globally unique names.
+            // The Core encounter ticket + sceneKey identifies each anonymous person.
+            if (!genericName(name)) {
+              String key = name.toLowerCase(java.util.Locale.ROOT);
+              for (int j=0; j<seen.length(); j++)
+                if (key.equals(seen.optString(j))) throw new IllegalArgumentException("narrative_npc_reappeared");
+              if (seen.length() >= 256) throw new IllegalArgumentException("narrative_npc_identity_limit");
+              seen.put(key);
+            }
           }
           JSONObject entry=new JSONObject().put("name",name);
           if(!canonId.isEmpty())entry.put("id",canonId);
