@@ -59,6 +59,25 @@ public final class InventoryUseSmoke {
       check(error.getCause().getMessage().equals("item_use_id_invalid"), "Unexpected validation error");
     }
     check(saved[0] == original, "Invalid ID changed Core state");
+    Class<?> narrative = loader.loadClass("backrooms.NarrativePolicy");
+    Method view = narrative.getMethod("promptView", JSONObject.class);
+    String sceneState = "{\"turn\":1,\"log\":[],\"levelTravel\":{\"runId\":\"test-run\",\"nodeId\":\"LEVEL.NODE.0\"},\"flags\":{\"storyContinuity\":{\"levelTravelEvents\":[{\"kind\":\"new_game\",\"nodeId\":\"LEVEL.NODE.0\",\"turnId\":\"NEW_GAME\"}]}}}";
+    JSONObject beforeNarrative = new JSONObject(sceneState);
+    JSONObject afterNarrative = new JSONObject(sceneState);
+    JSONObject delta = new JSONObject("{\"narrativeDelta\":{\"summary\":\"Đôi vợ chồng đã được cứu.\",\"actors\":[{\"name\":\"Người vợ\",\"emotion\":\"biết ơn\"},{\"name\":\"Người chồng\",\"emotion\":\"vui mừng\"}]}}");
+    JSONObject survivorRoll = new JSONObject("{\"survivor\":{\"success\":true}}");
+    narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
+        .invoke(null,afterNarrative,beforeNarrative,delta,survivorRoll);
+    check(afterNarrative.getJSONObject("flags").getJSONObject("narrativeScene").getJSONArray("actors").length()==2,
+        "Native narrative scene was not committed");
+    JSONObject scoped = (JSONObject)view.invoke(null,afterNarrative);
+    check(scoped.getJSONObject("flags").has("narrativeScene"), "Native prompt lost current Level memory");
+    JSONObject traveled = new JSONObject(afterNarrative.toString());
+    traveled.getJSONObject("levelTravel").put("nodeId","LEVEL.NODE.1");
+    JSONObject expired = (JSONObject)view.invoke(null,traveled);
+    check(!expired.getJSONObject("flags").has("narrativeScene"), "Native prompt leaked old-Level NPC memory");
+    String prose = (String)narrative.getMethod("guidelines",String.class).invoke(null,"GM");
+    check(prose.contains("NARRATIVE SCENE RULES"),"Native narrative instructions missing");
     // Loading the native bridge verifies the edited method's DEX register and reference types.
     loader.loadClass("com.rabpit.backroom.MainActivity$GameBridge").getDeclaredMethods();
     System.out.println("PASS: packaged Android Core routes abilities to GM and restores blocked item use without turns, effects or streak changes");
