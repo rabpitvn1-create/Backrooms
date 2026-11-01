@@ -18,6 +18,11 @@
     if (!encounterId || !window.backroomCloudinary || !window.backroomCloudinary.entity(key)) return;
     waveKey = String(key);
     window.backroomCombatEntityVisualKey = waveKey;
+    // A defeated Entity keeps inline opacity and shatter identity on its DOM node.
+    // Recreate the sprite even if the next wave uses the same Entity key.
+    var snapshot = document.getElementById('snapshot');
+    var previousEntity = snapshot && snapshot.querySelector('.snapshot-entity');
+    if (previousEntity) previousEntity.remove();
     if (window.backroomSnapshotStage) window.backroomSnapshotStage.render(state);
   };
   window.backroomRestoreEntityOverlay = function () {
