@@ -8,7 +8,28 @@ const { chromium } = require('playwright');
     const page = await browser.newPage({viewport:{width:412,height:915}});
     const errors=[];
     page.on('pageerror', error => errors.push(error.message));
-    await page.addInitScript(() => {Math.random=()=>0.61;});
+    await page.addInitScript(() => {
+      Math.random=()=>0.61;
+      window.__narrativeModelEvidence=[];
+      const upstream=window.fetch;
+      window.fetch=async (...args) => {
+        const response=await upstream(...args);
+        if(String(args[0]).includes('/gemini')&&response.ok){
+          try{
+            const payload=await response.clone().json();
+            const modelText=(payload.candidates?.[0]?.content?.parts||[]).filter(p=>!p.thought).map(p=>p.text||'').join('');
+            const output=JSON.parse(modelText.replace(/^\x60\x60\x60(?:json)?\\s*|\\s*\x60\x60\x60$/g,''));
+            window.__narrativeModelEvidence.push({
+              keys:Object.keys(output).sort(),
+              hasDelta:Object.hasOwn(output,'narrativeDelta'),
+              deltaType:output.narrativeDelta===null?'null':typeof output.narrativeDelta,
+              summaryLength:typeof output.narrativeDelta?.summary==='string'?output.narrativeDelta.summary.length:0
+            });
+          } catch(_) {window.__narrativeModelEvidence.push({parseError:true});}
+        }
+        return response;
+      };
+    });
     await page.goto(process.env.PAGES_TEST_URL || 'http://127.0.0.1:4173/Backrooms/',{waitUntil:'domcontentloaded'});
     await page.waitForFunction(() => typeof state !== 'undefined' && state.coreSnapshot && state.levelTravel);
     const before = await page.evaluate(() => ({
@@ -35,6 +56,8 @@ const { chromium } = require('playwright');
     }
     const first=await action('Cao Minh tự sáng tác một ngọn đèn ký ức bằng ý niệm để soi rõ vết nứt trên bức tường. Đây không phải vật phẩm trong kho đồ.');
     assert.deepEqual(first.items,before.inventory,'Fictional lamp must never create Inventory items');
+    const modelEvidence=await page.evaluate(()=>window.__narrativeModelEvidence);
+    console.log('Actual model JSON contract:',JSON.stringify(modelEvidence));
     assert.ok(first.narrative.some(x=>/đèn|ánh sáng|vết nứt|ý niệm/i.test(x)),
       'Real GM did not commit a meaningful narrativeDelta for the original Non-ID object');
     const second=await action('Cao Minh nhớ lại ngọn đèn ký ức vừa tự tạo và nhìn kỹ vết nứt một lần nữa.');
