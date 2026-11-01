@@ -72,6 +72,11 @@ function near(actual,expected,label,tolerance=2){
    assert.equal(layout.mobileMedia,true,
      'Actual mobile CSS breakpoint must match, including on desktop');
    assert.equal(layout.mode,'mobile-only');
+   if(layout.menuDisplay!=='none')console.log('STARTUP_MENU_DIAGNOSTIC',await frame.evaluate(()=>({
+     bodyClass:document.body.className,panel:document.getElementById('sidePanel').outerHTML.slice(0,180),
+     styles:[...document.styleSheets].map(s=>({href:s.href,rules:[...s.cssRules]
+       .filter(r=>r.cssText.includes('.side')&&r.cssText.includes('display')).map(r=>r.cssText.slice(0,350))}))
+   })));
    assert.equal(layout.menuDisplay,'none');
    assert.equal(layout.overflow,false);
    await frame.locator('#mobileMenuButton').click();
