@@ -64,12 +64,13 @@ public final class CoreBridge {
   }
   @JSExport public static String corePrompt(String state,String action,String rolls){
     try{
-      com.rabpit.backroom.core.canon.CanonOutcome result=com.rabpit.backroom.core.canon.CanonRuntime2.buildPacket(context,state,action,rolls,false);
+      String narrativeView=NarrativePolicy.promptView(new JSONObject(state)).toString();
+      com.rabpit.backroom.core.canon.CanonOutcome result=com.rabpit.backroom.core.canon.CanonRuntime2.buildPacket(context,narrativeView,action,rolls,false);
       String packet=null;
       if(result instanceof com.rabpit.backroom.core.canon.CanonOutcome.Ready)packet=((com.rabpit.backroom.core.canon.CanonOutcome.Ready)result).getPacket();
       if(result instanceof com.rabpit.backroom.core.canon.CanonOutcome.SafeLocalResolution)throw new IllegalStateException(((com.rabpit.backroom.core.canon.CanonOutcome.SafeLocalResolution)result).getReason());
-      if (packet != null) packet += keyCanonFor(state);
-      return InventoryUsePolicy.appendPrompt(narrator.prompt(state,action,rolls,packet));
+      if (packet != null) packet += keyCanonFor(narrativeView);
+      return InventoryUsePolicy.appendPrompt(NarrativePolicy.guidelines(narrator.prompt(narrativeView,action,rolls,packet)));
     }catch(Throwable t){return error(t);}
   }
   @JSExport public static String coreCandidate(String state,String generated,String rolls,String action){try{return narrator.candidate(state,generated,rolls,action);}catch(Throwable t){return error(t);}}
