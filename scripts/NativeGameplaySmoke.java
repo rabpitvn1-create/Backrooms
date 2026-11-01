@@ -24,6 +24,8 @@ public final class NativeGameplaySmoke {
   static String answerRaw, newRun;
   static double draw=0.61;
   static boolean entitySuccess;
+  static boolean physicalAction;
+  static int actorTicket=-1;
   static int writes, failed;
   static final Map<String, Map<String,Object>> stores = new HashMap<>();
 
@@ -73,7 +75,7 @@ public final class NativeGameplaySmoke {
   static void fresh() throws Exception {
     transportFailure=storageFailure=callbackFailure=stale=false;
     error=null;prompt="";
-    answerRaw=null;entitySuccess=false;draw=0.61;
+    answerRaw=null;entitySuccess=physicalAction=false;actorTicket=-1;draw=0.61;
     state=new JSONObject((String)call("initializeLevelGame",new Class<?>[]{String.class,boolean.class},initial,true));
     answer=new JSONObject().put("itemUseRequest",JSONObject.NULL)
         .put("reply","Cao Minh quan sát hành lang trước mặt.").put("entityPreview","")
@@ -82,7 +84,7 @@ public final class NativeGameplaySmoke {
   }
   static void turn(String raw) throws Exception {
     try {gameplay.invoke(bridge,entitySuccess?"EXPLORE":"EXECUTE",raw,
-        entitySuccess?"Cao Minh khám phá hành lang.":"Cao Minh lắng nghe tiếng đèn.");}
+        entitySuccess||physicalAction?"Cao Minh khám phá hành lang.":"Cao Minh lắng nghe tiếng đèn.");}
     catch(InvocationTargetException e) {error="uncaught:"+e.getCause();}
   }
   public static String generate(String text) throws Exception {
@@ -132,7 +134,7 @@ public final class NativeGameplaySmoke {
     Object logger=loader.loadClass("com.rabpit.backroom.core.NoOpGamePipelineLogger").getField("INSTANCE").get(null);
     Class<?> function=loader.loadClass("kotlin.jvm.functions.Function0");
     Object random=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->draw);
-    Object tickets=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->entitySuccess?0:6100);
+    Object tickets=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->entitySuccess?0:(actorTicket>=0?actorTicket:6100));
     Class<?> policyType=loader.loadClass("com.rabpit.backroom.core.LevelTravelPolicy");
     Object policy=policyType.getConstructor(JSONObject.class).newInstance(new JSONObject(asset(assets,"knowledge/level_travel_policy.json")));
     Class<?> travelType=loader.loadClass("com.rabpit.backroom.core.LevelTravelEngine");
@@ -157,6 +159,12 @@ public final class NativeGameplaySmoke {
         .put("narrativeDelta",new JSONObject().put("actors",new JSONArray().put(new JSONObject().put("name","Lục Trầm").put("emotion","lo lắng"))));
     turn=state.getInt("turn");turn(state.toString());
     check(error==null&&state.getInt("turn")==turn+1,"native absent canon metadata without optional ID remains a recollection");
+    fresh();actorTicket=4600;physicalAction=true;
+    answer.put("reply","Cô gái lên tiếng tự giới thiệu: Tôi là Hứa Tiểu Lan.")
+        .put("narrativeDelta",new JSONObject().put("actors",new JSONArray().put(new JSONObject().put("name","Hứa Tiểu Lan").put("emotion","cảnh giác"))));
+    turn=state.getInt("turn");turn(state.toString());
+    check(error==null&&state.getInt("turn")==turn+1&&state.getJSONObject("flags").getJSONObject("hua_tieu_lan").getBoolean("present"),
+        "native Core-approved canonical first encounter remains available before Party admission");
     fresh();String before=snapshot();transportFailure=true;turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native transport failure restores exact Core snapshot");
     fresh();before=snapshot();answerRaw="{broken";turn(state.toString());
