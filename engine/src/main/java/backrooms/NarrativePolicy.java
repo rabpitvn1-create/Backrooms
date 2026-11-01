@@ -281,6 +281,24 @@ public final class NarrativePolicy {
     return state;
   }
 
+  /**
+   * Reconcile transient narrative metadata in Core's actual saved snapshot, not merely
+   * the UI projection. Preserve all other game data and re-decode the existing codec.
+   */
+  public static void persistCommitted(com.rabpit.backroom.core.GameCoreFacade facade, JSONObject ui) {
+    JSONObject actual = new JSONObject(facade.currentCoreState());
+    JSONObject world = actual.getJSONObject("world");
+    JSONObject safe = new JSONObject(ui.toString());
+    safe.remove("coreSnapshot");
+    JSONObject flags = safe.optJSONObject("flags");
+    if (flags == null) throw new IllegalStateException("narrative_flags_missing");
+    world.put("flagsJson", flags.toString());
+    world.put("levelTravelUi", safe.toString());
+    com.rabpit.backroom.core.GameState decoded =
+        com.rabpit.backroom.core.GameStateCodec.INSTANCE.decode(actual.toString());
+    facade.restoreInventoryUse(decoded);
+  }
+
   public static String guidelines(String prompt){
     return prompt+"\n[NARRATIVE SCENE RULES]\n"+
       "Viết một cảnh văn xuôi có cảm xúc và đối thoại tự nhiên; giọng mỗi nhân vật khác nhau. "+
