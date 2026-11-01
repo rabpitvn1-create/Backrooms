@@ -72,7 +72,7 @@ public final class InventoryUsePolicy {
     if (owner == null) throw new IllegalStateException("item_use_checkpoint_missing");
     try {
       if (!generated.has("itemUseRequest")) throw new IllegalStateException("item_use_classification_missing");
-      if (generated.isNull("itemUseRequest")) { clear(); return null; }
+      if (generated.isNull("itemUseRequest")) return null;
       JSONObject request = generated.optJSONObject("itemUseRequest");
       String id = request == null ? "" : request.optString("itemId", "");
       if (!items.has(id)) throw new IllegalStateException("item_use_id_invalid");
@@ -88,6 +88,9 @@ public final class InventoryUsePolicy {
       throw error;
     }
   }
+
+  /** Release the checkpoint only after the whole turn was committed and delivered. */
+  public static void complete() { clear(); }
 
   public static void cancel() {
     if (owner != null) owner.restoreInventoryUse(checkpoint);
