@@ -29,4 +29,5 @@ jobs:
           path: |
             build/native-inspect.txt
             build/native-travel-smali.txt
+            build/native-travel-labels.txt
           if-no-files-found: error
