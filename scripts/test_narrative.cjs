@@ -194,8 +194,7 @@ function fresh(){
     const absentActorParty=structuredClone(state.party);
     delta={summary:'Cao Minh nhớ lại Lục Trầm nhưng nàng vẫn biệt tăm.',actors:[
       {name:'Lục Trầm',id:'luc-tram',emotion:'băn khoăn'},
-      {name:'Cao Minh',id:'cao-minh',emotion:'trầm tư'},
-      {name:'Người không có thật',id:'unregistered-npc',emotion:'sợ hãi'}
+      {name:'Cao Minh',id:'cao-minh',emotion:'trầm tư'}
     ]};
     reply='Cao Minh đứng một mình trong hành lang và nhớ đến người bạn đồng hành đã mất liên lạc.';
     await turn('Cao Minh hồi tưởng về những người đang thất lạc.');

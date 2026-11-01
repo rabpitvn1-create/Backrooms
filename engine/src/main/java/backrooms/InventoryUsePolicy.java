@@ -10,6 +10,9 @@ public final class InventoryUsePolicy {
   public static final String NOTICE = "Vui lòng vào kho đồ và nhấn sử dụng vật phẩm.";
   private static GameCoreFacade owner;
   private static GameState checkpoint;
+  private static SaveRepository repository;
+  private static GameState staged;
+  private static boolean committed;
   private static String original, action;
   private static JSONObject items = new JSONObject();
 
@@ -33,13 +36,40 @@ public final class InventoryUsePolicy {
   }
 
   public static void begin(GameCoreFacade facade, String raw, String input) {
-    owner = facade;
-    checkpoint = facade.inventoryUseCheckpoint();
+    if (owner != null) throw new IllegalStateException("turn_already_pending");
+    committed = false;
+    GameState saved = facade.inventoryUseCheckpoint();
     JSONObject before = new JSONObject(raw);
+    String travelJson = saved.getWorld().get("levelTravel");
+    if (travelJson != null) {
+      JSONObject travel = new JSONObject(travelJson), expected = before.optJSONObject("levelTravel");
+      if (expected == null || !travel.optString("runId").equals(expected.optString("runId")) ||
+          travel.optInt("revision") != expected.optInt("revision") ||
+          !Integer.toString(before.optInt("turn",1)).equals(saved.getWorld().get("levelTravelUiTurn")))
+        throw new IllegalStateException("stale_level_turn");
+    }
     before.remove("itemUseNotice");
+    owner = facade;
+    checkpoint = staged = saved;
+    repository = facade.inventoryUseRepository();
     original = before.toString();
     action = input;
     items = directory(checkpoint);
+  }
+
+  // All facade reads/writes share one staged Core state until the host accepts it.
+  public static GameState load(SaveRepository target) {
+    return target == repository ? staged : target.load();
+  }
+
+  public static void save(SaveRepository target, GameState state) {
+    if (target == repository) staged = state;
+    else target.save(state);
+  }
+
+  public static void clearRepository(SaveRepository target) {
+    if (target == repository) clear();
+    target.clear();
   }
 
   private static JSONObject directory(GameState state) {
@@ -199,13 +229,22 @@ public final class InventoryUsePolicy {
     }
   }
 
-  /** Release the checkpoint only after the whole turn was committed and delivered. */
-  public static void complete() { clear(); }
+  /** Commit once before UI delivery; a later callback failure cannot undo a turn. */
+  public static void complete() {
+    if (repository == null) return;
+    repository.save(staged);
+    committed = true;
+    clear();
+  }
+
+  public static String failure(Exception error) {
+    return (committed ? "turn_committed_ui_sync_failed: " : "") + error.getMessage();
+  }
 
   public static void cancel() {
     if (owner != null) owner.restoreInventoryUse(checkpoint);
     clear();
   }
 
-  private static void clear() { owner = null; checkpoint = null; }
+  private static void clear() { owner = null; checkpoint = null; repository = null; staged = null; }
 }

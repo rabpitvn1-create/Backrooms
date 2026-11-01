@@ -77,6 +77,7 @@ public final class CoreBridge {
   private static String error(Throwable t){t.printStackTrace();return new JSONObject().put("bridgeError",t.toString()).toString();}
   @JSExport public static String coreInit(String policy, String saved) {
     try {
+      InventoryUsePolicy.cancel();
       repository=new MemorySave();
       if(!saved.isEmpty())repository.value=GameStateCodec.INSTANCE.decode(saved);
       facade=new GameCoreFacade(repository, NoOpGamePipelineLogger.INSTANCE,

@@ -131,7 +131,7 @@ public final class NativeGameplaySmoke {
     Object logger=loader.loadClass("com.rabpit.backroom.core.NoOpGamePipelineLogger").getField("INSTANCE").get(null);
     Class<?> function=loader.loadClass("kotlin.jvm.functions.Function0");
     Object random=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->draw);
-    Object tickets=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->6100);
+    Object tickets=Proxy.newProxyInstance(loader,new Class<?>[]{function},(p,m,a)->entitySuccess?0:6100);
     Class<?> policyType=loader.loadClass("com.rabpit.backroom.core.LevelTravelPolicy");
     Object policy=policyType.getConstructor(JSONObject.class).newInstance(new JSONObject(asset(assets,"knowledge/level_travel_policy.json")));
     Class<?> travelType=loader.loadClass("com.rabpit.backroom.core.LevelTravelEngine");
@@ -155,9 +155,14 @@ public final class NativeGameplaySmoke {
     check(error!=null&&before.equals(snapshot()),"native transport failure restores exact Core snapshot");
     fresh();before=snapshot();answerRaw="{broken";turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native malformed JSON restores exact Core snapshot");
-    fresh();before=snapshot();answer.put("reply","Cao Minh không thể dùng thần thức.");turn(state.toString());
+    fresh();before=snapshot();answer.put("reply","Cao Minh cạn ma nguyên.");turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native rejected canon restores exact Core snapshot");
-    fresh();before=snapshot();entitySuccess=true;turn(state.toString());
+    fresh();draw=0;
+    for(int i=0;i<4;i++) {
+      JSONObject candidate=new JSONObject(state.toString()).put("turn",state.getInt("turn")+1);
+      state=new JSONObject((String)call("finishLevelTurn",new Class<?>[]{String.class,String.class,String.class},state.toString(),candidate.toString(),"Khám phá"));
+    }
+    before=snapshot();entitySuccess=true;draw=0.61;turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native missing entity preview restores exact Core snapshot");
     fresh();before=snapshot();answer.put("narrativeDelta",new JSONObject().put("actors",new JSONArray().put(new JSONObject().put("name","Người lạ"))));turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native invalid encounter metadata restores exact Core snapshot");

@@ -9,6 +9,7 @@
   const PROXY_BASE_URL = 'https://backrooms-gemini-proxy.onrender.com';
   const policy = assets['knowledge/level_travel_policy.json'];
   let chain = Promise.resolve(), bootError = null;
+  let staging = false, session = 0;
   const events = [];
   const cooldowns = new Map();
   const resolvedDiceActions = new Set();
@@ -38,12 +39,16 @@
     else localStorage.removeItem(CORE_KEY);
   }
   function call(name, ...args) {
+    if (['initializeLevelGame', 'resumeLevelGame', 'clear'].includes(name)) {
+      session++;
+      staging = false;
+    }
     if (bootError) {
       if (name === 'initializeLevelGame' && args[1] === true) initialize('');
       else throw bootError;
     }
     const result = check(window.coreCall(name, ...Array.from({ length: 4 }, (_, i) => String(args[i] ?? ''))));
-    if (!['levelCoreSnapshot', 'coreStats'].includes(name)) persist();
+    if (!staging && !['levelCoreSnapshot', 'coreStats'].includes(name)) persist();
     return result;
   }
   function object(name, ...args) { return JSON.parse(call(name, ...args)); }
@@ -114,25 +119,35 @@
     const input = JSON.parse(raw);
     delete input.itemUseNotice;
     raw = JSON.stringify(input);
+    const requestSession = session;
+    let committed = false;
+    function deliver(next) {
+      // Browser durability precedes the infallible MemorySave commit and UI callback.
+      persist();
+      window.coreItemUseComplete();
+      staging = false;
+      committed = true;
+      emit('backroomTurn', next);
+    }
     try {
       check(window.coreItemUseBegin(raw, action));
+      staging = true;
       let result = object('processLevelAction', raw, action);
-      if (result.handled) { emit('backroomTurn', result.state); window.coreItemUseComplete(); return; }
+      if (result.handled) { deliver(result.state); return; }
       let before = result.state;
       result = object('processWorldPickup', JSON.stringify(before), action);
-      if (result.handled) { emit('backroomTurn', result.state); window.coreItemUseComplete(); return; }
+      if (result.handled) { deliver(result.state); return; }
       result = object('processNamedFollowerRule', JSON.stringify(before), action);
       if (result.handled) {
         const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
-        emit('backroomTurn', next); window.coreItemUseComplete(); return;
+        deliver(next); return;
       }
       const meta = window.coreMeta(action);
       if (!meta) {
         result = object('processRule', JSON.stringify(before), action);
         if (result.handled) {
           const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
-          emit('backroomTurn', next);
-          window.coreItemUseComplete();
+          deliver(next);
           return;
         }
         result = object('processExplorationLoot', JSON.stringify(before), action, kind);
@@ -145,17 +160,17 @@
       if (meta) {
         const next = structuredClone(before);
         next.log = [...(next.log || []), { role: 'player', text: action }, { role: 'gm', text: 'Đây là lượt tra cứu. Trạng thái và lượt chơi không thay đổi.' }];
-        emit('backroomTurn', next); window.coreItemUseComplete(); return;
+        deliver(next); return;
       }
       const prompt = check(window.corePrompt(JSON.stringify(before), action, JSON.stringify(rolls)));
       const generated = await generate(prompt);
+      if (requestSession !== session) throw new Error('stale_game_response');
       const next = JSON.parse(check(window.coreCandidate(JSON.stringify(before), JSON.stringify(generated), JSON.stringify(rolls), action)));
-      persist();
-      emit('backroomTurn', next);
-      window.coreItemUseComplete();
+      deliver(next);
     } catch (error) {
-      window.coreItemUseCancel();
-      persist();
+      if (!committed && requestSession === session) window.coreItemUseCancel();
+      staging = false;
+      if (committed) throw new Error('turn_committed_ui_sync_failed: ' + (error?.message || error));
       throw error;
     }
   }
