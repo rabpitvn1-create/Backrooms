@@ -87,6 +87,19 @@ public final class InventoryUseSmoke {
     check(!expired.getJSONObject("flags").has("narrativeScene"), "Native prompt leaked old-Level NPC memory");
     String prose = (String)narrative.getMethod("guidelines",String.class).invoke(null,"GM");
     check(prose.contains("NARRATIVE SCENE RULES"),"Native narrative instructions missing");
+
+    // Verify native reconciliation of scoped memory in the real Core save.
+    JSONObject changed = new JSONObject(afterNarrative.toString());
+    changed.getJSONObject("levelTravel").put("nodeId","LEVEL.NODE.1");
+    narrative.getMethod("afterTravel",JSONObject.class).invoke(null,changed);
+    narrative.getMethod("persistCommitted",facadeType,JSONObject.class).invoke(null,facade,changed);
+    JSONObject snapshot = new JSONObject((String)facadeType.getMethod("currentCoreState").invoke(facade));
+    JSONObject world = snapshot.getJSONObject("world");
+    JSONObject nativeFlags = new JSONObject(world.getString("flagsJson"));
+    check(!nativeFlags.has("narrativeScene"), "Native Core save kept expired NPC memory");
+    check(nativeFlags.has("narrativeSeen"), "Native Core lost One-Time identity markers");
+    check(!new JSONObject(world.getString("levelTravelUi")).getJSONObject("flags").has("narrativeScene"),
+        "Native UI save retained expired scene");
     // Loading the native bridge verifies the edited method's DEX register and reference types.
     loader.loadClass("com.rabpit.backroom.MainActivity$GameBridge").getDeclaredMethods();
     System.out.println("PASS: packaged Android Core routes abilities to GM and restores blocked item use without turns, effects or streak changes");
