@@ -8,6 +8,10 @@ public final class InventoryUseSmoke {
     if (!condition) throw new AssertionError(message);
   }
 
+  static boolean NarrativePolicyMarker(JSONObject result) {
+    return result.optString("itemUseNotice").equals("Vui lòng vào kho đồ và nhấn sử dụng vật phẩm.");
+  }
+
   public static void main(String[] args) throws Exception {
     ClassLoader loader = new DexClassLoader(args[0], "/data/local/tmp", null, InventoryUseSmoke.class.getClassLoader());
     Class<?> stateType = loader.loadClass("com.rabpit.backroom.core.GameState");
@@ -51,6 +55,11 @@ public final class InventoryUseSmoke {
     check(result.getString("itemUseNotice").equals("Vui lòng vào kho đồ và nhấn sử dụng vật phẩm."), "Wrong Inventory notice");
     begin.invoke(null, facade, raw, "Dùng thần niệm");
     check(redirect.invoke(null, new JSONObject("{\"itemUseRequest\":null}")) == null, "Ability narration was blocked");
+    policy.getMethod("complete").invoke(null);
+    begin.invoke(null, facade, raw, "Sử dụng Almond Water");
+    JSONObject misclassified = new JSONObject((String)redirect.invoke(null,
+        new JSONObject("{\"itemUseRequest\":null,\"reply\":\"Cao Minh uống Almond Water.\"}")));
+    check(NarrativePolicyMarker(misclassified), "Native inventory bypass was not stopped");
     begin.invoke(null, facade, raw, "Sử dụng Almond Water");
     try {
       redirect.invoke(null, new JSONObject("{\"itemUseRequest\":{\"itemId\":\"fake\"}}"));

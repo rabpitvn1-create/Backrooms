@@ -84,6 +84,26 @@ async function turn(action) {
     assert.equal(state.turn, ui.turn + 1);
   }
   console.log('PASS: GM-confirmed item use, paraphrases, follower and mixed requests never consume a turn, item, effect or exit streak');
+  // The LLM can misclassify a registered item as a fictional Non-ID item.
+  // Registered inventory use must be enforced by Core even if itemUseRequest is null.
+  for (const action of ['Sử dụng Almond Water', 'Tu một ngụm nước hạnh nhân', 'Nhờ Hứa Tiểu Lan uống Almond Water']) {
+    fresh(); marker = null;
+    const before = snapshot(), turnNumber = state.turn;
+    await turn(action);
+    assert.deepEqual(errors, [], 'Registered item misclassification must redirect: ' + action);
+    assert.deepEqual(snapshot(), before);
+    assert.equal(state.turn, turnNumber);
+    assert.equal(state.log.at(-1).text, 'Vui lòng vào kho đồ và nhấn sử dụng vật phẩm.');
+  }
+  fresh(); marker = null;
+  narrationOverride = 'Cao Minh đã uống Almond Water và hồi phục ngay lập tức.';
+  const beforeNarration = snapshot(), beforeTurn = state.turn;
+  await turn('Cao Minh nhìn quanh căn phòng.');
+  assert.ok(errors.some(error => /item_use_narrative_conflict/.test(error)));
+  assert.deepEqual(snapshot(), beforeNarration);
+  assert.equal(state.turn, beforeTurn);
+  narrationOverride = null;
+  console.log('PASS: registered item use cannot bypass Inventory through a false null classification');
   for (const invalid of [undefined, { itemId: 'gm-invented-item' }, 'almond-water', {}]) {
     fresh(); marker = invalid;
     const before = snapshot();
