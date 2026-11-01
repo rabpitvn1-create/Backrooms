@@ -85,16 +85,18 @@ def patch_bridge(text):
     start = text.index(".method private synthetic lambda$submitGameplayAction$2(")
     end = text.index(".end method", start)
     body = text[start:end]
-    # Native method uses 53 registers; increase by one for a separate prompt view.
-    body = replace_once(body, ".registers 53", ".registers 54")
+    # Two scratch registers keep the original state while constructing a scoped prompt.
+    # The prompt builder uses low register v11; high registers are only used by move/from16.
+    body = replace_once(body, ".registers 53", ".registers 55")
     marker = "  :L23\n  .line 1092"
     body = replace_once(body, marker, marker +
         f"\n    invoke-static {{ v11 }}, {NARRATIVE}->promptView(Lorg/json/JSONObject;)Lorg/json/JSONObject;\n"
-        "    move-result-object v49")
-    # Read the scoped copy only in prompt construction; original state still commits.
-    begin = body.index("    move-result-object v49") + len("    move-result-object v49")
-    end_prompt = body.index("  .line 1185", begin)
-    body = body[:begin] + body[begin:end_prompt].replace("v11", "v49") + body[end_prompt:]
+        "    move-result-object v49\n"
+        "    move-object/from16 v50, v11\n"
+        "    move-object/from16 v11, v49")
+    # Restore the real state before receiving and committing the generated candidate.
+    body = replace_once(body, "  .line 1185\n",
+        "  .line 1185\n    move-object/from16 v11, v50\n")
     call = f"    invoke-virtual {{ v10, v11, v3 }}, {FACADE}->processLevelAction(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
     body = replace_once(body, call,
         f"    invoke-static {{ v10, v11, v3 }}, {POLICY}->begin({FACADE}Ljava/lang/String;Ljava/lang/String;)V\n" + call)
