@@ -185,6 +185,7 @@ def package(config, output):
         "assets/index.html": cao_minh_assets.inject_scripts(
             (source / "assets/index.html").read_text(encoding="utf-8")).encode("utf-8"),
         "assets/cloudinary-gameplay.js": (ROOT / "web/cloudinary-gameplay.js").read_bytes(),
+        "assets/cloudinary-entity-combat.js": (ROOT / "web/cloudinary-entity-combat.js").read_bytes(),
         "assets/offline-character-assets.js": (ROOT / "web/offline-character-assets.js").read_bytes(),
         "assets/cao-minh-asset-db.js": cao_minh_assets.registry_script().encode("utf-8"),
         "assets/characters/cao-minh-assets.json": (
