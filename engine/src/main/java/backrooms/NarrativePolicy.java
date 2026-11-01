@@ -113,13 +113,13 @@ public final class NarrativePolicy {
       JSONArray actors=delta.optJSONArray("actors");
       if(delta.has("actors")&&actors==null)throw new IllegalArgumentException("narrative_actors_invalid");
       if(actors!=null&&actors.length()>MAX_ACTORS)throw new IllegalArgumentException("narrative_actor_limit");
-      boolean hasActive=scene!=null&&!scene.optBoolean("closed",false);
+      boolean hasActive=scene!=null&&!scene.optBoolean("closed",false)&&scene.optJSONArray("actors")!=null&&scene.optJSONArray("actors").length()>0;
       if(actors!=null&&actors.length()>0&&!hasActive&&!newEncounter)
         throw new IllegalArgumentException("narrative_unconfirmed_encounter");
       if(scene==null||scene.optBoolean("closed",false)){
         if(!newEncounter&&!delta.optString("summary","").isEmpty()&&actors!=null&&actors.length()>0)
           throw new IllegalArgumentException("narrative_unconfirmed_encounter");
-        scene=new JSONObject().put("visit",visit(before)).put("closed",false).put("facts",new JSONArray()).put("actors",new JSONArray());
+        scene=new JSONObject().put("visit",visit(before)).put("sceneKey",visit(before)+":TURN_"+before.optInt("turn",1)).put("closed",false).put("facts",new JSONArray()).put("actors",new JSONArray());
       }
       if(actors!=null){
         JSONArray people=new JSONArray();
