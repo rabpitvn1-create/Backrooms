@@ -118,12 +118,19 @@ function fresh(){
     let next=state;
     Math.random=()=>0;
     const firstNode=next.levelTravel.nodeId;
-    for(let i=0;i<4;i++){
+    for(let i=0;i<3;i++){
       const previous=JSON.stringify(next);
       const nextCandidate=JSON.stringify({...next,turn:next.turn+1});
       next=JSON.parse(__webGame.call('finishLevelTurn',previous,nextCandidate,'Khám phá'));
       assert.ok(!next.bridgeError,next.bridgeError);
     }
+    core.coreItemUseBegin(JSON.stringify(next),'Khám phá');
+    const finalCandidate=JSON.parse(core.coreCandidate(JSON.stringify(next),
+      JSON.stringify({itemUseRequest:null,reply:'Cao Minh bước qua bức tường chập chờn.',entityPreview:'',narrativeDelta:null}),
+      JSON.stringify({survivor:{success:false},entityEncounter:{success:false}}),'Khám phá'));
+    assert.ok(!finalCandidate.bridgeError,finalCandidate.bridgeError);
+    core.coreItemUseComplete();
+    next=finalCandidate;
     assert.notEqual(next.levelTravel.nodeId,firstNode,'four Core-accepted trials should no-clip');
     assert.equal(next.levelTravel.exitStreak,0);
     const afterTravelPrompt=core.corePrompt(JSON.stringify(next),'Cao Minh suy nghĩ',JSON.stringify({meta:false,turn:next.turn}));
