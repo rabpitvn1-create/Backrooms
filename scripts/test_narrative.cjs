@@ -129,6 +129,15 @@ const watchdog=setTimeout(()=>{console.error('Narrative checks did not complete'
     assert.equal(state.party.some(x=>x.name==='Tô Mộc'),false,'one-time encounter cannot become Party member');
     assert.equal(Boolean(state.flags.survivorRegistry&&JSON.stringify(state.flags.survivorRegistry).includes('Tô Mộc')),false);
     console.log('PASS: Core-approved One-Time encounter maintains independent NPC emotions');
+    const identityBefore=snapshot();
+    core.coreItemUseBegin(JSON.stringify(state),'Quan sát');
+    const stolen=JSON.parse(core.coreCandidate(JSON.stringify(state),JSON.stringify({
+      itemUseRequest:null,reply:'Cao Minh quan sát đôi vợ chồng.',entityPreview:'',
+      narrativeDelta:{actors:[{name:'Cao Minh',id:'cao-minh',aliasOf:'Tô Mộc'}]}
+    }),JSON.stringify({survivor:{success:false},entityEncounter:{success:false}}),'Quan sát'));
+    core.coreItemUseCancel();
+    assert.match(stolen.bridgeError,/narrative_actor_identity_changed/);
+    assert.deepEqual(snapshot(),identityBefore,'Canon alias metadata must not steal an existing temporary NPC');
     const originalNpc=state.flags.narrativeScene.actors[0].name;
     const memoryVisit=state.flags.narrativeScene.visit;
     delta={closed:true,summary:'Đôi vợ chồng đã an toàn và kết thúc cuộc gặp.'};

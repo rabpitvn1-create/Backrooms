@@ -295,6 +295,8 @@ public final class NarrativePolicy {
           if(!alias.isEmpty()){
             if(entry!=null||!participants.containsKey(alias))
               throw new IllegalArgumentException("narrative_actor_alias_invalid");
+            if(!canonId.isEmpty()&&!canonId.equals(participants.get(alias).optString("id")))
+              throw new IllegalArgumentException("narrative_actor_identity_changed");
             entry=participants.remove(alias);
             entry.put("name",name);
           }
@@ -507,6 +509,7 @@ public final class NarrativePolicy {
       "Khi đã đủ 12 cuộc gặp đã khép trong lần ghé Level, không mở thêm One-Time NPC; vẫn kể hành động và hội thoại với nhân vật đang hiện diện. Không loại ký ức cuộc gặp cũ để lấy chỗ. "+
       "Hãy xuất thêm narrativeDelta:null nếu không có thay đổi cần nhớ; "+
       "khi có, chỉ dùng {summary:string,actors:[{name,id?,aliasOf?,emotion,belief,intent}],closed:boolean,relationships:[{from,to,emotion}]}. "+
+      "actors.id chỉ dùng ID canon đã được cung cấp trong state; NPC tạm dùng đúng name hoặc aliasOf của cảnh, không tự tạo ID. "+
       "summary tối đa 600 ký tự, actors tối đa 6; relationship phải dùng ID nhân vật canon đã biết, "+
       "có hướng, không tự suy tình cảm ngược chiều. Dùng aliasOf khi NPC vô danh tiết lộ tên thật. Nêu kết quả qua hành động thay vì thông báo khô.\n";
   }
