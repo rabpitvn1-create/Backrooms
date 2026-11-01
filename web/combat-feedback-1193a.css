@@ -49,7 +49,7 @@ html,body,button,input,textarea,select,option{font-family:Play,sans-serif}
 .snapshot[data-combat-focus] .combat-turn-avatar,
 .snapshot[data-combat-focus] .combat-turn-exit{
  position:absolute!important;right:var(--sprite-offset,1%)!important;left:auto!important;
- bottom:var(--sprite-bottom,3%)!important;top:auto!important;
+ bottom:var(--sprite-bottom,0px)!important;top:auto!important;
  width:var(--sprite-width,auto)!important;height:var(--sprite-height,94%)!important;
  max-width:none!important;max-height:none!important;object-fit:contain!important;
  object-position:right bottom!important;pointer-events:none;z-index:3;
