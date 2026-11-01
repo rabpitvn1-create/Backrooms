@@ -98,7 +98,7 @@ function fresh(){
     assert.equal(state.flags.narrativeScene.actors[0].emotion,'biết ơn');
     assert.equal(state.flags.narrativeScene.actors[1].emotion,'vui mừng');
     assert.equal(state.party.some(x=>x.name==='Người vợ'),false,'one-time encounter cannot become Party member');
-    assert.equal(state.flags.survivorRegistry&&JSON.stringify(state.flags.survivorRegistry).includes('Người vợ'),false);
+    assert.equal(Boolean(state.flags.survivorRegistry&&JSON.stringify(state.flags.survivorRegistry).includes('Người vợ')),false);
     console.log('PASS: Core-approved One-Time encounter maintains independent NPC emotions');
     const scopedMarker='Đôi vợ chồng vô danh được Cao Minh cứu sống.';
     let next=state;
