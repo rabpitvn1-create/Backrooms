@@ -18,14 +18,14 @@ globalThis.BACKROOMS_CONFIG={models:['fixture']};
 vm.runInThisContext(fs.readFileSync('pages/bridge.js','utf8'));
 const html=fs.readFileSync('web/index.html','utf8');
 const initial=vm.runInNewContext(html.slice(html.indexOf('const prologue'),html.indexOf('const byId'))+'; initial');
-let state, errors=[],prompt='',delta=null,reply='Cao Minh quan sát hành lang trước mặt.';
+let state, errors=[],prompt='',delta=null,proposedFlags={},reply='Cao Minh quan sát hành lang trước mặt.';
 globalThis.backroomTurn=raw=>{state=JSON.parse(raw)};
 globalThis.backroomError=e=>errors.push(String(e));
 globalThis.backroomProvider=()=>{};
 globalThis.fetch=async(_,options)=>{
   prompt=JSON.parse(options.body).contents[0].parts[0].text;
   return new Response(JSON.stringify({candidates:[{content:{parts:[{text:JSON.stringify({
-    itemUseRequest:null,reply,entityPreview:'',narrativeDelta:delta
+    itemUseRequest:null,reply,entityPreview:'',narrativeDelta:delta,flags:proposedFlags
   })}]}}]}),{status:200});
 };
 const snapshot=()=>JSON.parse(Android.levelCoreSnapshot());
@@ -35,8 +35,9 @@ async function turn(action){
 }
 function fresh(){
   state=JSON.parse(Android.initializeLevelGame(JSON.stringify(initial),true));
-  errors=[];delta=null;reply='Cao Minh quan sát hành lang trước mặt.';
+  errors=[];delta=null;proposedFlags={};reply='Cao Minh quan sát hành lang trước mặt.';
 }
+const watchdog=setTimeout(()=>{console.error('Narrative checks did not complete');process.exit(1);},30000);
 (async()=>{
   const random=Math.random;Math.random=()=>0.61;
   try{
@@ -122,6 +123,17 @@ function fresh(){
     console.log('PASS: Core-approved One-Time encounter maintains independent NPC emotions');
     const originalNpc=state.flags.narrativeScene.actors[0].name;
     const memoryVisit=state.flags.narrativeScene.visit;
+    delta={closed:true,summary:'Đôi vợ chồng đã an toàn và kết thúc cuộc gặp.'};
+    await turn('Cao Minh chào đôi vợ chồng rồi tiếp tục đi.');
+    assert.deepEqual(errors,[]);
+    assert.equal(state.flags.narrativeLevelMemory.closedScenes.length,1);
+    delta=null;
+    for(let i=0;i<15;i++)await turn('Cao Minh tiếp tục quan sát hành lang.');
+    assert.deepEqual(errors,[]);
+    assert.ok(prompt.includes('Đôi vợ chồng vô danh được Cao Minh cứu sống.'),
+      'A completed encounter cannot be evicted by later ambient observations');
+    assert.equal(state.flags.narrativeLevelMemory.closedScenes.length,1);
+    console.log('PASS: closed encounters remain remembered beyond the short recent-observation window');
     const closed=structuredClone(state);
     closed.flags.narrativeScene.closed=true;
     const lateEncounter=structuredClone(closed);
@@ -168,7 +180,7 @@ function fresh(){
     assert.equal(persistedFlags.narrativeScene,undefined,'Core save must not retain expired NPC scene');
     assert.equal(persistedFlags.narrativeLevelMemory,undefined,'Core save must not retain expired Level facts');
     assert.equal(persistedUi.flags.narrativeScene,undefined,'saved UI projection must forget NPC scene');
-    assert.ok((persistedFlags.narrativeSeen||[]).includes('tô mộc'),'Named NPC identity marker survives without retaining biography');
+    assert.equal(persistedFlags.narrativeSeen,undefined,'Temporary NPC identity markers expire with their visit');
     console.log('PASS: authoritative Core snapshot no longer stores expired scene and Level memory');
     console.log('PASS: One-Time NPC memory expires when leaving the Level');
     Math.random=()=>0.61;
@@ -207,5 +219,48 @@ function fresh(){
     assert.ok(state.flags.narrativeLevelMemory.facts.some(text=>text.includes('Lục Trầm')),
       'Legitimate recollection must be retained without inventing a reunion');
     console.log('PASS: absent canon actor metadata is discarded without aborting the turn or forging an encounter');
+
+    fresh();proposedFlags={unscopedNpcMemory:'TEMPORARY_NPC_MUST_NOT_BECOME_A_CORE_FLAG',fakeQuest:{reward:99999}};
+    await turn('Cao Minh quan sát hành lang.');
+    assert.deepEqual(errors,[]);
+    assert.equal(state.flags.unscopedNpcMemory,undefined);
+    assert.equal(state.flags.fakeQuest,undefined);
+    assert.equal(state.flags.narrativeSchema,1);
+    assert.equal(snapshot().saveVersion,3);
+    const invalidSchema=structuredClone(state);invalidSchema.flags.narrativeSchema=2;
+    const stableSnapshot=snapshot();
+    assert.match(core.corePrompt(JSON.stringify(invalidSchema),'Quan sát',JSON.stringify({meta:false,turn:state.turn})),/narrative_schema_unsupported/);
+    const oversized=structuredClone(state);
+    oversized.flags.narrativeLevelMemory.facts=['ế'.repeat(12000)];
+    assert.match(core.corePrompt(JSON.stringify(oversized),'Quan sát',JSON.stringify({meta:false,turn:state.turn})),/narrative_memory_limit/);
+    assert.deepEqual(snapshot(),stableSnapshot,'Invalid memory must not mutate Core');
+    console.log('PASS: versioned narrative metadata rejects unknown schemas, UTF-8 overflow and unscoped GM flags');
+    const capped=structuredClone(state);
+    capped.flags.narrativeLevelMemory.closedScenes=Array.from({length:12},(_,i)=>({
+      sceneKey:memoryVisit+':closed:'+i,closed:true,facts:['Cuộc gặp '+i+' đã kết thúc.'],actors:[{name:'Người khách '+i}]
+    }));
+    core.coreItemUseBegin(JSON.stringify(capped),'Khám phá');
+    const exhausted=JSON.parse(core.coreCandidate(JSON.stringify(capped),JSON.stringify({
+      itemUseRequest:null,reply:'Một người khách mới bước tới.',entityPreview:'',
+      narrativeDelta:{actors:[{name:'Người khách mới'}]}
+    }),JSON.stringify({survivor:{success:true},entityEncounter:{success:false}}),'Khám phá'));
+    core.coreItemUseCancel();
+    assert.match(exhausted.bridgeError,/narrative_encounter_budget_exhausted/);
+    assert.deepEqual(snapshot(),stableSnapshot,'A full encounter budget must not evict existing memory');
+    const legacy=structuredClone(stableSnapshot),legacyFlags=JSON.parse(legacy.world.flagsJson);
+    for(const key of ['narrativeSchema','narrativeScene','narrativeLevelMemory','narrativeRelations','narrativeSeen'])delete legacyFlags[key];
+    legacyFlags.legacyQuest={accepted:true};
+    legacy.world.flagsJson=JSON.stringify(legacyFlags);
+    const legacyUi=JSON.parse(legacy.world.levelTravelUi);legacyUi.flags=legacyFlags;
+    legacy.world.levelTravelUi=JSON.stringify(legacyUi);
+    core.coreInit(BACKROOMS_ASSETS['knowledge/level_travel_policy.json'],JSON.stringify(legacy));
+    state=JSON.parse(__webGame.call('resumeLevelGame',JSON.stringify({...legacyUi,coreSnapshot:legacy}),true));
+    errors=[];proposedFlags={};
+    await turn('Cao Minh tiếp tục quan sát hành lang.');
+    assert.deepEqual(errors,[]);
+    assert.equal(state.flags.legacyQuest.accepted,true,'Legacy Core flags must remain intact');
+    assert.equal(state.flags.narrativeSchema,1);
+    assert.equal(snapshot().saveVersion,3);
+    console.log('PASS: full encounter budgets preserve memory, and legacy v3 saves gain additive narrative metadata');
   }finally{Math.random=random}
-})().catch(e=>{console.error(e);process.exitCode=1});
+})().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>clearTimeout(watchdog));

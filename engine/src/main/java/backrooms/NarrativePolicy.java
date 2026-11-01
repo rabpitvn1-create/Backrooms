@@ -14,7 +14,9 @@ public final class NarrativePolicy {
   private static final String RELATIONS = "narrativeRelations";
   private static final String HISTORY = "narrativeLevelMemory";
   private static final String SEEN = "narrativeSeen";
+  private static final String SCHEMA = "narrativeSchema";
   private static final int MAX_FACTS = 10, MAX_ACTORS = 6, MAX_RELATIONS = 16;
+  private static final int MAX_CLOSED_SCENES = 12, MAX_BYTES = 32768;
   private static final java.util.Map<String,String> CANON = canonDirectory();
 
   private NarrativePolicy() {}
@@ -34,14 +36,15 @@ public final class NarrativePolicy {
     for (java.util.Map.Entry<String,String> actor : CANON.entrySet()) {
       if (present(state,actor.getKey())) continue;
       String name=actor.getValue().toLowerCase(java.util.Locale.ROOT);
-      for (String clause : text.toLowerCase(java.util.Locale.ROOT).split("[.!?;\\n]|,|\\bnhưng\\b|\\bbỗng\\b|\\bđột nhiên\\b")) {
+      for (String clause : text.toLowerCase(java.util.Locale.ROOT).split("[.!?;\\n]|,|\\bnhưng\\b|\\btrong khi\\b|\\bbỗng\\b|\\bđột nhiên\\b")) {
         int at=clause.indexOf(name);
         if(at<0)continue;
         String prefix=clause.substring(0,at);
         // Reference cues apply only before this mention, never to a later assertion.
-        if(prefix.matches("(?s).*(?:nhớ|hồi tưởng|ký ức|nghĩ|lo cho|lo về|mong|tìm|gọi|hỏi|nếu|giả sử|từng|năm xưa|ngày ấy|trước kia|trước đây|không|chưa).*"))continue;
+        if(prefix.matches("(?s).*(?:nhớ|hồi tưởng|ký ức|nghĩ|lo cho|lo về|mong|tìm|gọi|hỏi|nhắc|kể về|nếu|giả sử|từng|năm xưa|ngày ấy|trước kia|trước đây|ảo ảnh|mơ thấy|ngỡ|tưởng)(?:\\s+\\S+){0,5}\\s*$"))continue;
+        if(prefix.matches("(?s).*(?:không|chưa|chẳng)\\s+(?:có|thấy|gặp|biết|nghe)(?:\\s+\\S+){0,3}\\s*$"))continue;
         String rest=clause.substring(at+name.length());
-        if(rest.matches("(?s).*(?:thất lạc|biệt tăm|ở đâu|chưa rõ|không rõ).*"))continue;
+        if(rest.matches("(?s)\\s*(?:(?:đang|hiện|vẫn|còn)\\s+)*(?:thất lạc|biệt tăm|ở đâu|chưa rõ|không rõ|(?:không|chưa)\\s+(?:xuất hiện|có mặt|trở lại|đến|ở đây|đáp lại)).*"))continue;
         throw new IllegalArgumentException("narrative_unconfirmed_canon_presence:"+actor.getKey());
       }
     }
@@ -77,13 +80,45 @@ public final class NarrativePolicy {
         return run + ":" + node + ":" + e.optString("turnId", "");
       }
     }
-    return run + ":" + node + ":NO_ARRIVAL";
+    return "";
   }
 
   private static JSONObject scoped(JSONObject state) {
     JSONObject flags = state.optJSONObject("flags");
     JSONObject memory = flags == null ? null : flags.optJSONObject(MEMORY);
-    return memory != null && visit(state).equals(memory.optString("visit", "~")) ? memory : null;
+    String key=visit(state);
+    return !key.isEmpty() && memory != null && key.equals(memory.optString("visit", "~")) ? memory : null;
+  }
+
+  private static void validateSchema(JSONObject flags) {
+    if(flags==null || !flags.has(SCHEMA))return;
+    Object version=flags.opt(SCHEMA);
+    if(!(version instanceof Number) || ((Number)version).doubleValue()!=1)
+      throw new IllegalArgumentException("narrative_schema_unsupported");
+  }
+
+  private static void checkBudget(JSONObject flags) {
+    JSONObject owned=new JSONObject();
+    for(String key:new String[]{MEMORY,HISTORY,RELATIONS,SEEN})
+      if(flags.has(key))owned.put(key,flags.get(key));
+    if(owned.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8).length>MAX_BYTES)
+      throw new IllegalArgumentException("narrative_memory_limit");
+  }
+
+  private static void archive(JSONObject history,JSONObject scene) {
+    JSONArray closed=history.optJSONArray("closedScenes");
+    if(closed==null)closed=new JSONArray();
+    for(int i=0;i<closed.length();i++)
+      if(scene.optString("sceneKey").equals(closed.getJSONObject(i).optString("sceneKey")))return;
+    boolean temporary=false;
+    JSONArray people=scene.optJSONArray("actors");
+    if(people!=null)for(int i=0;i<people.length();i++)
+      if(people.getJSONObject(i).optString("id").isEmpty())temporary=true;
+    if(!temporary)return;
+    if(closed.length()>=MAX_CLOSED_SCENES)
+      throw new IllegalArgumentException("narrative_encounter_budget_exhausted");
+    closed.put(new JSONObject(scene.toString()));
+    history.put("closedScenes",closed);
   }
 
   private static int entryTurn(JSONObject state) {
@@ -123,18 +158,20 @@ public final class NarrativePolicy {
     JSONObject safe = new JSONObject(original.toString());
     safe.remove("coreSnapshot"); // Never pass nested Core/save snapshots into any GM canon builder.
     JSONObject flags = safe.optJSONObject("flags");
+    validateSchema(flags);
     if (flags != null) {
       if (scoped(safe) == null) flags.remove(MEMORY);
       JSONObject history = flags.optJSONObject(HISTORY);
-      if (history != null && !visit(safe).equals(history.optString("visit", "~")))
+      if (history != null && (visit(safe).isEmpty() || !visit(safe).equals(history.optString("visit", "~"))))
         flags.remove(HISTORY);
       flags.remove(SEEN); // opaque lifetime markers are not information Cao Minh can recall
+      checkBudget(flags);
     }
     JSONArray log = safe.optJSONArray("log");
     if(log != null) {
       JSONArray recent = new JSONArray();
       int entry=entryTurn(safe), current=safe.optInt("turn",1);
-      int allowed=entry<0?6:Math.max(0,Math.min(6,(current-entry-(travelArrival(safe)?1:0))*2));
+      int allowed=entry<0?0:Math.max(0,Math.min(6,(current-entry-(travelArrival(safe)?1:0))*2));
       int start=Math.max(0,log.length()-allowed);
       for(int i=start;i<log.length();i++){
         JSONObject item=log.optJSONObject(i);
@@ -165,26 +202,21 @@ public final class NarrativePolicy {
 
   /** Applied after GM validation and before Core's authoritative turn commit. */
   public static void apply(JSONObject after, JSONObject before, JSONObject generated, JSONObject rolls) {
+    validateSchema(before.optJSONObject("flags"));
     validateNarration(before,generated.optString("reply",""));
     validateNarration(before,generated.optString("entityPreview",""));
     JSONObject proposed=generated.optJSONObject("narrativeDelta");
     if(proposed!=null)validateNarration(before,proposed.optString("summary",""));
-    JSONObject currentFlags = after.optJSONObject("flags");
-    if(currentFlags == null){currentFlags=new JSONObject();after.put("flags",currentFlags);}
     JSONObject priorFlags = before.optJSONObject("flags");
+    // Only the checked narrative delta may change memory; generic flags stay Core-owned.
+    JSONObject currentFlags=priorFlags==null?new JSONObject():new JSONObject(priorFlags.toString());
+    after.put("flags",currentFlags);
+    currentFlags.put(SCHEMA,1);
     // Core owns gameplay state. AI proposals can describe effects but must never
     // silently change HP, item ownership or Party through its arbitrary JSON.
     for (String key : new String[] {"player", "party", "inventory"}) {
       if (before.has(key)) after.put(key, new JSONObject().put("value", before.get(key)).get("value"));
       else after.remove(key);
-    }
-    // These flags belong to the Core and cannot be forged via generated.flags.
-    for (String key : new String[] {"storyContinuity", "survivorRegistry", "worldItems",
-        "anNhien", "hua_tieu_lan", "nguyen_quoc_nam", "luc-tram", "syvial",
-        "survivorEncountersAllowed", "entityEncountersAllowed"}) {
-      if (priorFlags != null && priorFlags.has(key))
-        currentFlags.put(key, new JSONObject().put("value", priorFlags.get(key)).get("value"));
-      else currentFlags.remove(key);
     }
     // The model cannot replace the narrative stores through a generic flags patch.
     currentFlags.remove(MEMORY);
@@ -209,6 +241,7 @@ public final class NarrativePolicy {
       // Preserve accepted narration as a bounded observation, never invent success.
       remember(history,generated.optString("reply",""));
       currentFlags.put(HISTORY,history);
+      checkBudget(currentFlags);
       return;
     }
     JSONObject delta=generated.optJSONObject("narrativeDelta");
@@ -224,6 +257,7 @@ public final class NarrativePolicy {
       // A survivor roll authorizes only newly appearing unregistered people.
       // Named characters already present in the party may speak without a fresh roll.
       if(scene==null||scene.optBoolean("closed",false)){
+        if(scene!=null)archive(history,scene);
         scene=new JSONObject().put("visit",visit(before)).put("sceneKey",visit(before)+":TURN_"+before.optInt("turn",1)).put("closed",false).put("facts",new JSONArray()).put("actors",new JSONArray());
       }
       if(actors!=null){
@@ -269,6 +303,9 @@ public final class NarrativePolicy {
               throw new IllegalArgumentException("narrative_actor_identity_changed");
           }else if(entry==null){
             if(!newEncounter)throw new IllegalArgumentException("narrative_unconfirmed_encounter");
+            JSONArray closed=history.optJSONArray("closedScenes");
+            if(closed!=null&&closed.length()>=MAX_CLOSED_SCENES)
+              throw new IllegalArgumentException("narrative_encounter_budget_exhausted");
           }
           if(entry==null)entry=new JSONObject().put("name",name);
           if(!canonId.isEmpty())entry.put("id",canonId);
@@ -310,6 +347,17 @@ public final class NarrativePolicy {
         scene.put("closed",closed);
       }
       if(scene.toString().length()>10000)throw new IllegalArgumentException("narrative_scene_limit");
+      if(scene.optBoolean("closed",false)){
+        archive(history,scene);
+        // Closed encounters retain their facts in the visit archive, not twice.
+        JSONArray people=new JSONArray(),old=scene.optJSONArray("actors");
+        if(old!=null)for(int i=0;i<old.length();i++){
+          JSONObject person=old.getJSONObject(i),identity=new JSONObject().put("name",person.optString("name"));
+          if(person.has("id"))identity.put("id",person.get("id"));
+          people.put(identity);
+        }
+        scene.put("actors",people).put("facts",new JSONArray());
+      }
       currentFlags.put(MEMORY,scene);
     }
     JSONArray changes=delta.optJSONArray("relationships");
@@ -324,6 +372,7 @@ public final class NarrativePolicy {
         String from=shortText(c.opt("from"),64),to=shortText(c.opt("to"),64),value=shortText(c.opt("emotion"),160);
         if(!known(before,from)||!known(before,to)||from.equals(to))
           throw new IllegalArgumentException("narrative_relationship_unknown_actor");
+        if(!present(before,from))continue;
         String key=from+">"+to;
         if(!relations.has(key)&&relations.length()>=MAX_RELATIONS)
           throw new IllegalArgumentException("narrative_relationship_limit");
@@ -331,6 +380,7 @@ public final class NarrativePolicy {
       }
       currentFlags.put(RELATIONS,relations);
     }
+    checkBudget(currentFlags);
   }
 
   // Resolve identity independently of presence; recollection never spawns a follower.
@@ -375,11 +425,16 @@ public final class NarrativePolicy {
   /** A completed travel removes the scene from the projected UI state. */
   public static JSONObject afterTravel(JSONObject state){
     JSONObject flags=state.optJSONObject("flags");
-    if (flags != null && scoped(state) == null) flags.remove(MEMORY);
+    if (flags != null && flags.has(MEMORY) && scoped(state) == null) {
+      flags.remove(MEMORY);
+      flags.remove(SEEN);
+    }
     if (flags != null) {
       JSONObject history=flags.optJSONObject(HISTORY);
-      if (history != null && !visit(state).equals(history.optString("visit","~")))
+      if (history != null && (visit(state).isEmpty() || !visit(state).equals(history.optString("visit","~")))) {
         flags.remove(HISTORY);
+        flags.remove(SEEN);
+      }
     }
     return state;
   }
@@ -398,7 +453,7 @@ public final class NarrativePolicy {
     JSONObject persistedFlags = new JSONObject(world.optString("flagsJson", "{}"));
     // Only our four owned fields are projected back. All Core flags remain
     // authoritative, especially receipts, continuity, survivor and world loot.
-    for (String key : new String[] {MEMORY, RELATIONS, HISTORY, SEEN}) {
+    for (String key : new String[] {MEMORY, RELATIONS, HISTORY, SEEN, SCHEMA}) {
       if (uiFlags.has(key)) persistedFlags.put(key, uiFlags.get(key));
       else persistedFlags.remove(key);
     }
@@ -409,6 +464,7 @@ public final class NarrativePolicy {
         com.rabpit.backroom.core.GameStateCodec.INSTANCE.decode(actual.toString());
     facade.restoreInventoryUse(decoded);
     ui.put("flags", persistedFlags);
+    ui.put("coreSnapshot",new JSONObject(facade.currentCoreState()));
   }
 
   /** Shared travel-commit boundary for narration, local rules and combat. */
@@ -434,6 +490,8 @@ public final class NarrativePolicy {
       "Chỉ ghi actors cho nhân vật đang trực tiếp hiện diện trong cảnh đã được Core xác nhận. "+
       "Nhân vật chỉ được nhắc lại trong ký ức hoặc đang thất lạc không thuộc actors; có thể ghi vào summary. "+
       "Khi nhắc nhân vật vắng mặt trong reply hoặc summary, phải thể hiện rõ đây là hồi tưởng, suy nghĩ, tìm kiếm hoặc điều chưa biết; không kể họ hiện diện hay đối thoại trực tiếp. "+
+      "Chỉ ghi ký ức mới qua narrativeDelta; flags phải để trống. Tóm tắt cuộc gặp đã khép được giữ riêng trong narrativeLevelMemory.closedScenes. "+
+      "Khi đã đủ 12 cuộc gặp đã khép trong lần ghé Level, không mở thêm One-Time NPC; vẫn kể hành động và hội thoại với nhân vật đang hiện diện. Không loại ký ức cuộc gặp cũ để lấy chỗ. "+
       "Hãy xuất thêm narrativeDelta:null nếu không có thay đổi cần nhớ; "+
       "khi có, chỉ dùng {summary:string,actors:[{name,id?,aliasOf?,emotion,belief,intent}],closed:boolean,relationships:[{from,to,emotion}]}. "+
       "summary tối đa 600 ký tự, actors tối đa 6; relationship phải dùng ID nhân vật canon đã biết, "+

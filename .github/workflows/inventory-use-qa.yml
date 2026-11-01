@@ -62,6 +62,7 @@ jobs:
             build/playable-live-turn.png
             build/playable-live-narrative.png
             build/narrative-gate-probe.json
+            build/live-narrative-review.json
           if-no-files-found: ignore
   android:
     runs-on: ubuntu-24.04

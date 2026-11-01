@@ -35,6 +35,7 @@ globalThis.fetch=async(url,options)=>{
  return new Response(JSON.stringify({candidates:[{content:{parts:[{text:JSON.stringify({itemUseRequest:null,reply:'Cao Minh quan sát những dấu vết trước mặt rồi tiếp tục kiểm tra khu vực.',entityPreview:'Một tiếng động khe khẽ vang lên từ phía xa.'})}]}}]}),{status:200});
 };
 function call(name,...args){return JSON.parse(__webGame.call(name,...args));}
+const watchdog=setTimeout(()=>{console.error('Engine checks did not complete');process.exit(1);},30000);
 (async()=>{
  assert.equal(__webGame.bootError,null);
  assert.equal(state.turn,1);assert.ok(state.levelTravel.runId);assert.ok(state.coreSnapshot);
@@ -196,5 +197,5 @@ function call(name,...args){return JSON.parse(__webGame.call(name,...args));}
   console.log('PASS: fourth success no-clips once; save/load, duplicate turns and meta actions preserve travel state');
  }finally{Math.random=originalRandom;}
  console.log('Engine gameplay checks passed.');
-})().catch(error=>{console.error(error);process.exit(1);});
+})().catch(error=>{console.error(error);process.exit(1);}).finally(()=>clearTimeout(watchdog));
 

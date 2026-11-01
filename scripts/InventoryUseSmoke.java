@@ -176,7 +176,7 @@ public final class InventoryUseSmoke {
     JSONObject world = snapshot.getJSONObject("world");
     JSONObject nativeFlags = new JSONObject(world.getString("flagsJson"));
     check(!nativeFlags.has("narrativeScene"), "Native Core save kept expired NPC memory");
-    check(nativeFlags.has("narrativeSeen"), "Native Core lost One-Time identity markers");
+    check(!nativeFlags.has("narrativeSeen"), "Native Core retained old-visit NPC identity markers");
     check(!new JSONObject(world.getString("levelTravelUi")).getJSONObject("flags").has("narrativeScene"),
         "Native UI save retained expired scene");
     // Even a valid prose response cannot mutate Core-owned character, Party or loot.

@@ -47,14 +47,37 @@ const watchdog=setTimeout(()=>{console.error('Narrative gate did not complete');
  reply='Cao Minh nhớ lại Lục Trầm, hắn vẫn chưa biết nàng ở đâu.';
  await turn('Cao Minh hồi tưởng về Lục Trầm.');
  findings.push({name:'absent_canon_without_optional_id',ok:errors.length===0,error:errors,turn:state.turn});
- fresh();
+ fresh();const beforeFake=snapshot();
  delta={actors:[{name:'Lục Trầm',id:'luc-tram'}],summary:'Lục Trầm đã gặp lại Cao Minh.'};
  reply='Lục Trầm bước tới trước mặt Cao Minh và nắm tay hắn.';
  await turn('Cao Minh nhìn quanh hành lang.');
- findings.push({name:'prose_forged_reunion_with_absent_metadata',ok:errors.length>0,errors,committed:state.turn>1});
- fresh();delta=null;reply='Lục Trầm bước tới trước mặt Cao Minh và nắm tay hắn.';
+ findings.push({name:'prose_forged_reunion_with_absent_metadata',ok:errors.length>0&&JSON.stringify(snapshot())===JSON.stringify(beforeFake),errors,committed:state.turn>1});
+ fresh();const beforeNoDelta=snapshot();delta=null;reply='Lục Trầm bước tới trước mặt Cao Minh và nắm tay hắn.';
  await turn('Cao Minh nhìn quanh hành lang.');
- findings.push({name:'prose_forged_reunion_without_metadata',ok:errors.length>0,errors,committed:state.turn>1});
+ findings.push({name:'prose_forged_reunion_without_metadata',ok:errors.length>0&&JSON.stringify(snapshot())===JSON.stringify(beforeNoDelta),errors,committed:state.turn>1});
+ for(const text of ['Cao Minh không do dự khi Lục Trầm bước tới trước mặt hắn.',
+     'Cao Minh nhớ Lục Trầm nhưng bỗng Lục Trầm đứng ngay trước mặt hắn.',
+     'Lục Trầm đứng cạnh hắn và không biết hắn ở đâu.']) {
+   fresh();const before=snapshot();reply=text;
+   await turn('Cao Minh lắng nghe tiếng đèn.');
+   findings.push({name:'reference_cues_cannot_authorize_present_tense_reunion',ok:errors.length>0&&JSON.stringify(before)===JSON.stringify(snapshot()),errors});
+ }
+ fresh();const summaryBefore=snapshot();delta={summary:'Lục Trầm đã gặp lại Cao Minh.'};
+ await turn('Cao Minh lắng nghe tiếng đèn.');
+ findings.push({name:'summary_cannot_persist_fabricated_reunion',ok:errors.length>0&&JSON.stringify(summaryBefore)===JSON.stringify(snapshot()),errors});
+ fresh();const unknownBefore=snapshot();
+ delta={actors:[{name:'Người không có thật',id:'unregistered-npc'}]};
+ await turn('Cao Minh quan sát hành lang.');
+ findings.push({name:'unknown_id_cannot_bypass_encounter_validation',ok:errors.some(e=>e.includes('narrative_actor_unknown_id'))&&JSON.stringify(snapshot())===JSON.stringify(unknownBefore),errors});
+ fresh();const storageBefore=snapshot(),durableBefore=store.get('backrooms-web-core-v1');
+ const setItem=localStorage.setItem;
+ localStorage.setItem=(k,v)=>{if(k==='backrooms-web-core-v1')throw new Error('fixture_storage_failure');setItem(k,v);};
+ await turn('Cao Minh quan sát hành lang.');localStorage.setItem=setItem;
+ findings.push({name:'persistence_failure_preserves_core_and_durable_save',ok:errors.some(e=>e.includes('fixture_storage_failure'))&&JSON.stringify(snapshot())===JSON.stringify(storageBefore)&&store.get('backrooms-web-core-v1')===durableBefore,errors});
+ fresh();const persistedBefore=store.get('backrooms-web-core-v1'),fetchBefore=fetch;let stagedWrites=false;
+ fetch=async(...args)=>{stagedWrites=store.get('backrooms-web-core-v1')!==persistedBefore;return fetchBefore(...args);};
+ await turn('Cao Minh quan sát hành lang.');fetch=fetchBefore;
+ findings.push({name:'intermediate_core_is_not_persisted_before_model_acceptance',ok:!stagedWrites,errors});
  fresh();
  backroomTurn=raw=>{state=JSON.parse(raw);throw new Error('fixture_ui_delivery_failure');};
  await turn('Cao Minh lắng nghe tiếng đèn.');

@@ -81,7 +81,7 @@ public final class NativeGameplaySmoke {
     writes=0;
   }
   static void turn(String raw) throws Exception {
-    try {gameplay.invoke(bridge,"EXECUTE",raw,"Cao Minh lắng nghe tiếng đèn.");}
+    try {gameplay.invoke(bridge,entitySuccess?"EXPLORE":"EXECUTE",raw,"Cao Minh lắng nghe tiếng đèn.");}
     catch(InvocationTargetException e) {error="uncaught:"+e.getCause();}
   }
   public static String generate(String text) throws Exception {
@@ -150,7 +150,12 @@ public final class NativeGameplaySmoke {
     gameplay=bridge.getClass().getDeclaredMethod("lambda$submitGameplayAction$2",String.class,String.class,String.class);gameplay.setAccessible(true);
     fresh();int turn=state.getInt("turn");turn(state.toString());
     check(error==null&&state.getInt("turn")==turn+1,"native full GM pipeline commits accepted turn");
+    check(writes==1,"native turn writes one accepted durable Core snapshot");
     check(prompt.contains("NARRATIVE SCENE RULES"),"native provider receives shared narrative contract");
+    fresh();answer.put("reply","Cao Minh nhớ lại Lục Trầm đang thất lạc.")
+        .put("narrativeDelta",new JSONObject().put("actors",new JSONArray().put(new JSONObject().put("name","Lục Trầm").put("emotion","lo lắng"))));
+    turn=state.getInt("turn");turn(state.toString());
+    check(error==null&&state.getInt("turn")==turn+1,"native absent canon metadata without optional ID remains a recollection");
     fresh();String before=snapshot();transportFailure=true;turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native transport failure restores exact Core snapshot");
     fresh();before=snapshot();answerRaw="{broken";turn(state.toString());
@@ -195,6 +200,26 @@ public final class NativeGameplaySmoke {
     String outside=state.getJSONObject("levelTravel").getString("nodeId");
     state=new JSONObject((String)call("resumeLevelGame",new Class<?>[]{String.class,boolean.class},state.toString(),true));
     check(outside.equals(state.getJSONObject("levelTravel").getString("nodeId")),"native existing nonzero-Level save remains in place");
+    fresh();String marker="GATE_ONLY_TEMPORARY_NPC_OUTCOME";
+    Class<?> narrative=loader.loadClass("backrooms.NarrativePolicy");
+    JSONObject withScene=new JSONObject(state.toString());
+    narrative.getMethod("apply",JSONObject.class,JSONObject.class,JSONObject.class,JSONObject.class)
+        .invoke(null,withScene,state,new JSONObject().put("narrativeDelta",new JSONObject().put("summary",marker)
+            .put("actors",new JSONArray().put(new JSONObject().put("name","Người vợ")))) ,
+            new JSONObject().put("survivor",new JSONObject().put("success",true)));
+    withScene.getJSONArray("log").put(new JSONObject().put("role","gm").put("text",marker));
+    narrative.getMethod("persistCommitted",facadeType,JSONObject.class).invoke(null,facade,withScene);
+    state=withScene;turn(state.toString());
+    check(prompt.contains(marker),"native full request retains current-visit NPC memory");
+    draw=0;
+    for(int i=0;i<4;i++) {
+      JSONObject candidate=new JSONObject(state.toString()).put("turn",state.getInt("turn")+1);
+      state=new JSONObject((String)call("finishLevelTurn",new Class<?>[]{String.class,String.class,String.class},state.toString(),candidate.toString(),"Khám phá"));
+    }
+    draw=0.61;turn(state.toString());
+    JSONObject savedWorld=new JSONObject(snapshot()).getJSONObject("world");
+    check(!prompt.contains(marker)&&!savedWorld.getString("flagsJson").contains(marker),"native full request and saved flags expire temporary NPC memory after travel");
+    check(savedWorld.getString("levelTravelUi").contains(marker),"native readable journal retains archived scenes after travel");
     System.out.println("NATIVE_GATE_RESULT: "+new JSONObject().put("failures",failed).put("controlledIO",true));
     Field io=activity.getClass().getDeclaredField("io");io.setAccessible(true);
     ((java.util.concurrent.ExecutorService)io.get(activity)).shutdownNow();

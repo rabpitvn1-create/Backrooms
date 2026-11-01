@@ -11,6 +11,11 @@ Note: Android `classes*.dex` are compiled bytecode, not the original Kotlin/Java
 
 ## Item use
 
+Architecture changes follow the user-supplied [architecture audit](docs/architecture/ARCHITECTURE_AUDIT.md).
+The attached [implementation gate report](docs/architecture/BACKROOMS_IMPLEMENTATION_GATE_REPORT.md)
+is preserved as historical evidence. Its original blocked status is not a claim
+that subsequent builds have passed; use the PR's reproducible runtime evidence.
+
 Items can be used only by opening their Inventory detail and pressing `Dùng`.
 Text commands are interpreted by the GM, which returns `itemUseRequest` with
 a registered item ID, or `null` for ordinary narration. A verified request shows

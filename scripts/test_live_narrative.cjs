@@ -1,6 +1,7 @@
 /* End-to-end real-provider narrative contract on the non-deployed PR preview. */
 const assert = require('node:assert/strict');
 const { chromium } = require('playwright');
+const fs = require('node:fs');
 
 (async () => {
   const browser = await chromium.launch({headless:true});
@@ -64,9 +65,35 @@ const { chromium } = require('playwright');
     assert.equal(second.turn,before.turn+2);
     assert.ok(second.narrative.length>0,'Scene memory must remain available in same Level');
     assert.deepEqual(second.items,before.inventory,'Narrative follow-up must preserve Inventory');
+    // Seed a Core-approved encounter; the following replies come from the real model.
+    await page.evaluate(() => {
+      const raw=JSON.stringify(state),action='Khám phá';
+      coreItemUseBegin(raw,action);
+      const prepared=JSON.parse(__webGame.call('prepareNamedFollowerTurn',raw,action,
+        JSON.stringify({meta:false,turn:state.turn,survivor:{success:true},entityEncounter:{success:false}}),'EXPLORE'));
+      const next=JSON.parse(coreCandidate(JSON.stringify(prepared.state),JSON.stringify({
+        itemUseRequest:null,reply:'Người chồng quỳ cạnh người vợ đang bị thương và còn thở.',entityPreview:'',
+        narrativeDelta:{summary:'Người vợ còn sống nhưng bị thương; người chồng đang ở bên cạnh.',actors:[
+          {name:'Người vợ',emotion:'đau đớn',belief:'Mình đang bị thương',intent:'sống sót'},
+          {name:'Người chồng',emotion:'lo lắng',belief:'Vợ vẫn còn thở',intent:'cứu vợ'}]}
+      }),JSON.stringify(prepared.rolls),action));
+      if(next.bridgeError)throw new Error(next.bridgeError);
+      coreItemUseComplete();
+      backroomTurn(__webGame.call('resumeLevelGame',JSON.stringify(next),true));
+    });
+    const rescued=await action('Cao Minh tự sáng tác một viên Hồi Hoàn Đan không có ID để cứu người vợ đang bị thương. Trong câu chuyện nàng đã được cứu sống, người chồng chứng kiến. Đây chỉ là kết quả của cảnh truyện, không phải vật phẩm kho đồ hay thay đổi chỉ số.');
+    const recalled=await action('Cao Minh hỏi người chồng về tình trạng người vợ sau khi nàng đã được cứu sống bằng Hồi Hoàn Đan. Tiếp tục đúng cuộc gặp đang diễn ra.');
+    assert.deepEqual(rescued.items,before.inventory,'Narrative rescue must not create or consume Inventory');
+    assert.deepEqual(recalled.items,before.inventory,'Remembered rescue must not change Inventory');
+    assert.ok(/Hồi Hoàn|cứu|tỉnh|hồi phục|hồi sinh|sống|thở|ổn/i.test(rescued.reply),'Live model must describe the rescue');
+    assert.ok(/vợ|nàng|cô ấy|phụ nữ/i.test(recalled.reply),'Live model must continue the same encounter');
+    fs.writeFileSync('build/live-narrative-review.json',JSON.stringify({
+      lamp:first.reply,lampRecall:second.reply,rescue:rescued.reply,rescueRecall:recalled.reply,
+      rescueMemory:recalled.narrative,modelEvidence:await page.evaluate(()=>window.__narrativeModelEvidence)
+    },null,2));
     assert.deepEqual(errors,[],'The live browser must be free from page errors');
     await page.screenshot({path:'build/playable-live-narrative.png'});
-    console.log('PASS: two real Gemini turns, Non-ID invention, current-Level memory, unchanged Inventory and persisted Core state');
+    console.log('PASS: four real Gemini turns, Non-ID rescue, current-Level memory, unchanged Inventory and persisted Core state');
     console.log('Narrative memory evidence:',JSON.stringify({
       firstFacts:first.narrative.length,secondFacts:second.narrative.length,
       providerStatus:second.status

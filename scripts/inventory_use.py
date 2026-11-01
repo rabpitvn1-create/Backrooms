@@ -104,6 +104,8 @@ def patch_facade(text):
     invoke-static {{ }}, {POLICY}->cancel()V
     invoke-virtual {{ p0, p1, p2 }}, {FACADE}->{name}TransactionLegacy(Ljava/lang/String;Z)Ljava/lang/String;
     move-result-object v0
+    invoke-static {{ p0, v0 }}, {NARRATIVE}->finishAndPersist({FACADE}Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
     return-object v0
 .end method
 """
