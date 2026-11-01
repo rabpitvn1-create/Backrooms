@@ -114,6 +114,10 @@ def patch_bridge(text):
     body = replace_once(body, marker, "  :inventory_use_local_error\n" + marker)
     marker = '  .line 1254\n  .local v0, "e":Ljava/lang/Exception;'
     body = replace_once(body, marker, marker + f"\n    invoke-static {{ }}, {POLICY}->cancel()V")
+    # The checkpoint must survive all post-classification checks. Every normal
+    # method return ends the transaction; the exception handler cancels first.
+    completion = "    invoke-static { }, " + POLICY + "->complete()V\\n"
+    body = body.replace("    return-void", completion + "    return-void")
     return text[:start] + body + text[end:]
 
 
