@@ -1,0 +1,30 @@
+name: Narrative architecture verification
+on:
+  pull_request:
+    paths:
+      - 'engine/**'
+      - 'pages/**'
+      - 'scripts/**'
+      - 'web/knowledge/level_travel_policy.json'
+      - '.github/workflows/narrative-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Inspect native gameplay bridge without modifying original DEX
+        run: python3 scripts/narrative_native_discovery.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: narrative-native-evidence
+          path: build/native-inspect.txt
+          if-no-files-found: error
