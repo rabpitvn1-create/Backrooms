@@ -117,14 +117,14 @@
     check(window.coreItemUseBegin(raw, action));
     try {
       let result = object('processLevelAction', raw, action);
-      if (result.handled) { emit('backroomTurn', result.state); return; }
+      if (result.handled) { emit('backroomTurn', result.state); window.coreItemUseComplete(); return; }
       let before = result.state;
       result = object('processWorldPickup', JSON.stringify(before), action);
-      if (result.handled) { emit('backroomTurn', result.state); return; }
+      if (result.handled) { emit('backroomTurn', result.state); window.coreItemUseComplete(); return; }
       result = object('processNamedFollowerRule', JSON.stringify(before), action);
       if (result.handled) {
         const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
-        emit('backroomTurn', next); return;
+        emit('backroomTurn', next); window.coreItemUseComplete(); return;
       }
       const meta = window.coreMeta(action);
       if (!meta) {
@@ -144,13 +144,14 @@
       if (meta) {
         const next = structuredClone(before);
         next.log = [...(next.log || []), { role: 'player', text: action }, { role: 'gm', text: 'Đây là lượt tra cứu. Trạng thái và lượt chơi không thay đổi.' }];
-        emit('backroomTurn', next); return;
+        emit('backroomTurn', next); window.coreItemUseComplete(); return;
       }
       const prompt = check(window.corePrompt(JSON.stringify(before), action, JSON.stringify(rolls)));
       const generated = await generate(prompt);
       const next = JSON.parse(check(window.coreCandidate(JSON.stringify(before), JSON.stringify(generated), JSON.stringify(rolls), action)));
       persist();
       emit('backroomTurn', next);
+      window.coreItemUseComplete();
     } catch (error) {
       window.coreItemUseCancel();
       persist();
