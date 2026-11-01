@@ -126,11 +126,15 @@ def patch_bridge(text):
     # Two scratch registers keep the original state while constructing a scoped prompt.
     # The prompt builder uses low register v11; high registers are only used by move/from16.
     body = replace_once(body, ".registers 53", ".registers 55")
+    # ART verifies control-flow register types across exception edges. Define v50
+    # immediately when the authoritative state is created, before any prompt branch.
+    original_state = '  .local v11, "before":Lorg/json/JSONObject;'
+    body = replace_once(body, original_state, original_state +
+        "\n    move-object/from16 v50, v11")
     marker = "  :L23\n  .line 1092"
     body = replace_once(body, marker, marker +
         f"\n    invoke-static {{ v11 }}, {NARRATIVE}->promptView(Lorg/json/JSONObject;)Lorg/json/JSONObject;\n"
         "    move-result-object v49\n"
-        "    move-object/from16 v50, v11\n"
         "    move-object/from16 v11, v49")
     # Restore the real state before receiving and committing the generated candidate.
     body = replace_once(body, '  .line 1187\n  .local v0, "generated":Lorg/json/JSONObject;',
