@@ -43,7 +43,8 @@ function near(actual,expected,label,tolerance=2){
    const frame=wide?page.frame({name:'backrooms-mobile'}):page;
    assert.ok(frame,'Mobile browsing context is required');
    await frame.waitForFunction(()=>document.documentElement.dataset.webMode==='playable' &&
-     typeof state!=='undefined' && state.coreSnapshot,null,{timeout:30000});
+     typeof state!=='undefined' && state.coreSnapshot &&
+     document.readyState!=='loading' && window.backroomMobileHud,null,{timeout:30000});
    const layout=await frame.evaluate(()=>{
      function box(selector){
        const r=document.querySelector(selector).getBoundingClientRect();

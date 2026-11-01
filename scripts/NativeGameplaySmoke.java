@@ -81,7 +81,8 @@ public final class NativeGameplaySmoke {
     writes=0;
   }
   static void turn(String raw) throws Exception {
-    try {gameplay.invoke(bridge,entitySuccess?"EXPLORE":"EXECUTE",raw,"Cao Minh lắng nghe tiếng đèn.");}
+    try {gameplay.invoke(bridge,entitySuccess?"EXPLORE":"EXECUTE",raw,
+        entitySuccess?"Cao Minh khám phá hành lang.":"Cao Minh lắng nghe tiếng đèn.");}
     catch(InvocationTargetException e) {error="uncaught:"+e.getCause();}
   }
   public static String generate(String text) throws Exception {
@@ -168,7 +169,7 @@ public final class NativeGameplaySmoke {
       state=new JSONObject((String)call("finishLevelTurn",new Class<?>[]{String.class,String.class,String.class},state.toString(),candidate.toString(),"Khám phá"));
     }
     before=snapshot();entitySuccess=true;draw=0.61;turn(state.toString());
-    check(error!=null&&before.equals(snapshot()),"native missing entity preview restores exact Core snapshot");
+    check(error!=null&&error.contains("entity_preview_missing")&&before.equals(snapshot()),"native missing entity preview restores exact Core snapshot");
     fresh();before=snapshot();answer.put("narrativeDelta",new JSONObject().put("actors",new JSONArray().put(new JSONObject().put("name","Người lạ"))));turn(state.toString());
     check(error!=null&&before.equals(snapshot()),"native invalid encounter metadata restores exact Core snapshot");
     fresh();before=snapshot();answer.put("reply","Lục Trầm bước tới trước mặt Cao Minh và nắm tay hắn.")
