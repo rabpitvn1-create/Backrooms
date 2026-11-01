@@ -193,6 +193,7 @@ def package(config, output):
         "assets/characters/manifest.json": (
             ROOT / "web/characters/manifest.json").read_bytes(),
         "assets/knowledge/KeyCanon.json": (ROOT / "web/knowledge/KeyCanon.json").read_bytes(),
+        "assets/knowledge/level_travel_policy.json": (ROOT / "web/knowledge/level_travel_policy.json").read_bytes(),
         "assets/item-detail-actions.js": (ROOT / "web/item-detail-actions.js").read_bytes(),
         "assets/inventory-use-notice.js": (ROOT / "web/inventory-use-notice.js").read_bytes(),
     }
