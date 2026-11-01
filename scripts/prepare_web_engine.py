@@ -68,7 +68,8 @@ def prepare():
                     if name.startswith("com/rabpit/backroom/core/") and name.endswith(".class"):
                         converted = browser_compat_class(z.read(name))
                         # The shared original DEX is now patched once in inventory_use.patched_dex.
-                        if name == 'com/rabpit/backroom/core/LevelTravelEngine.class':
+                        if name in ('com/rabpit/backroom/core/LevelTravelEngine.class',
+                                    'com/rabpit/backroom/core/GameCoreFacade.class'):
                             out.writestr(name, converted)
                         else:
                             out.writestr(name, level_travel.patch(name, converted))
