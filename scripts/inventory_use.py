@@ -16,6 +16,7 @@ HASHES = {
 }
 FACADE = "Lcom/rabpit/backroom/core/GameCoreFacade;"
 POLICY = "Lbackrooms/InventoryUsePolicy;"
+NARRATIVE = "Lbackrooms/NarrativePolicy;"
 
 
 def run(main, *args):
@@ -84,12 +85,24 @@ def patch_bridge(text):
     start = text.index(".method private synthetic lambda$submitGameplayAction$2(")
     end = text.index(".end method", start)
     body = text[start:end]
+    # Native method uses 53 registers; increase by one for a separate prompt view.
+    body = replace_once(body, ".registers 53", ".registers 54")
+    marker = "  :L23\\n  .line 1092"
+    body = replace_once(body, marker, marker +
+        f"\\n    invoke-static {{ v11 }}, {NARRATIVE}->promptView(Lorg/json/JSONObject;)Lorg/json/JSONObject;\\n"
+        "    move-result-object v49")
+    # Read the scoped copy only in prompt construction; original state still commits.
+    begin = body.index("    move-result-object v49") + len("    move-result-object v49")
+    end_prompt = body.index("  .line 1185", begin)
+    body = body[:begin] + body[begin:end_prompt].replace("v11", "v49") + body[end_prompt:]
     call = f"    invoke-virtual {{ v10, v11, v3 }}, {FACADE}->processLevelAction(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
     body = replace_once(body, call,
         f"    invoke-static {{ v10, v11, v3 }}, {POLICY}->begin({FACADE}Ljava/lang/String;Ljava/lang/String;)V\n" + call)
     marker = "  .line 1185\n    iget-object v7, v1, Lcom/rabpit/backroom/MainActivity$GameBridge;->this$0:Lcom/rabpit/backroom/MainActivity;"
     body = replace_once(body, marker,
-        f"    invoke-static {{ v2 }}, {POLICY}->appendPrompt(Ljava/lang/String;)Ljava/lang/String;\n"
+        f"    invoke-static {{ v2 }}, {NARRATIVE}->guidelines(Ljava/lang/String;)Ljava/lang/String;\\n"
+        "    move-result-object v2\\n"
+        f"    invoke-static {{ v2 }}, {POLICY}->appendPrompt(Ljava/lang/String;)Ljava/lang/String;\\n"
         "    move-result-object v2\n" + marker)
     marker = "  .line 1187\n  .local v0, \"generated\":Lorg/json/JSONObject;"
     body = replace_once(body, marker, marker + f"""
@@ -102,6 +115,13 @@ def patch_bridge(text):
     return-void
   :inventory_use_continue
 """)
+    # Validated narrative state is written before the authoritative Core commit.
+    body = replace_once(body, "  .line 1230\\n    if-nez v30, :L81",
+        f"  .line 1230\\n    invoke-static {{ v5, v11, v0, v9 }}, {NARRATIVE}->apply(Lorg/json/JSONObject;Lorg/json/JSONObject;Lorg/json/JSONObject;Lorg/json/JSONObject;)V\\n"
+        "    if-nez v30, :L81")
+    body = replace_once(body, "  .line 1252\\n",
+        f"  .line 1252\\n    invoke-static {{ v5 }}, {NARRATIVE}->afterTravel(Lorg/json/JSONObject;)Lorg/json/JSONObject;\\n"
+        "    move-result-object v5\\n")
     # The named-follower branch already has this guard; match its behavior for local rules.
     marker = '  .local v0, "localState":Lorg/json/JSONObject;'
     body = replace_once(body, marker, marker + """
@@ -168,7 +188,8 @@ def helper_dex(core_dex):
     classes.mkdir(exist_ok=True)
     subprocess.run(["java", "com.sun.tools.javac.Main", "-source", "8", "-target", "8", "-encoding", "UTF-8",
                     "-cp", ":".join([str(jar), *dependencies]), "-d", str(classes),
-                    str(ROOT / "engine/src/main/java/backrooms/InventoryUsePolicy.java")], check=True)
+                    str(ROOT / "engine/src/main/java/backrooms/InventoryUsePolicy.java"),
+                    str(ROOT / "engine/src/main/java/backrooms/NarrativePolicy.java")], check=True)
     output = TOOLS / "inventory-policy.dex"
     policy_jar = TOOLS / "inventory-policy.jar"
     with ZipFile(policy_jar, "w") as archive:
