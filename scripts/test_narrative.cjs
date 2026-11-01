@@ -128,6 +128,14 @@ function fresh(){
     assert.equal(next.levelTravel.exitStreak,0);
     const afterTravelPrompt=core.corePrompt(JSON.stringify(next),'Cao Minh suy nghĩ',JSON.stringify({meta:false,turn:next.turn}));
     assert.ok(!afterTravelPrompt.includes(scopedMarker),'one-time memory cannot reach GM after no-clip');
+    const persistedTravel=JSON.parse(Android.levelCoreSnapshot());
+    const persistedFlags=JSON.parse(persistedTravel.world.flagsJson);
+    const persistedUi=JSON.parse(persistedTravel.world.levelTravelUi);
+    assert.equal(persistedFlags.narrativeScene,undefined,'Core save must not retain expired NPC scene');
+    assert.equal(persistedFlags.narrativeLevelMemory,undefined,'Core save must not retain expired Level facts');
+    assert.equal(persistedUi.flags.narrativeScene,undefined,'saved UI projection must forget NPC scene');
+    assert.ok((persistedFlags.narrativeSeen||[]).includes('người vợ'),'NPC identity marker survives without retaining biography');
+    console.log('PASS: authoritative Core snapshot no longer stores expired scene and Level memory');
     console.log('PASS: One-Time NPC memory expires when leaving the Level');
     Math.random=()=>0.61;
 
