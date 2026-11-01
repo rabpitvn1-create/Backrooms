@@ -127,6 +127,18 @@ const {chromium}=require('playwright');
   assert.equal(await page.locator('.demon-aura,.sword-charging,.sword-flying').count(),0);
   assert.equal(await page.evaluate(()=>backroomDemonSword.isAttacking()),false);
   assert.equal(await page.evaluate(()=>__swordProbe.contacts.length),0,'Cancelled encounter cannot reveal a stale hit');
+  // A new wave must not inherit the previous Entity sprite's shattered opacity.
+  const wave=await page.evaluate(()=>{
+    const old=document.querySelector('#snapshot .snapshot-entity');
+    if(!old)throw Error('Missing original Entity overlay');
+    old.style.opacity='0';
+    window.backroomSwitchCombatEntityWave(state.combat.entityKey||'hound');
+    const next=document.querySelector('#snapshot .snapshot-entity');
+    return {recreated:next!==old,visible:!!next&&next.style.opacity!=='0',count:document.querySelectorAll('#snapshot .snapshot-entity').length};
+  });
+  assert.deepEqual(wave,{recreated:true,visible:true,count:1},'New wave recreates the Entity overlay without its shattered state');
+  console.log('PASS Entity wave: overlay reset after a lethal shatter');
+
   assert.deepEqual(errors,[]);
   console.log('PASS sword: encounter cancellation cleans up and suppresses stale contact');
  }finally{await browser.close();}
