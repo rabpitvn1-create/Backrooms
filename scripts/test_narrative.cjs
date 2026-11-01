@@ -68,9 +68,17 @@ function fresh(){
     console.log('PASS: save/load preserves visit-scoped narrative memory');
 
     fresh();const before=snapshot(),originalTurn=state.turn;
-    delta={summary:'Invented encounter',actors:[{name:'Người lạ',emotion:'sợ hãi'}]};
-    await turn('Cao Minh quan sát bức tường.');
-    assert.ok(errors.some(e=>e.includes('narrative_unconfirmed_encounter')),errors.join(';'));
+    core.coreItemUseBegin(JSON.stringify(state),'Khám phá');
+    const denied=JSON.parse(__webGame.call('prepareNamedFollowerTurn',JSON.stringify(state),
+      'Khám phá',JSON.stringify({survivor:{success:false},entityEncounter:{success:false}}),'EXPLORE'));
+    assert.ok(denied.state&&denied.rolls,'Core must prepare negative survivor ticket');
+    const refused=JSON.parse(core.coreCandidate(JSON.stringify(denied.state),
+      JSON.stringify({itemUseRequest:null,reply:'Một người lạ bước tới.',entityPreview:'',
+        narrativeDelta:{summary:'Invented encounter',actors:[{name:'Người lạ',emotion:'sợ hãi'}]}}),
+      JSON.stringify(denied.rolls),'Khám phá'));
+    assert.ok(refused.bridgeError&&refused.bridgeError.includes('narrative_unconfirmed_encounter'),
+      'Core must reject a new NPC without successful survivor roll: '+JSON.stringify(refused).slice(0,150));
+    core.coreItemUseCancel();
     assert.deepEqual(snapshot(),before,'Rejected narrative delta must roll back Core');
     assert.equal(state.turn,originalTurn);
     console.log('PASS: GM cannot invent One-Time NPC without a Core encounter roll');
