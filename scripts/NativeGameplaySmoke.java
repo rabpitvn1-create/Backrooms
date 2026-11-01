@@ -106,7 +106,10 @@ public final class NativeGameplaySmoke {
   static void field(Object target,String name,Object value) throws Exception {
     Field f=target.getClass().getDeclaredField(name);f.setAccessible(true);f.set(target,value);
   }
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
+    try {run(args);} catch(Throwable e) {e.printStackTrace();System.exit(1);}
+  }
+  static void run(String[] args) throws Exception {
     System.out.println("NATIVE_GATE_STAGE: start");
     Looper.prepareMainLooper();
     System.out.println("NATIVE_GATE_STAGE: looper");
@@ -138,7 +141,8 @@ public final class NativeGameplaySmoke {
     System.out.println("NATIVE_GATE_STAGE: facade");
     Object activity=loader.loadClass("com.rabpit.backroom.MainActivity").getConstructor().newInstance();
     System.out.println("NATIVE_GATE_STAGE: activity");
-    Method attach=ContextWrapper.class.getDeclaredMethod("attachBaseContext",Context.class);attach.setAccessible(true);attach.invoke(activity,context);
+    // This headless Activity has no window/autofill services to attach.
+    Field base=ContextWrapper.class.getDeclaredField("mBase");base.setAccessible(true);base.set(activity,context);
     field(activity,"gameCore",facade);
     Constructor<?> diagnostic=loader.loadClass("com.rabpit.backroom.AppDiagnosticLog").getDeclaredConstructor(Context.class);diagnostic.setAccessible(true);
     field(activity,"diagnosticLog",diagnostic.newInstance(context));
