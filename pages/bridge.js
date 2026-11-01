@@ -5,8 +5,10 @@
   const CORE_KEY = 'backrooms-web-core-v1';
   const assets = window.BACKROOMS_ASSETS || {};
   const config = window.BACKROOMS_CONFIG || {};
-  // Proxy Cloudflare Worker giấu API key: game gọi Worker, Worker tự gắn key từ secret.
+  // API key nằm trên proxy server (secret); client chỉ gọi proxy, không gửi key.
   const PROXY_BASE_URL = 'https://backrooms-gemini-proxy.onrender.com';
+  // Premium provider (OpenAI-compatible) qua proxy riêng; đổi URL khi deploy xong.
+  const PREMIUM_PROXY_URL = 'https://backrooms-premium-proxy.onrender.com';
   const policy = assets['knowledge/level_travel_policy.json'];
   let chain = Promise.resolve(), bootError = null;
   let staging = false, session = 0;
@@ -76,12 +78,54 @@
       throw new Error('Game Master chưa trả về JSON hợp lệ. Lượt chưa được thay đổi.');
     }
   }
-  async function generate(prompt) {
+  
+    async function callPremium(prompt, failures) {
+      // Premium provider (OpenAI-compatible). Key + model nằm trên Render proxy;
+      // client chỉ POST /chat, không chạm tới key.
+      const slot = 'premium';
+      if ((cooldowns.get(slot) || 0) > Date.now()) return null;
+      emit('backroomProvider', 'Premium');
+      try {
+        const response = await fetch(PREMIUM_PROXY_URL + '/chat', {
+          method: 'POST', signal: AbortSignal.timeout(60000),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: prompt }],
+            temperature: 0.8,
+            max_tokens: 4096,
+            response_format: { type: 'json_object' },
+          }),
+        });
+      record({ kind: 'provider', alias: 'Premium', status: response.status });
+      const bodyText = await response.text().catch(()=> '');
+      if (!response.ok) {
+        failures.push(`Premium HTTP ${response.status} ${bodyText.slice(0,300)}`);
+        if ([403, 404, 429, 502].includes(response.status)) cooldowns.set(slot, Date.now() + (response.status === 429 ? 60000 : 300000));
+        return null;
+      }
+      const payload = JSON.parse(bodyText);
+      const text = payload.choices?.[0]?.message?.content || '';
+      const parsed = parseAnswer(text);
+      const itemRequest = Object.hasOwn(parsed, 'itemUseRequest') && parsed.itemUseRequest !== null;
+      if (!itemRequest && (typeof parsed.reply !== 'string' || !parsed.reply.trim())) throw new Error('Phản hồi chưa có lời kể.');
+      return parsed;
+      } catch (error) {
+      failures.push(`Premium: ${error.name === 'TimeoutError' ? 'hết thời gian chờ' : 'yêu cầu không hoàn tất'}`);
+      return null;
+      }
+    }  }
+
+        
+      async function generate(prompt) {
+    
     // API key nằm trên Cloudflare Worker (secret); client chỉ gọi proxy /gemini, không gửi key.
     const models = config.models || ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite'];
     const failures = [];
+    // Premium thử trước; Gemini proxy làm fallback khi premium fail hoặc đang cooldown.
+    const premium = await callPremium(prompt, failures);
+    if (premium) return premium;
     // Worker tự xoay vòng 6 key Gemini khi gặp 429; client chỉ fallback qua các model.
-    for (const model of models) {
+      for (const model of models) {
       const slot = `proxy:${model}`;
       if ((cooldowns.get(slot) || 0) > Date.now()) continue;
       emit('backroomProvider', `Gemini · ${model}`);
@@ -112,7 +156,7 @@
         failures.push(`Gemini ${model}: ${error.name === 'TimeoutError' ? 'hết thời gian chờ' : 'yêu cầu không hoàn tất'}`);
       }
     }
-    throw new Error('Gemini hiện chưa xử lý được lượt: ' + [...new Set(failures)].slice(-6).join('; ') + '. Có thể thử lại.');
+    throw new Error('Game Master hiện chưa xử lý được lượt: ' + [...new Set(failures)].slice(-6).join('; ') + '. Có thể thử lại.');
   }
   async function gameplay(raw, kind, action) {
     if (!['SEARCH', 'EXECUTE', 'EXPLORE'].includes(kind)) throw new Error('action_kind_invalid');
