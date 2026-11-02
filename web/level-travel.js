@@ -103,7 +103,7 @@
     // Mỗi lần mở game là new game mới — không tự load save cũ.
     // Người chơi bấm "Tải" trong menu thì window.load() sẽ restore save.
     // (Bỏ window.save() ở đây để không ghi đè save cũ ngay khi mở.)
-    state = JSON.parse(native.resumeLevelGame(JSON.stringify(initial), false));
+    state = JSON.parse(native.initializeLevelGame(JSON.stringify(initial), true));
     drawTravel();
     syncCombatDice();
     hideRecovery();
