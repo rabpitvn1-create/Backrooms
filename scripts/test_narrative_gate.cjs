@@ -50,6 +50,16 @@ const watchdog=setTimeout(()=>{console.error('Narrative gate did not complete');
 (async()=>{
  Math.random=()=>0.61;
  const findings=[];
+ fresh();const mentionTurn=state.turn;
+ reply='Không có tin tức mới về Lục Trầm, người vẫn đang thất lạc.';
+ await turn('Tìm kiếm');
+ findings.push({name:'absent_canon_mention_without_physical_encounter',
+   ok:errors.length===0&&state.turn===mentionTurn+1,errors});
+ fresh();
+ reply='Lục Trầm vẫn chưa hồi đáp, Cao Minh tiếp tục quan sát.';
+ await turn('Tìm kiếm');
+ findings.push({name:'absent_canon_no_reply_does_not_assert_presence',
+   ok:errors.length===0,errors});
  fresh();
  delta={actors:[{name:'Lục Trầm',emotion:'lo lắng'}],summary:'Nhớ Lục Trầm đang thất lạc.'};
  reply='Cao Minh nhớ lại Lục Trầm, hắn vẫn chưa biết nàng ở đâu.';
