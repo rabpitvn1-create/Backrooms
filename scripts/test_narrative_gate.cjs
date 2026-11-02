@@ -110,6 +110,16 @@ const watchdog=setTimeout(()=>{console.error('Narrative gate did not complete');
  fetch=async(...args)=>{const response=await originalFetch(...args);newRun=JSON.parse(Android.initializeLevelGame(JSON.stringify(initial),true)).levelTravel.runId;return response;};
  await turn('Cao Minh lắng nghe tiếng đèn.');fetch=originalFetch;
  findings.push({name:'new_game_during_model_response',ok:JSON.parse(snapshot().world.levelTravel).runId===newRun,expected:newRun,actual:JSON.parse(snapshot().world.levelTravel).runId,errors});
+ fresh();const coreTurn=state.turn,coreRun=state.levelTravel.runId;
+ state={...state,turn:coreTurn+2};
+ await turn('Quan sát');
+ const staleDetected=errors.some(e=>e.includes('stale_level_turn'));
+ const uiResynced=state.turn===coreTurn&&state.levelTravel.runId===coreRun;
+ errors=[];
+ await turn('Quan sát');
+ findings.push({name:'stale_ui_resync_allows_next_turn',
+   ok:staleDetected&&uiResynced&&errors.length===0&&state.turn===coreTurn+1,
+   staleDetected,uiResynced,errors});
  fs.writeFileSync('build/narrative-gate-probe.json',JSON.stringify(findings,null,2));
  if(findings.some(f=>!f.ok)&&!process.argv.includes('--probe'))process.exitCode=1;
  console.log(JSON.stringify(findings,null,2));
