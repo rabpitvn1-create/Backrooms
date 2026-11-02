@@ -76,7 +76,11 @@ const watchdog=setTimeout(()=>{console.error('Narrative gate did not complete');
  for(const text of ['Cao Minh nhớ Lục Trầm rồi Lục Trầm bất ngờ xuất hiện trước mặt hắn.',
      'Cao Minh không do dự khi Lục Trầm bước tới trước mặt hắn.',
      'Cao Minh nhớ Lục Trầm nhưng bỗng Lục Trầm đứng ngay trước mặt hắn.',
-     'Lục Trầm đứng cạnh hắn và không biết hắn ở đâu.']) {
+     'Lục Trầm đứng cạnh hắn và không biết hắn ở đâu.',
+     'Lục Trầm nói với Cao Minh rằng cả hai nên rời đi.',
+     'Lục Trầm đi bên cạnh Cao Minh qua hành lang.',
+     'Lục Trầm mỉm cười và vẫy tay với Cao Minh.',
+     'Lục Trầm nhìn Cao Minh ở cuối hành lang.']) {
    fresh();const before=snapshot();reply=text;
    await turn('Cao Minh lắng nghe tiếng đèn.');
    findings.push({name:'reference_cues_cannot_authorize_present_tense_reunion',ok:errors.length>0&&JSON.stringify(before)===JSON.stringify(snapshot()),errors});
