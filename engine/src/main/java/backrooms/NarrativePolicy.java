@@ -49,6 +49,43 @@ public final class NarrativePolicy {
 
   // A remembered/separated character is not evidence of a current encounter.
   private static void validateNarration(JSONObject state, JSONObject rolls, String text) {
+    // A new proper name in GM prose needs a Core-approved encounter, not
+    // merely a plausible backstory. Existing visit-scoped NPCs may be recalled.
+    java.util.regex.Matcher introduced=java.util.regex.Pattern.compile(
+        "(?iu:(?:người|cô|cậu|ông|bà|anh|chị|gã|hắn|nàng|bé|lữ khách|nhân vật|thiếu nữ|chàng trai|đứa trẻ))"
+        + "(?:\\s+\\p{L}+){0,5}\\s+"
+        + "(?iu:(?:tên|có tên|mang tên|được gọi là|tự xưng là))\\s+"
+        + "([\\p{Lu}][\\p{L}]*(?:\\s+[\\p{Lu}][\\p{L}]*){0,3})")
+        .matcher(text);
+    JSONObject scene=scoped(state);
+    JSONArray active=scene==null||scene.optBoolean("closed",false)
+        ? null : scene.optJSONArray("actors");
+    JSONObject flags=state.optJSONObject("flags");
+    JSONObject history=flags==null?null:flags.optJSONObject(HISTORY);
+    JSONArray closed=history!=null&&visit(state).equals(history.optString("visit","~"))
+        ? history.optJSONArray("closedScenes") : null;
+    JSONObject encounter=rolls.optJSONObject("survivor");
+    while(introduced.find()){
+      String name=introduced.group(1);
+      if(!canonActorId(state,name).isEmpty()
+          || (encounter!=null&&encounter.optBoolean("success",false)))continue;
+      boolean recognized=false;
+      if(active!=null)for(int i=0;i<active.length();i++){
+        JSONObject actor=active.optJSONObject(i);
+        if(actor!=null&&name.equalsIgnoreCase(actor.optString("name","")))
+          recognized=true;
+      }
+      if(closed!=null)for(int i=0;i<closed.length()&&!recognized;i++){
+        JSONObject past=closed.optJSONObject(i);
+        JSONArray actors=past==null?null:past.optJSONArray("actors");
+        if(actors!=null)for(int j=0;j<actors.length();j++){
+          JSONObject actor=actors.optJSONObject(j);
+          if(actor!=null&&name.equalsIgnoreCase(actor.optString("name","")))
+            recognized=true;
+        }
+      }
+      if(!recognized)throw new IllegalArgumentException("narrative_unconfirmed_named_npc");
+    }
     for (java.util.Map.Entry<String,String> actor : CANON.entrySet()) {
       if (authorized(state,rolls,actor.getKey())) continue;
       String name=actor.getValue().toLowerCase(java.util.Locale.ROOT);

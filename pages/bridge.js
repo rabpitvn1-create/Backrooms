@@ -176,8 +176,8 @@
   }
   async function gameplay(raw, kind, action) {
     if (!['SEARCH', 'EXECUTE', 'EXPLORE'].includes(kind)) throw new Error('action_kind_invalid');
-    if (/^\s*(?:cao minh\s+)?(?:đổi tên|đặt lại tên)\s+/iu.test(action))
-      throw new Error('NPC này chỉ xuất hiện một lần trong cảnh, không thể đổi tên.');
+    if (/(?:đổi\s+tên|đặt\s+lại\s+tên|đặt\s+tên\s+(?:mới|khác))(?:\s|$|[.,!?;:])/iu.test(action))
+      throw new Error('Không thể đổi tên nhân vật, vật phẩm hoặc địa danh qua hành động tự do.');
     const input = JSON.parse(raw);
     delete input.itemUseNotice;
     raw = JSON.stringify(input);

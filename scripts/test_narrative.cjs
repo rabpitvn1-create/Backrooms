@@ -70,6 +70,27 @@ const watchdog=setTimeout(()=>{console.error('Narrative checks did not complete'
     assert.equal(state.turn,aliasTurn+1);
     console.log('PASS: invalid NPC alias records full diagnostics, rolls back and remains retryable');
     fresh();
+    for(const invented of [
+      'Trong khoảng thời gian lang thang giữa các tầng lầu, gã từng gặp một cô gái nhỏ tên Phác Tiểu Yến, và một người đàn ông tên Phạm Hùng đã cùng nhau đi dọc hành lang vàng.',
+      'Một lữ khách có tên Phạm Hùng đứng trước Cao Minh.',
+      'Cô gái được gọi là Phác Tiểu Yến kể lại một câu chuyện.',
+      'Cao Minh quan sát. Người đàn ông mang tên Phạm Hùng đã biến mất.'
+    ]){
+      const coreBefore=snapshot(),uiBefore=structuredClone(state);
+      delta=null;reply=invented;errors=[];
+      await turn('Cao Minh quan sát hành lang.');
+      assert.ok(errors.some(e=>e.includes('narrative_unconfirmed_named_npc')),
+        'Reject unconfirmed named NPC even when narrativeDelta is absent: '+JSON.stringify(errors));
+      assert.deepEqual(snapshot(),coreBefore,'Rejected invented NPC cannot commit Core state');
+      assert.deepEqual(state,uiBefore,'Rejected invented NPC cannot advance turn');
+    }
+    fresh();
+    reply='Cao Minh nhận ra thanh kiếm tên Huyết Ma Kiếm trong hành trang.';
+    await turn('Cao Minh quan sát thanh kiếm.');
+    assert.deepEqual(errors,[],'An existing named object is not an invented named person');
+    console.log('PASS: Core rejects fabricated named people in prose without blocking named objects');
+
+    fresh();
     assert.equal(state.levelTravel.nodeId,'LEVEL.NODE.0','New Game must start at Level 0');
     const itemsBefore=structuredClone(snapshot().inventories);
     delta={summary:'Cao Minh dùng Hồi Hoàn Đan tự sáng tác để cứu người phụ nữ.'};
@@ -132,7 +153,7 @@ const watchdog=setTimeout(()=>{console.error('Narrative checks did not complete'
     const prepared=JSON.parse(__webGame.call('prepareNamedFollowerTurn',encounterBefore,lockedAction,JSON.stringify(requestedRolls),'EXPLORE'));
     assert.ok(prepared.state&&prepared.rolls,'prepareNamedFollowerTurn must return a plan');
     const encounterReply={
-      itemUseRequest:null,reply:'Người chồng nắm tay người vợ, cả hai vừa thoát chết.',
+      itemUseRequest:null,reply:'Người chồng nắm tay người vợ, cô gái tên Tô Mộc vừa thoát chết.',
       entityPreview:'',narrativeDelta:{
         summary:'Đôi vợ chồng vô danh được Cao Minh cứu sống.',
         actors:[{name:'Tô Mộc',emotion:'biết ơn',belief:'Mình đã được cứu',intent:'ở cạnh chồng'},
@@ -326,12 +347,19 @@ const watchdog=setTimeout(()=>{console.error('Narrative checks did not complete'
     const originalFetch=fetch;
     fetch=async()=>{throw new Error('Rename must not call Game Master');};
     try {
-      for(const action of ['Đổi tên Xích Lân thành Mặc Ảnh','Đổi tên Cao Minh thành Ma Tôn']){
+      for(const action of [
+        'Đổi tên Xích Lân thành Mặc Ảnh',
+        'Đổi tên Cao Minh thành Ma Tôn',
+        'Cao Minh quyết định đổi tên thanh Huyết Ma Kiếm thành Ma Huyết Kiếm cho oai hơn',
+        'Cao Minh muốn đổi tên hành lang vàng thành Thành Phố Bóng Tối',
+        'Cao Minh đặt lại tên địa danh Level 0 thành Ma Giới',
+        'Cao Minh đặt tên mới cho khu vực này'
+      ]){
         const beforeUi=structuredClone(state),beforeCore=snapshot();
         errors=[];
         await turn(action);
         assert.equal(errors.length,1,'Rename must be rejected without a GM request');
-        assert.match(errors[0],/NPC này chỉ xuất hiện một lần trong cảnh, không thể đổi tên\./);
+        assert.match(errors[0],/Không thể đổi tên nhân vật, vật phẩm hoặc địa danh qua hành động tự do\./);
         assert.deepEqual(state,beforeUi,'Rejected rename must preserve UI state and turn');
         assert.deepEqual(snapshot(),beforeCore,'Rejected rename must preserve Core state');
       }
