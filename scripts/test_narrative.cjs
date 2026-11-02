@@ -314,25 +314,28 @@ const watchdog=setTimeout(()=>{console.error('Narrative checks did not complete'
     const firstState=JSON.stringify(state);
     core.coreItemUseBegin(firstState,'Khám phá');
     const ticket={meta:false,turn:state.turn,survivor:{success:true},entityEncounter:{success:false}};
-    const preparedRename=JSON.parse(__webGame.call('prepareNamedFollowerTurn',firstState,
+    const preparedScene=JSON.parse(__webGame.call('prepareNamedFollowerTurn',firstState,
       'Khám phá',JSON.stringify(ticket),'EXPLORE'));
-    const encountered=JSON.parse(core.coreCandidate(JSON.stringify(preparedRename.state),
+    const encountered=JSON.parse(core.coreCandidate(JSON.stringify(preparedScene.state),
       JSON.stringify({itemUseRequest:null,reply:'Một lữ khách đứng cách Cao Minh vài bước.',
         entityPreview:'',narrativeDelta:{actors:[{name:'Xích Lân'}]}}),
-      JSON.stringify(preparedRename.rolls),'Khám phá'));
+      JSON.stringify(preparedScene.rolls),'Khám phá'));
     assert.ok(!encountered.bridgeError,encountered.bridgeError);
     core.coreItemUseComplete();
     state=encountered;
-    const inventoryBeforeRename=structuredClone(snapshot().inventories);
     const originalFetch=fetch;
     fetch=async()=>{throw new Error('Rename must not call Game Master');};
-    try{await turn('Đổi tên Xích Lân thành Mặc Ảnh');}
-    finally{fetch=originalFetch;}
-    assert.deepEqual(errors,[],'A present scene NPC can be renamed locally');
-    assert.ok(state.flags.narrativeScene.actors.some(a=>a.name==='Mặc Ảnh'));
-    assert.ok(!state.flags.narrativeScene.actors.some(a=>a.name==='Xích Lân'));
-    assert.deepEqual(snapshot().inventories,inventoryBeforeRename);
-    assert.equal(state.party.some(p=>p.name==='Mặc Ảnh'),false);
-    console.log('PASS: exact current-scene NPC rename works without GM calls or Party changes');
+    try {
+      for(const action of ['Đổi tên Xích Lân thành Mặc Ảnh','Đổi tên Cao Minh thành Ma Tôn']){
+        const beforeUi=structuredClone(state),beforeCore=snapshot();
+        errors=[];
+        await turn(action);
+        assert.equal(errors.length,1,'Rename must be rejected without a GM request');
+        assert.match(errors[0],/NPC này chỉ xuất hiện một lần trong cảnh, không thể đổi tên\./);
+        assert.deepEqual(state,beforeUi,'Rejected rename must preserve UI state and turn');
+        assert.deepEqual(snapshot(),beforeCore,'Rejected rename must preserve Core state');
+      }
+    }finally{fetch=originalFetch;}
+    console.log('PASS: NPC rename is rejected without Core commit or GM requests');
   }finally{Math.random=random}
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>clearTimeout(watchdog));

@@ -73,14 +73,9 @@
   function enqueue(job, errorCallback = 'backroomError') {
     chain = chain.then(job, job).catch(error => {
       const failure = error?.message || 'Không thể xử lý hành động.';
-      const message = failure.includes('narrative_actor_alias_invalid') ||
-          failure.includes('narrative_actor_not_present')
+      const message = failure.includes('narrative_actor_alias_invalid')
         ? 'Chưa có NPC tương ứng được xác nhận trong cảnh. Không thể đặt tên hoặc mời gia nhập Party.'
-        : failure.includes('narrative_actor_name_conflict')
-          ? 'Tên này đã thuộc về một nhân vật khác trong cảnh.'
-          : failure.includes('narrative_actor_rename_core_locked')
-            ? 'Không thể đổi tên nhân vật có danh tính do Core quản lý.'
-            : failure;
+        : failure;
       events.push({ kind: 'error', message, time: Date.now() });
       if (events.length > 40) events.shift();
       if (errorCallback === 'backroomCoreUpgrade' || errorCallback === 'backroomItemAction') {
@@ -181,6 +176,8 @@
   }
   async function gameplay(raw, kind, action) {
     if (!['SEARCH', 'EXECUTE', 'EXPLORE'].includes(kind)) throw new Error('action_kind_invalid');
+    if (/^\s*(?:cao minh\s+)?(?:đổi tên|đặt lại tên)\s+/iu.test(action))
+      throw new Error('NPC này chỉ xuất hiện một lần trong cảnh, không thể đổi tên.');
     const input = JSON.parse(raw);
     delete input.itemUseNotice;
     raw = JSON.stringify(input);
@@ -216,14 +213,6 @@
       }
       const meta = window.coreMeta(action);
       if (!meta) {
-        if (/^(?:cao minh\s+)?(?:đổi tên|đặt tên)\s/i.test(action.trim())) {
-          const rename = object('renameNarrativeActor', JSON.stringify(before), action);
-          if (rename.handled) {
-            if (rename.error) throw new Error(rename.error);
-            deliver(rename.state);
-            return;
-          }
-        }
         result = object('processRule', JSON.stringify(before), action);
         if (result.handled) {
           if (result.error) throw new Error(result.error);
