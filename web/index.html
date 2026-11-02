@@ -1530,6 +1530,7 @@ render();
 (function(){
   const party=document.getElementById('party');
   const partyTime=document.getElementById('partyTime');
+  const pageStartedAt=Date.now();
   const view=document.getElementById('characterInventoryView');
   const items=document.getElementById('characterInventoryItems');
   const capacity=document.getElementById('characterInventoryCapacity');
@@ -1644,7 +1645,7 @@ render();
     }
     party.innerHTML=cards.join('');
     party.querySelectorAll('.party-member[data-character]').forEach(card=>card.addEventListener('click',()=>openMember(card.getAttribute('data-character'))));
-    if(partyTime){const t=state&&state.gameTime&&state.gameTime.elapsedSubjectiveMinutes!=null?state.gameTime.elapsedSubjectiveMinutes:state&&state.partyDetails&&state.partyDetails.elapsedSubjectiveMinutes;partyTime.textContent=t==null?'':'Thời gian chủ quan: '+formatMinutes(t)}
+    if(partyTime){const t=state&&state.gameTime&&state.gameTime.elapsedSubjectiveMinutes!=null?state.gameTime.elapsedSubjectiveMinutes:state&&state.partyDetails&&state.partyDetails.elapsedSubjectiveMinutes;partyTime.textContent=(t==null?'':'Thời gian trong game: '+formatMinutes(t)+' · ')+'Thời gian chơi phiên này: '+formatMinutes(Math.max(0,Math.floor((Date.now()-pageStartedAt)/60000)))}
   }
   if(back)back.addEventListener('click',()=>{view.hidden=true});
   const priorRender=window.render;
