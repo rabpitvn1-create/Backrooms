@@ -193,20 +193,28 @@
       check(window.coreItemUseBegin(raw, action));
       staging = true;
       let result = object('processLevelAction', raw, action);
-      if (result.handled) { deliver(result.state); return; }
+      if (result.handled) {
+        if (result.error) throw new Error(result.error);
+        deliver(result.state); return;
+      }
       let before = result.state;
       result = object('processWorldPickup', JSON.stringify(before), action);
-      if (result.handled) { deliver(result.state); return; }
+      if (result.handled) {
+        if (result.error) throw new Error(result.error);
+        deliver(result.state); return;
+      }
       result = object('processNamedFollowerRule', JSON.stringify(before), action);
       if (result.handled) {
-        const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
+        if (result.error) throw new Error(result.error);
+        const next = object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
         deliver(next); return;
       }
       const meta = window.coreMeta(action);
       if (!meta) {
         result = object('processRule', JSON.stringify(before), action);
         if (result.handled) {
-          const next = result.error ? result.state : object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
+          if (result.error) throw new Error(result.error);
+          const next = object('finishLevelTurn', JSON.stringify(before), JSON.stringify(result.state), action);
           deliver(next);
           return;
         }
