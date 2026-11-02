@@ -50,6 +50,26 @@ const watchdog=setTimeout(()=>{console.error('Narrative checks did not complete'
   const random=Math.random;Math.random=()=>0.61;
   try{
     fresh();
+    const aliasSnapshot=snapshot(),aliasTurn=state.turn;
+    delta={actors:[{name:'Trần Lão',aliasOf:'lữ khách'}]};
+    await turn('Cao Minh đặt tên cho một lữ khách chưa được gặp.');
+    assert.ok(errors.length>0,'Unconfirmed NPC alias cannot be silently committed');
+    const aliasEvent=__webGame.events.filter(e=>e.kind==='narrative-alias-validation').at(-1);
+    assert.ok(aliasEvent?.diagnostic,'Rejected alias must retain its diagnostic payload');
+    assert.equal(aliasEvent.diagnostic.aliasOf,'lữ khách');
+    assert.equal(aliasEvent.diagnostic.aliasMissing,true);
+    assert.equal(aliasEvent.diagnostic.entryExists,false);
+    assert.equal(aliasEvent.diagnostic.actorIndex,0);
+    assert.ok(Array.isArray(aliasEvent.diagnostic.actors));
+    assert.equal(typeof aliasEvent.diagnostic.reply,'string');
+    assert.deepEqual(snapshot(),aliasSnapshot,'Failed alias must not commit any Core changes');
+    assert.equal(state.turn,aliasTurn);
+    errors=[];delta=null;
+    await turn('Cao Minh tiếp tục quan sát.');
+    assert.deepEqual(errors,[],'A rejected NPC alias cannot block the next turn');
+    assert.equal(state.turn,aliasTurn+1);
+    console.log('PASS: invalid NPC alias records full diagnostics, rolls back and remains retryable');
+    fresh();
     assert.equal(state.levelTravel.nodeId,'LEVEL.NODE.0','New Game must start at Level 0');
     const itemsBefore=structuredClone(snapshot().inventories);
     delta={summary:'Cao Minh dùng Hồi Hoàn Đan tự sáng tác để cứu người phụ nữ.'};
