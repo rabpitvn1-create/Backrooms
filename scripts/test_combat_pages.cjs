@@ -25,10 +25,14 @@ assert.equal(await page.evaluate(()=>window.__combatProbe.prepare),1,'Dice prepa
 let rounds=0;
 while(rounds<3&&await page.evaluate(()=>state.combat?.active===true)){
 await page.waitForFunction(()=>state.combat?.diceState&&!state.combat.diceState.finalized&&!window.__combatFeedbackBusy&&!window.__combatDiceBusy&&!window.__directCombatPreparing,{timeout:60000});
-const before=await page.evaluate(()=>({turn:state.turn,action:state.combat.diceState.action,held:Boolean(state.combat.diceState.held[0]),rerolls:state.combat.diceState.rerollsUsed,submits:window.__combatProbe.submit}));
-await page.locator('#pokerDiceRow .poker-die').first().click();
-await page.waitForFunction(v=>!window.__combatDiceBusy&&Boolean(state.combat?.diceState?.held?.[0])!==v,before.held,{timeout:15000});
-assert.equal(await page.locator('#pokerDiceRow .poker-die').first().getAttribute('aria-pressed'),String(!before.held));
+const before=await page.evaluate(()=>{
+  const held=state.combat.diceState.held;
+  const dieIndex=Math.max(0,held.findIndex(Boolean));
+  return {turn:state.turn,action:state.combat.diceState.action,held:Boolean(held[dieIndex]),dieIndex,rerolls:state.combat.diceState.rerollsUsed,submits:window.__combatProbe.submit};
+});
+await page.locator('#pokerDiceRow .poker-die').nth(before.dieIndex).click();
+await page.waitForFunction(v=>!window.__combatDiceBusy&&Boolean(state.combat?.diceState?.held?.[v.dieIndex])!==v.held,before,{timeout:15000});
+assert.equal(await page.locator('#pokerDiceRow .poker-die').nth(before.dieIndex).getAttribute('aria-pressed'),String(!before.held));
 assert.equal(await page.locator('#backroomActionToast').count(),0,'Combat feedback must not use an intrusive floating toast');
 assert.match(await page.locator('#pokerDiceMeta').innerText(),/HOLD|xúc xắc|ROLL/,'Combat Dice must give in-panel feedback');
 const diceReadiness=await page.evaluate(()=>({
