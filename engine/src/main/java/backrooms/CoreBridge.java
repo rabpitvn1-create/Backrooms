@@ -139,6 +139,7 @@ public final class CoreBridge {
         case "processWorldPickup":return facade.processWorldPickup(a,b);
         case "processNamedFollowerRule":return facade.processNamedFollowerRule(a,b);
         case "processRule":return facade.processRule(a,b);
+        case "renameNarrativeActor":return NarrativePolicy.renameActiveActor(a,b);
         case "processExplorationLoot":return facade.processExplorationLoot(a,b,c);
         case "prepareNamedFollowerTurn":return facade.prepareNamedFollowerTurn(a,b,c,d);
         case "commitNamedFollowerTurn":return facade.commitNamedFollowerTurn(a,b,c,d);

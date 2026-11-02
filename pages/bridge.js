@@ -211,6 +211,14 @@
       }
       const meta = window.coreMeta(action);
       if (!meta) {
+        if (/^(?:cao minh\\s+)?(?:đổi tên|đặt tên)\\s/i.test(action.trim())) {
+          const rename = object('renameNarrativeActor', JSON.stringify(before), action);
+          if (rename.handled) {
+            if (rename.error) throw new Error(rename.error);
+            deliver(rename.state);
+            return;
+          }
+        }
         result = object('processRule', JSON.stringify(before), action);
         if (result.handled) {
           if (result.error) throw new Error(result.error);

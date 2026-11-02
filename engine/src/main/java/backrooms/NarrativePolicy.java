@@ -74,6 +74,44 @@ public final class NarrativePolicy {
     }
   }
 
+  // Local rename of an active scene-only NPC. No model request, spawn or Party change.
+  public static String renameActiveActor(String raw, String action) {
+    java.util.regex.Matcher rename=java.util.regex.Pattern.compile(
+        "(?iu)^\\s*(?:cao minh\\s+)?(?:đổi tên|đặt tên)\\s+(?:npc\\s+)?(.+?)\\s+(?:thành|là)\\s+(.+?)\\s*[.!?]?\\s*$")
+        .matcher(action);
+    if(!rename.matches())return new JSONObject().put("handled",false).toString();
+    String previousName=shortText(rename.group(1),64);
+    String nextName=shortText(rename.group(2),64);
+    JSONObject before=new JSONObject(raw),scene=scoped(before);
+    JSONArray people=scene==null?null:scene.optJSONArray("actors");
+    JSONObject source=null;
+    if(people!=null&&!scene.optBoolean("closed",false))
+      for(int i=0;i<people.length();i++){
+        JSONObject actor=people.optJSONObject(i);
+        if(actor!=null&&previousName.equals(actor.optString("name","")))source=actor;
+        if(actor!=null&&nextName.equals(actor.optString("name","")))
+          return new JSONObject().put("handled",true).put("error","narrative_actor_name_conflict").toString();
+      }
+    if(source==null)
+      return new JSONObject().put("handled",true).put("error","narrative_actor_not_present").toString();
+    if(!source.optString("id","").isEmpty()||!canonActorId(before,nextName).isEmpty())
+      return new JSONObject().put("handled",true).put("error","narrative_actor_rename_core_locked").toString();
+    JSONObject generated=new JSONObject()
+        .put("reply","Cao Minh gọi "+previousName+" bằng tên "+nextName+".")
+        .put("narrativeDelta",new JSONObject().put("actors",new JSONArray().put(
+            new JSONObject().put("name",nextName).put("aliasOf",previousName))));
+    JSONObject next=new JSONObject(raw);
+    apply(next,before,generated,new JSONObject());
+    next.put("turn",before.optInt("turn",1)+1);
+    JSONArray log=next.optJSONArray("log");
+    if(log==null)log=new JSONArray();
+    log.put(new JSONObject().put("role","player").put("text",action));
+    log.put(new JSONObject().put("role","gm").put("text",generated.getString("reply")));
+    next.put("log",log);
+    String committed=CoreBridge.facade.finishLevelTurn(raw,next.toString(),action);
+    return new JSONObject().put("handled",true).put("state",new JSONObject(committed)).toString();
+  }
+
   private static boolean genericName(String name) {
     String n = name.toLowerCase(java.util.Locale.ROOT).trim();
     return n.startsWith("người ") || n.startsWith("một ") || n.startsWith("kẻ ")
