@@ -126,7 +126,7 @@
       failures.push(`Premium: ${error.name === 'TimeoutError' ? 'hết thời gian chờ' : 'yêu cầu không hoàn tất'}`);
       return null;
       }
-    }  }
+    }
 
         
       async function generate(prompt) {
