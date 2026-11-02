@@ -227,6 +227,21 @@
     } catch (error) {
       if (!committed && requestSession === session) window.coreItemUseCancel();
       staging = false;
+      if (!committed && requestSession === session) {
+        try {
+          const snapshot = JSON.parse(check(window.coreCall('levelCoreSnapshot', '', '', '', '')));
+          const savedUi = snapshot?.world?.levelTravelUi;
+          const current = typeof savedUi === 'string' ? JSON.parse(savedUi) : savedUi;
+          if (current?.levelTravel && (
+              current.turn !== input.turn ||
+              current.levelTravel.runId !== input.levelTravel?.runId ||
+              current.levelTravel.revision !== input.levelTravel?.revision)) {
+            emit('backroomTurn', current);
+          }
+        } catch (_) {
+          // Keep the original turn failure if Core cannot provide a UI projection.
+        }
+      }
       if (committed) throw new Error('turn_committed_ui_sync_failed: ' + (error?.message || error));
       throw error;
     }
