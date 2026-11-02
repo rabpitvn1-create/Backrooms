@@ -21,6 +21,22 @@ public final class NarrativePolicy {
 
   private NarrativePolicy() {}
 
+  static final class AliasValidationException
+      extends IllegalArgumentException {
+
+    final JSONObject diagnostic;
+
+    AliasValidationException(JSONObject diagnostic) {
+      super("narrative_actor_alias_invalid");
+      this.diagnostic = diagnostic;
+    }
+
+    @Override
+    public String toString() {
+      return "java.lang.IllegalArgumentException: " + getMessage();
+    }
+  }
+
   private static java.util.Map<String,String> canonDirectory() {
     java.util.Map<String,String> names = new java.util.LinkedHashMap<String,String>();
     for (com.rabpit.backroom.core.CharacterState actor :
@@ -296,8 +312,94 @@ public final class NarrativePolicy {
           // Validate before alias handling to avoid erasing an existing actor.
           if(!canonId.isEmpty()&&!authorized(before,rolls,canonId))continue;
           if(!alias.isEmpty()){
-            if(entry!=null||!participants.containsKey(alias))
-              throw new IllegalArgumentException("narrative_actor_alias_invalid");
+            if(entry!=null||!participants.containsKey(alias)){
+              JSONObject diagnostic=new JSONObject();
+
+              try {
+                diagnostic.put(
+                    "code",
+                    "narrative_actor_alias_invalid"
+                );
+                diagnostic.put(
+                    "turn",
+                    before.optInt("turn",1)
+                );
+                diagnostic.put(
+                    "sceneKey",
+                    scene.optString("sceneKey","")
+                );
+                diagnostic.put(
+                    "name",
+                    name
+                );
+                diagnostic.put(
+                    "aliasOf",
+                    alias
+                );
+                diagnostic.put(
+                    "entryExists",
+                    entry!=null
+                );
+                diagnostic.put(
+                    "aliasMissing",
+                    !participants.containsKey(alias)
+                );
+                diagnostic.put(
+                    "actorIndex",
+                    i
+                );
+                diagnostic.put(
+                    "sceneRecreated",
+                    existing==null
+                        || existing.optBoolean("closed",false)
+                );
+                diagnostic.put(
+                    "previousSceneKey",
+                    existing==null
+                        ? ""
+                        : existing.optString("sceneKey","")
+                );
+              }catch(Exception ignored){
+                // Diagnostic failure must not alter validation.
+              }
+
+              try {
+                JSONArray workingActors=new JSONArray();
+
+                for(JSONObject current:participants.values()){
+                  workingActors.put(
+                      new JSONObject(current.toString())
+                  );
+                }
+
+                diagnostic.put(
+                    "actors",
+                    new JSONArray(actors.toString())
+                );
+                diagnostic.put(
+                    "reply",
+                    generated.optString("reply","")
+                );
+                diagnostic.put(
+                    "sceneActors",
+                    previous==null
+                        ? new JSONArray()
+                        : new JSONArray(previous.toString())
+                );
+                diagnostic.put(
+                    "participantsAtFailure",
+                    workingActors
+                );
+              }catch(Exception ignored){
+                try {
+                  diagnostic.put("captureFailed",true);
+                }catch(Exception suppressed){
+                  // Preserve the original alias validation error.
+                }
+              }
+
+              throw new AliasValidationException(diagnostic);
+            }
             if(!canonId.isEmpty()&&!canonId.equals(participants.get(alias).optString("id")))
               throw new IllegalArgumentException("narrative_actor_identity_changed");
             entry=participants.remove(alias);

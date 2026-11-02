@@ -1,5 +1,8 @@
-/* Privacy-preserving, user-initiated diagnostic export.
- * Never include save contents, chat text, prompts, API keys or provider payloads. */
+/* User-initiated diagnostic export.
+ * The export excludes save contents, outgoing prompts and API keys.
+ * On narrative_actor_alias_invalid, the web bridge's exported events may
+ * contain the rejected Game Master reply, narrativeDelta.actors and
+ * actor/scene metadata from the failed turn. */
 (function () {
   'use strict';
   var button = document.getElementById('exportDiagnosticsJson');

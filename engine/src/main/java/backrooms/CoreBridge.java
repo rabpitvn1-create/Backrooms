@@ -74,7 +74,49 @@ public final class CoreBridge {
     }catch(Throwable t){return error(t);}
   }
   @JSExport public static String coreCandidate(String state,String generated,String rolls,String action){try{return narrator.candidate(state,generated,rolls,action);}catch(Throwable t){return error(t);}}
-  private static String error(Throwable t){t.printStackTrace();return new JSONObject().put("bridgeError",t.toString()).toString();}
+  private static String error(Throwable t) {
+    t.printStackTrace();
+
+    if (t instanceof NarrativePolicy.AliasValidationException) {
+      System.err.println(
+          "Actual exception class: " + t.getClass().getName()
+      );
+    }
+
+    String message = t.toString();
+
+    try {
+      JSONObject result = new JSONObject();
+      result.put("bridgeError", message);
+
+      if (t instanceof NarrativePolicy.AliasValidationException) {
+        NarrativePolicy.AliasValidationException aliasError =
+            (NarrativePolicy.AliasValidationException) t;
+
+        JSONObject diagnostic = aliasError.diagnostic;
+
+        if (diagnostic != null) {
+          try {
+            result.put("aliasDiagnostic", diagnostic);
+          } catch (Exception ignored) {
+            // Preserve the original bridgeError if diagnostic
+            // serialization fails.
+          }
+        }
+      }
+
+      return result.toString();
+
+    } catch (Exception serializationFailure) {
+      try {
+        return "{\"bridgeError\":"
+            + JSONObject.quote(message)
+            + "}";
+      } catch (Exception ignored) {
+        return "{\"bridgeError\":\"error_serialization_failed\"}";
+      }
+    }
+  }
   @JSExport public static String coreInit(String policy, String saved) {
     try {
       InventoryUsePolicy.cancel();

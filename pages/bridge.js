@@ -20,7 +20,20 @@
     if (typeof value === 'string' && value.startsWith('{')) {
       let parsed;
       try { parsed = JSON.parse(value); } catch (_) {}
-      if (parsed?.bridgeError) throw new Error(parsed.bridgeError);
+      if (parsed?.bridgeError) {
+        if (parsed.aliasDiagnostic) {
+          try {
+            record({
+              kind: 'narrative-alias-validation',
+              time: Date.now(),
+              diagnostic: parsed.aliasDiagnostic
+            });
+          } catch (_) {
+            // Diagnostic logging must not alter gameplay error handling.
+          }
+        }
+        throw new Error(parsed.bridgeError);
+      }
     }
     return value;
   }
