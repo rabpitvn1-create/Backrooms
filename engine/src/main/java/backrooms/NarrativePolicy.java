@@ -63,6 +63,11 @@ public final class NarrativePolicy {
           if(prefix.matches("(?s).*(?:không|chưa|chẳng)\\s+(?:có|thấy|gặp|biết|nghe)(?:\\s+\\S+){0,3}\\s*$"))continue;
           String rest=clause.substring(from);
           if(rest.matches("(?s)\\s*(?:(?:đang|hiện|vẫn|còn)\\s+)*(?:thất lạc|biệt tăm|ở đâu|chưa rõ|không rõ|(?:không|chưa)\\s+(?:xuất hiện|có mặt|trở lại|đến|ở đây|đáp lại)).*"))continue;
+          // A name reference alone does not establish a physical encounter.
+          // Reject only explicit physical presence or contact around the name.
+          boolean arrived=rest.matches("(?s)\\s*(?:(?:đã|đang|vừa|vẫn|bỗng|đột nhiên|chợt|bất ngờ|lại|ngay|thật sự)\\s+){0,4}(?:bước|tiến|đứng|đi tới|đến|xuất hiện|hiện ra|trở lại|quay lại|gặp lại|ở cạnh|ở đây|có mặt|nắm tay|chạm|ôm|tấn công|bắt chuyện|lên tiếng|cất tiếng|đáp lời)(?:\\s|$).*");
+          boolean contacted=prefix.matches("(?s).*(?:gặp lại|nhìn thấy|trông thấy|chạm|nắm tay|ôm|đứng cạnh|đi cùng|chạy tới|tiến tới)\\s*$");
+          if(!arrived&&!contacted)continue;
           throw new IllegalArgumentException("narrative_unconfirmed_canon_presence:"+actor.getKey());
         }
       }
