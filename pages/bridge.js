@@ -72,7 +72,10 @@
   }
   function enqueue(job, errorCallback = 'backroomError') {
     chain = chain.then(job, job).catch(error => {
-      const message = error?.message || 'Không thể xử lý hành động.';
+      const failure = error?.message || 'Không thể xử lý hành động.';
+      const message = failure.includes('narrative_actor_alias_invalid')
+        ? 'Chưa có nhân vật tương ứng được Core xác nhận trong cảnh. Không thể đặt tên hoặc mời gia nhập Party.'
+        : failure;
       events.push({ kind: 'error', message, time: Date.now() });
       if (events.length > 40) events.shift();
       if (errorCallback === 'backroomCoreUpgrade' || errorCallback === 'backroomItemAction') {
