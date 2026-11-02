@@ -52,7 +52,7 @@ public final class NarrativePolicy {
     // A new proper name in GM prose needs a Core-approved encounter, not
     // merely a plausible backstory. Existing visit-scoped NPCs may be recalled.
     java.util.regex.Matcher introduced=java.util.regex.Pattern.compile(
-        "(?iu:(?:người|cô|cậu|ông|bà|anh|chị|gã|hắn|nàng|bé|lữ khách|nhân vật|thiếu nữ|chàng trai|đứa trẻ))"
+        "(?:^|[^\\p{L}\\p{M}])(?iu:(?:người|cô|cậu|ông|bà|anh|chị|gã|hắn|nàng|bé|lữ khách|nhân vật|thiếu nữ|chàng trai|đứa trẻ))"
         + "(?:\\s+\\p{L}+){0,5}\\s+"
         + "(?iu:(?:tên|có tên|mang tên|được gọi là|tự xưng là))\\s+"
         + "([\\p{Lu}][\\p{L}]*(?:\\s+[\\p{Lu}][\\p{L}]*){0,3})")
