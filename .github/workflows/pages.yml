@@ -15,6 +15,8 @@ on:
       - 'scripts/PatchLevelTravel.java'
       - 'scripts/test_live_turn.cjs'
       - 'scripts/test_inventory_use.cjs'
+      - 'scripts/test_narrative.cjs'
+      - 'scripts/test_narrative_gate.cjs'
       - 'scripts/test_action_feedback.cjs'
       - 'scripts/test_combat_pages.cjs'
       - 'scripts/test_sword_animation.cjs'
