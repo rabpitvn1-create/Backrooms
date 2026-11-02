@@ -24,14 +24,22 @@ globalThis.backroomProvider = () => {};
 globalThis.backroomItemAction = raw => { const result = JSON.parse(raw); assert.equal(result.handled, true, result.error); state = result.state; };
 globalThis.fetch = async (_, options) => {
   requests++;
-  const prompt = JSON.parse(options.body).contents[0].parts[0].text;
+  const request = JSON.parse(options.body);
+  const isPremium = Array.isArray(request.messages);
+  const prompt = isPremium
+    ? request.messages[0]?.content
+    : request.contents?.[0]?.parts?.[0]?.text;
   assert.ok(prompt.includes('[INVENTORY USE ONLY]'));
   assert.ok(prompt.includes('"almond-water":"Almond Water"'));
   const generated = { reply: narrationOverride || 'Cao Minh quan sát những dấu vết trước mặt.', entityPreview: previewOverride || 'Một tiếng động vọng tới.' };
   if (narrativeSummaryOverride) generated.narrativeDelta = { summary: narrativeSummaryOverride };
   if (marker !== undefined) generated.itemUseRequest = marker;
   if (marker) Object.assign(generated, { reply: '', player: { hp: 999999 }, inventory: [{ id: 'fake', quantity: 100 }], flags: { fakeItemEffect: true } });
-  return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(generated) }] } }] }), { status: 200 });
+  const answer = JSON.stringify(generated);
+  const response = isPremium
+    ? { choices: [{ message: { content: answer } }] }
+    : { candidates: [{ content: { parts: [{ text: answer }] } }] };
+  return new Response(JSON.stringify(response), { status: 200 });
 };
 const call = (name, ...args) => JSON.parse(__webGame.call(name, ...args));
 const snapshot = () => JSON.parse(Android.levelCoreSnapshot());
