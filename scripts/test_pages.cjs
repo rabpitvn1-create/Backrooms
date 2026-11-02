@@ -29,6 +29,14 @@ const {chromium}=require('playwright');
    const saved=await page.evaluate(()=>({turn:state.turn,run:state.levelTravel.runId}));
    await page.locator('#mobileMenuButton').click();
    await page.getByRole('button',{name:'Lưu',exact:true}).click();
+   const diagnosticsButton=page.locator('#exportDiagnosticsJson');
+   for(let i=0;i<2;i++){
+    const download=page.waitForEvent('download');
+    await diagnosticsButton.click();
+    await download;
+    await page.waitForFunction(()=>!document.getElementById('exportDiagnosticsJson').disabled);
+    assert.equal(await diagnosticsButton.isEnabled(),true,'Diagnostic export must unlock immediately');
+   }
    await page.locator('#party .party-member[data-character="cao-minh"]').click();
    await page.locator('#characterInventoryView').waitFor({state:'visible'});
    assert.match(await page.locator('#characterInventoryName').innerText(),/Cao Minh/);
