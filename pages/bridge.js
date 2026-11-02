@@ -291,6 +291,7 @@
       const url = URL.createObjectURL(new Blob([data], { type: 'application/json' }));
       const a = document.createElement('a'); a.href = url; a.download = 'backrooms-web-diagnostics.json'; a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
+      window.backroomDiagnosticExportResult?.('saved');
     },
   };
   window.__webGame = { call, events, get idle() { return chain; }, get bootError() { return bootError?.message || null; } };
